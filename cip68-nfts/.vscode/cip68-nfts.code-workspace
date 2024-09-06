@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"deno.enable": true,
+		"deno.lint": true,
+		"deno.unstable": true,
+		"deno.importMap": "./off-chain/deno.json",
+		"editor.formatOnSave": true,
+  		"[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" }
+	}
+}
