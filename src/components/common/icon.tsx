@@ -1,5 +1,5 @@
-import React from "react";
-import { cn } from "~/lib/utils";
+import React from 'react';
+import { cn } from '@/utils';
 
 type IconProps = {
     width?: number;
@@ -13,8 +13,8 @@ const HomeIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -32,8 +32,8 @@ const MarketplaceIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -51,8 +51,8 @@ const DailyBountyBoardIcon = ({ width = 24, height = 24, className }: IconProps)
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -70,8 +70,8 @@ const GamesIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 d="M18.083 11.5a.833.833 0 1 1-1.666 0 .833.833 0 0 1 1.666 0Z"
@@ -93,8 +93,8 @@ const GovernanceIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 d="M3.033 8.75h17.934c1.02 0 1.42-1.351.572-1.93l-8.395-5.716a2.026 2.026 0 0 0-2.288 0L2.461 6.82c-.849.578-.448 1.929.572 1.929ZM5.5 10.25h3v5h-3v-5ZM18.5 10.25h-3v5h3v-5ZM10.5 10.25h3v5h-3v-5ZM20.276 17.303a1 1 0 0 0-.894-.553H4.618a1 1 0 0 0-.894.553l-1 2a1 1 0 0 0 .894 1.447h16.764a1 1 0 0 0 .894-1.447l-1-2Z"
@@ -110,8 +110,8 @@ const LunalogIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -129,8 +129,8 @@ const StakingIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -148,8 +148,8 @@ const LunacianExpressIcon = ({ width = 24, height = 24, className }: IconProps) 
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <div>
                 <path
@@ -172,8 +172,8 @@ const AxieGemStoreIcon = ({ width = 24, height = 24, className }: IconProps) => 
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -191,8 +191,8 @@ const BlogIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -209,8 +209,8 @@ const EllipsisIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -228,8 +228,8 @@ const XIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 d="M2.049 2.65 9.77 12.975 2 21.369h1.749l6.803-7.35 5.497 7.35H22l-8.156-10.905 7.232-7.814h-1.748l-6.266 6.769L8 2.649H2.05ZM4.62 3.938h2.734l12.073 16.143h-2.734L4.62 3.938Z"
@@ -245,8 +245,8 @@ const DiscordIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -264,8 +264,8 @@ const YoutubeIcon = ({ width = 24, height = 24, className }: IconProps) => {
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 fillRule="evenodd"
@@ -283,8 +283,8 @@ const BottomMenuMoreIcon = ({ width = 24, height = 24, className }: IconProps) =
             viewBox="0 0 24 24"
             width={width}
             height={height}
-            className={cn("transition-[fill]", className)}
-            style={{ fill: "currentcolor" }}
+            className={cn('transition-[fill]', className)}
+            style={{ fill: 'currentcolor' }}
         >
             <path
                 d="M7 7a1 1 0 0 0 0 2V7Zm10 2a1 1 0 1 0 0-2v2ZM7 11a1 1 0 1 0 0 2v-2Zm10 2a1 1 0 1 0 0-2v2ZM7 15a1 1 0 1 0 0 2v-2Zm10 2a1 1 0 1 0 0-2v2ZM7 9h10V7H7v2Zm0 4h10v-2H7v2Zm0 4h10v-2H7v2Z"

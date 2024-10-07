@@ -5,6 +5,7 @@ import { cn } from '@/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Providers from '@/components/provider';
 import { appConfig } from '@/constants';
+import { PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
     title: appConfig.title,
@@ -12,15 +13,11 @@ export const metadata: Metadata = {
 };
 
 const fontSans = FontSans({
-    subsets: ["latin"],
-    weight: ["400", "500", "700"],
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
 });
 
-type Props = {
-    children: ReactNode;
-};
-
-const RootLayout = function ({ children }: Readonly<Props>) {
+const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={cn(fontSans.className, 'antialiased')}>
