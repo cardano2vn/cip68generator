@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CIP68 Generator
 
-## Getting Started
+CIP-68 is an open-source standard designed for creating and managing NFTs on the Cardano blockchain. It introduces advanced features for flexible and scalable token management, allowing developers to mint, burn, update, and remove NFTs with enhanced security and efficiency.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+-   [x] **Mint**: Create new NFTs with customizable metadata, adhering to Cardano standards.
+-   [x] **Burn**: Permanently remove NFTs from circulation, controlling supply.
+-   [x] **Update**: Modify the metadata of existing NFTs without changing their identity.
+-   [x] **Remove**: Change metadata to retire NFTs from active use without destroying them.
+
+We primarily use two main SDKs, Mesh and Blockfrost, to efficiently retrieve information and execute transactions on the blockchain. Additionally, Mesh provides the flexibility to use other providers beyond Blockfrost (such as Koios ...).
+
+-   [x] **Blockfrost**: use [Blockfrost](https://blockfrost.io) to query data
+-   [x] **Mesh**: use [Mesh](https://meshjs.dev) join blockfrost to make transactions and work with Wallets simply
+
+## Install
+
+-   npm: `npm i @independenceee/cip68generator`
+-   yarn: `yarn add @independenceee/cip68generator`
+
+## Create `BlockfrostProvider` and `MeshTxBuilder` to efficiently retrieve information and execute transactions.
+
+```ts
+import { BlockfrostProvider, MeshTxBuilder } from "@meshsdk/core";
+
+const blockfrostProvider: BlockfrostProvider = new BlockfrostProvider(
+    "<Your-Api-Key>"
+);
+
+const meshTxBuilder: MeshTxBuilder = new MeshTxBuilder({
+    fetcher: blockfrostProvider,
+    evaluator: blockfrostProvider,
+    submitter: blockfrostProvider,
+});
+
+const wallet: MeshWallet = new MeshWallet({
+    networkId: 0,
+    fetcher: blockfrostProvider,
+    submitter: blockfrostProvider,
+    key: {
+        type: "root",
+        bech32: "<Root-Private-Key>",
+    },
+});
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Mint: Create new NFTs with customizable metadata, adhering to Cardano standards.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```ts
+import { Cip68Contract } from "@independenceee/cip68generator";
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+const cip68Contract: Cip68Contract = new Cip68Contract({
+    wallet: wallet,
+    fetcher: blockfrostProvider,
+    meshTxBuilder: meshTxBuilder,
+});
 
-## Learn More
+const unsignedTx = await cip68Contract.mint({
+    assetName: "CIP68 Generator",
+    quantity: "1",
+    metadata: {
+        name: "CIP68 Generator",
+        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+        mediaType: "image/jpg",
+        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+    },
+});
 
-To learn more about Next.js, take a look at the following resources:
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Burn: Permanently remove NFTs from circulation, controlling supply.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+import { Cip68Contract } from "@independenceee/cip68generator";
 
-## Deploy on Vercel
+const cip68Contract: Cip68Contract = new Cip68Contract({
+    wallet: wallet,
+    fetcher: blockfrostProvider,
+    meshTxBuilder: meshTxBuilder,
+});
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+const unsignedTx: string = await cip68Contract.burn({
+    txHash: "<Tx-Hash-Template>",
+    quantity: "-1",
+    assetName: "CIP68 Generators",
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Update: Modify the metadata of existing NFTs without changing their identity.
+
+```ts
+import { Cip68Contract } from "@independenceee/cip68generator";
+
+const cip68Contract = new Cip68Contract({
+    fetcher: blockfrostProvider,
+    wallet: wallet,
+    meshTxBuilder: meshTxBuilder,
+});
+
+const unsignedTx: string = await cip68Contract.update({
+    txHash: "<Tx-Hash-Template>",
+    quantity: "1",
+    assetName: "CIP68 Generators",
+    metadata: {
+        name: "CIP68 Generators",
+        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+        mediaType: "image/jpg",
+        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+    },
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
+
+## Remove: Change metadata to retire NFTs from active use without destroying them.
+
+```ts
+import { Cip68Contract } from "@independenceee/cip68generator";
+
+const cip68Contract = new Cip68Contract({
+    fetcher: blockfrostProvider,
+    wallet: wallet,
+    meshTxBuilder: meshTxBuilder,
+});
+
+const unsignedTx: string = await cip68Contract.update({
+    txHash: "<Tx-Hash-Template>",
+    quantity: "1",
+    assetName: "CIP68 Generators",
+    metadata: {
+        name: "CIP68 Generators",
+        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+    },
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
