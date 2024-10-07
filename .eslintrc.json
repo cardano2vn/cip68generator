@@ -1,3 +1,55 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2023,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:prettier/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:@next/next/recommended",
+        "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "prettier/prettier": [
+            "warn",
+            {
+                "printWidth": 100,
+                "tabWidth": 4,
+                "singleQuote": true,
+                "trailingComma": "all",
+                "bracketSpacing": true,
+                "semi": true,
+                "useTabs": false,
+                "bracketSameLine": false,
+                "jsxSingleQuote": false,
+                "arrowParens": "always"
+            }
+        ]
+    }
 }
