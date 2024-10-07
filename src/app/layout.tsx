@@ -12,15 +12,15 @@ export const metadata: Metadata = {
 };
 
 const fontSans = FontSans({
-    subsets: ['latin'],
-    weight: ['400', '500', '700'],
+    subsets: ["latin"],
+    weight: ["400", "500", "700"],
 });
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+type Props = {
+    children: ReactNode;
+};
+
+const RootLayout = function ({ children }: Readonly<Props>) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={cn(fontSans.className, 'antialiased')}>
@@ -29,4 +29,6 @@ export default function RootLayout({
             </body>
         </html>
     );
-}
+};
+
+export default RootLayout;
