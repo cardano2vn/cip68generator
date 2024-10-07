@@ -48,7 +48,14 @@
                 "useTabs": false,
                 "bracketSameLine": false,
                 "jsxSingleQuote": false,
-                "arrowParens": "always"
+                "arrowParens": "always",
+                "embeddedLanguageFormatting": "auto",
+                "htmlWhitespaceSensitivity": "css",
+                "insertPragma": false,
+                "proseWrap": "preserve",
+                "quoteProps": "as-needed",
+                "requirePragma": false,
+                "plugins": ["prettier-plugin-tailwindcss"]
             }
         ]
     }
