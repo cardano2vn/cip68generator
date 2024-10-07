@@ -2,8 +2,8 @@
 
 export default {
     testTimeout: 20000,
-    testEnvironment: "node",
+    testEnvironment: 'node',
     transform: {
-        "^.+.tsx?$": ["ts-jest", {}],
+        '^.+.tsx?$': ['ts-jest', {}],
     },
 };

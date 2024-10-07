@@ -1,3 +1,5 @@
+'use client';
+import { WalletConnectButton } from '@/components/common/mesh/wallet-connect';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Image from 'next/image';
@@ -36,7 +38,7 @@ export default function Home() {
                         />
                         Deploy now
                     </Button>
-                    <Button variant="secondary">Read our docs</Button>
+                    <WalletConnectButton />
                 </div>
             </main>
             <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
