@@ -1,4 +1,5 @@
 'use client';
+
 import dynamic from 'next/dynamic';
 import { useToast } from '@/hooks/use-toast';
 import React from 'react';

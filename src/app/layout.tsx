@@ -21,8 +21,8 @@ const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={cn(fontSans.className, 'antialiased')}>
-                <Toaster />
                 <Providers>{children}</Providers>
+                <Toaster />
             </body>
         </html>
     );
