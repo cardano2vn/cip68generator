@@ -9,7 +9,7 @@ export const mainMenu: NavItem[] = [
     },
     {
         title: 'Mint Page',
-        href: '/submit',
+        href: '/dashboard/mint',
         icon: 'imagePlus',
         disabled: false,
     },

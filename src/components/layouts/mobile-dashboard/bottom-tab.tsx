@@ -13,7 +13,7 @@ export default function BottomTab() {
                 <div className="mx-auto grid h-full grid-cols-4">
                     {mainMenu.slice(0, 3).map(({ title, href, icon }, index) => {
                         const Icon = Icons[icon || 'arrowRight'];
-                        const active = href === '/' ? pathname === '/' : pathname?.includes(href);
+                        const active = pathname === href;
                         return (
                             <Link
                                 href={href}
