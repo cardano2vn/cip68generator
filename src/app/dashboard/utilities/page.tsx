@@ -1,12 +1,6 @@
 'use client';
-import { Card } from '@/components/ui/card';
+import UtilitiesPage from '@/components/app/utilities';
 
 export default function Page() {
-    return (
-        <>
-            <div className="h-[500px] w-full bg-section">
-                <Card className="h-[200px] w-[200px]">hvkjb</Card>
-            </div>
-        </>
-    );
+    return <UtilitiesPage />;
 }

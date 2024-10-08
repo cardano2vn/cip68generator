@@ -1,17 +1,13 @@
-import { Images } from '@/components/common/images';
 import { WalletConnectButton } from '@/components/common/mesh/wallet-connect';
 
 export function Navbar() {
     return (
-        <header className="fixed right-0 top-0 z-10 w-full bg-section">
-            <div className="mx-4 flex h-14 items-center sm:mx-8">
-                <div className="flex flex-1 items-center justify-start md:hidden">
-                    <Images.logo className="h-4 w-16" />
-                </div>
-                <div className="flex flex-1 items-center justify-end space-x-2">
+        <header className="sticky inset-x-0 top-0 w-full bg-section">
+            <nav className="flex items-center justify-between px-4 py-2 md:justify-end">
+                <div className="flex items-center gap-2">
                     <WalletConnectButton />
                 </div>
-            </div>
+            </nav>
         </header>
     );
 }
