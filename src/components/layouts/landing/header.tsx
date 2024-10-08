@@ -7,7 +7,6 @@ import images from '@/assets/images';
 import { cn } from '@/utils';
 import { Button } from '@/components/ui/button';
 
-
 const Header = function () {
     return (
         <header

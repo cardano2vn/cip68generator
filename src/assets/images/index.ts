@@ -13,7 +13,7 @@ import lace from './wallet/lace.png';
 import yoroi from './wallet/yoroi.png';
 import nufi from './wallet/nufi.png';
 
-import logo from "./common/logo.png"
+import logo from './common/logo.png';
 
 import cardano from './network/cardano.png';
 

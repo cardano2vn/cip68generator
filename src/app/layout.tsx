@@ -20,9 +20,9 @@ const fontSans = FontSans({
 const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={cn(fontSans.className, 'antialiased')}>
-                <Providers>{children}</Providers>
+            <body className={cn(fontSans.className, 'overflow-hidden')}>
                 <Toaster />
+                <Providers>{children}</Providers>
             </body>
         </html>
     );

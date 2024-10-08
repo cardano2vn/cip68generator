@@ -6,7 +6,6 @@ import images from '@/assets/images';
 import { networks, wallets } from '@/constants';
 import Network from '@/components/common/network';
 
-
 const Login = function () {
     return (
         <main className={cn('flex h-full text-[14px]')}>
