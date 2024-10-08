@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import { cn } from '@/utils';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FaTwitter as TwitterIcon, FaLinkedinIn as LinkedinIcon } from 'react-icons/fa';
 
 type Props = {
     id: number;
-    avatar: string;
+    avatar: StaticImageData;
     company?: string;
     firstName: string;
     lastName: string;

@@ -262,7 +262,7 @@ const Landing = function () {
                             return (
                                 <Founder
                                     key={index}
-                                    avatar={founder.avatar}
+                                    avatar={founder.avatar!}
                                     description={founder.description}
                                     firstName={founder.firstName}
                                     lastName={founder.lastName}

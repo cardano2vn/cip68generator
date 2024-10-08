@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/utils';
 import configs from '@/configs';
 import Link from 'next/link';
@@ -5,6 +7,7 @@ import Image from 'next/image';
 import images from '@/assets/images';
 import { networks, wallets } from '@/constants';
 import Network from '@/components/common/network';
+import Wallet from '@/components/common/wallet';
 
 const Login = function () {
     return (
@@ -77,7 +80,7 @@ const Login = function () {
                             <aside className={cn('mt-5 flex')}>
                                 <section
                                     className={cn(
-                                        'item-center flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgb(238,238,238)] pr-[30px]',
+                                        'item-center mr-[30px] flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgb(238,238,238)] pr-[30px]',
                                     )}
                                 >
                                     {networks.map(function (network, index: number) {
@@ -91,7 +94,27 @@ const Login = function () {
                                         );
                                     })}
                                 </section>
-                                <section className={cn('')}></section>
+                                <section
+                                    className={cn(
+                                        'pointer-events-none relative h-[230px] flex-1 opacity-100 transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:opacity-100 before:content-[""] after:bottom-0 after:bg-[rgba(255,255,255,0.6)]',
+                                    )}
+                                >
+                                    <div
+                                        className={cn(
+                                            'mr-[-20px] flex h-full w-full flex-col gap-4 overflow-y-auto overflow-x-hidden pr-[20px]',
+                                        )}
+                                    >
+                                        {wallets.map(function (wallet, index: number) {
+                                            return (
+                                                <Wallet
+                                                    key={index}
+                                                    image={wallet.image}
+                                                    name={wallet.name}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </section>
                             </aside>
                         </section>
                         {/* web3-end */}
