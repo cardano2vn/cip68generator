@@ -30,7 +30,7 @@ export function MenuList() {
                                                 className={cn(
                                                     'mb-1 h-10 w-full justify-start border-none bg-transparent',
                                                     active
-                                                        ? 'border-primary text-primary'
+                                                        ? 'border-primary bg-accent text-primary'
                                                         : 'border-transparent text-secondary',
                                                 )}
                                                 asChild
