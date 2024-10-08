@@ -11,7 +11,7 @@ export default function BottomTab() {
         <>
             <div className="z-9999 border-1 fixed bottom-0 left-0 right-0 h-16 w-full rounded-t-3xl border bg-section">
                 <div className="mx-auto grid h-full grid-cols-4">
-                    {mainMenu.map(({ title, href, icon }, index) => {
+                    {mainMenu.slice(0, 3).map(({ title, href, icon }, index) => {
                         const Icon = Icons[icon || 'arrowRight'];
                         const active = href === '/' ? pathname === '/' : pathname?.includes(href);
                         return (

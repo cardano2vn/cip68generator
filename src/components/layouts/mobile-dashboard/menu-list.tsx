@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/utils';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
-import { expandMenu } from '@/constants/menu-list';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
 import { Icons } from '@/components/common/icons';
 import { Button } from '@/components/ui/button';
+import { mainMenu } from '@/constants/menu-list';
 
 export function SheetMenuList() {
     const pathname = usePathname();
@@ -19,7 +19,7 @@ export function SheetMenuList() {
         <ScrollArea className="[&>div>div[style]]:!block">
             <nav className="mt-8 w-full">
                 <div className="flex min-h-[calc(100vh-48px-36px-16px-32px)] flex-col items-start space-y-1 px-2 lg:min-h-[calc(100vh-32px-40px-32px)]">
-                    {expandMenu.map(({ title, href, icon, disabled }, index) => {
+                    {mainMenu.splice(0, 3).map(({ title, href, icon, disabled }, index) => {
                         const Icon = Icons[icon || 'arrowRight'];
                         const active = href === '/' ? pathname === '/' : pathname?.includes(href);
                         return (

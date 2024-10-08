@@ -19,8 +19,6 @@ export const mainMenu: NavItem[] = [
         icon: 'circuitBoard',
         disabled: false,
     },
-];
-export const expandMenu: NavItem[] = [
     {
         title: 'Marketplace',
         href: '/dashboard/marketplace',
@@ -28,6 +26,7 @@ export const expandMenu: NavItem[] = [
         disabled: true,
     },
 ];
+
 export const bottomItem: NavItem[] = [
     {
         title: 'Website',
