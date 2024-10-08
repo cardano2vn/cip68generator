@@ -25,11 +25,7 @@ const CardanoWallet = () => {
         })();
     }, [connected, wallet]);
 
-    const wallets = useWalletList({
-        metamask: {
-            network: appNetwork,
-        },
-    });
+    const wallets = useWalletList();
 
     const handleConnect = async (walletName: string) => {
         await connect(walletName);
@@ -82,21 +78,24 @@ const CardanoWallet = () => {
                                 </DialogTitle>
                                 <div className="flex flex-col items-center gap-4 pt-6">
                                     {wallets.length > 0 ? (
-                                        wallets.map((wallet, index) => (
-                                            <Button
-                                                key={index}
-                                                className="h-15 w-full items-center gap-2 bg-card"
-                                                onClick={() => handleConnect(wallet.id)}
-                                            >
-                                                <Image
-                                                    src={wallet.icon || ''}
-                                                    alt={`${wallet.name} icon`}
-                                                    width={32}
-                                                    height={32}
-                                                />
-                                                {wallet.name}
-                                            </Button>
-                                        ))
+                                        wallets.map((wallet, index) => {
+                                            if (wallet.name === 'MetaMask') return null;
+                                            return (
+                                                <Button
+                                                    key={index}
+                                                    className="h-15 w-full items-center gap-2 bg-card"
+                                                    onClick={() => handleConnect(wallet.id)}
+                                                >
+                                                    <Image
+                                                        src={wallet.icon || ''}
+                                                        alt={`${wallet.name} icon`}
+                                                        width={32}
+                                                        height={32}
+                                                    />
+                                                    {wallet.name}
+                                                </Button>
+                                            );
+                                        })
                                     ) : (
                                         <span>No Wallet Found</span>
                                     )}
