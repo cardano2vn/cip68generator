@@ -1,3 +1,4 @@
+import { Icons } from '@/components/common/icons';
 import { BrowserWallet } from '@meshsdk/core';
 
 export type CardanoNetwork = 'mainnet' | 'testnet' | 'preprod';
@@ -11,3 +12,10 @@ export type UseWalletHookType = () => {
     disconnect: () => void;
     error: unknown;
 };
+
+export interface NavItem {
+    title: string;
+    href: string;
+    disabled: boolean;
+    icon?: keyof typeof Icons;
+}
