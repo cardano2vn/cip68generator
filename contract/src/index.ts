@@ -1,1 +1,1 @@
-export * from "@/contract/src/mesh/cip68.mesh"
+export * from '@/contract/src/mesh/cip68.mesh';

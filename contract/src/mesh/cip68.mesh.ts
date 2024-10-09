@@ -1,3 +1,1 @@
-export class Cip68Contract {
-    
-}
+export class Cip68Contract {}

@@ -20,7 +20,7 @@
         "paths": {
             "@/*": ["./src/*"],
             "@/public/*": ["./public/*"],
-            "@/contract/*": ["./contract/*"],
+            "@/contract/*": ["./contract/*"]
         },
         "target": "ES2017"
     },
