@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import images from '@/assets/images';
+import images from '@/public/images';
 
 const Feature = function () {
     return (

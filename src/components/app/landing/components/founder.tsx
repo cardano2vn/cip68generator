@@ -1,12 +1,11 @@
 'use client';
-import React from 'react';
 import { cn } from '@/utils';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FaTwitter as TwitterIcon, FaLinkedinIn as LinkedinIcon } from 'react-icons/fa';
 
 type Props = {
-    id: number;
+    id?: number;
     avatar: StaticImageData;
     company?: string;
     firstName: string;
@@ -17,7 +16,6 @@ type Props = {
     description: string;
 };
 const Founder = function ({
-    id,
     avatar,
     firstName,
     lastName,

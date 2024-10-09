@@ -2,6 +2,7 @@ import tien from './founder/tien.jpg';
 import hieu from './founder/hieu.jpg';
 import khanh from './founder/khanh.jpg';
 import son from './founder/son.jpg';
+import dung from './founder/dung.jpg';
 
 import nami from './wallet/nami.svg';
 import flint from './wallet/flint.svg';
@@ -17,15 +18,16 @@ import logo from './common/logo.png';
 
 import cardano from './network/cardano.png';
 
-const images = {
-    logo: logo,
-
-    /* founder-begin */
+export const founders = {
     son: son,
     tien: tien,
     hieu: hieu,
     khanh: khanh,
-    /* founder-end */
+    dung: dung,
+} as const;
+
+const images = {
+    logo: logo,
 
     /* wallet-begin */
     nami: nami,

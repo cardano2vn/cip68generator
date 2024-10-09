@@ -2,10 +2,10 @@
 
 import { cn } from '@/utils';
 import { Button } from '@/components/ui/button';
-import images from '@/assets/images';
+import images from '@/public/images';
 import Image from 'next/image';
 import Link from 'next/link';
-import configs from '@/configs';
+import routers from '@/constants/routers';
 
 const Footer = function () {
     return (
@@ -37,10 +37,7 @@ const Footer = function () {
             {/*  footer-begin */}
             <section className={cn('mt-[100px] flex justify-between')}>
                 <div className={cn('flex w-[412px] flex-col')}>
-                    <Link
-                        className="relative flex items-center gap-2"
-                        href={configs.router.landing}
-                    >
+                    <Link className="relative flex items-center gap-2" href={routers.landing}>
                         <Image
                             className="h-[35px] w-[35px] object-cover"
                             src={images.logo}

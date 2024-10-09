@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { cn } from '@/utils';
 import Image, { StaticImageData } from 'next/image';
 

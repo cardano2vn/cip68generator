@@ -1,17 +1,16 @@
 'use client';
 
-import React from 'react';
 import { cn } from '@/utils';
 import Image from 'next/image';
-import images from '@/assets/images';
+import images from '@/public/images';
 
 type Props = {
     active?: boolean;
     name: string;
-    image: string;
+    image?: string;
 };
 
-const Network = function ({ image, name, active = true }: Props) {
+const Network = function ({ name, active = true }: Props) {
     return (
         <div
             className={cn(
