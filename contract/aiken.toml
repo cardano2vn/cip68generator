@@ -1,0 +1,18 @@
+name = "cardano2vn/cip68generator"
+version = "0.0.0"
+compiler = "v1.1.0"
+plutus = "v3"
+license = "Apache-2.0"
+description = "Aiken contracts for project 'cardano2vn/cip68generator'"
+
+[repository]
+user = "cardano2vn"
+project = "cip68generator"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "v2.1.0"
+source = "github"
+
+[config]
