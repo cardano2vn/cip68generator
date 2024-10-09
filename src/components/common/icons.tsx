@@ -9,7 +9,6 @@ import {
     MenuIcon,
     Send,
     Store,
-    Youtube,
 } from 'lucide-react';
 
 export type Icon = LucideIcon;

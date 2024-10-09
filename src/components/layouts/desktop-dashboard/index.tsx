@@ -1,18 +1,27 @@
 'use client';
+
+import { cn } from '@/utils';
+import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
+import { Sidebar } from './sidebar';
 import { Navbar } from './navbar';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import Sidebar from './sidebar';
 
 export default function DesktopDashboardlLayout({ children }: { children: React.ReactNode }) {
+    const sidebar = useSidebarToggle();
+
+    if (!sidebar) return null;
+
     return (
-        <div className="flex">
+        <>
             <Sidebar />
-            <div className="w-full flex-1 items-center overflow-hidden">
+            <main
+                className={cn(
+                    'min-h-[calc(100vh_-_56px)] transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900',
+                    sidebar?.isOpen === false ? 'lg:ml-[90px]' : 'lg:ml-[300px]',
+                )}
+            >
                 <Navbar />
-                <ScrollArea className="h-[calc(100dvh-52px)]">
-                    <div className="h-full p-4">{children}</div>
-                </ScrollArea>
-            </div>
-        </div>
+                <div className="container mt-10 px-4 pb-16 pt-8 sm:px-8">{children}</div>
+            </main>
+        </>
     );
 }
