@@ -1,7 +1,7 @@
-import images from '@/assets/images';
+import { founders } from '@/public/images';
 import { StaticImageData } from 'next/image';
 
-const founders: {
+export const founderData: {
     id: number;
     firstName: string;
     lastName: string;
@@ -17,7 +17,7 @@ const founders: {
         firstName: 'Tien',
         lastName: 'Nguyen Anh',
         role: 'Computer Science Experts',
-        avatar: images.tien,
+        avatar: founders.tien,
         twitter: 'https://t.me/tiennguyenanh',
         linkedin: 'https://www.linkedin.com/in/tienna/',
         description:
@@ -28,7 +28,7 @@ const founders: {
         firstName: 'Hieu',
         lastName: 'Nguyen Van',
         role: 'MSc. Electronics and Telecommunication',
-        avatar: images.hieu,
+        avatar: founders.hieu,
         twitter: 'https://t.me/nvhieu1978',
         linkedin: 'https://www.linkedin.com/in/nguyen-van-hieu-b4410121b/',
         description:
@@ -39,7 +39,7 @@ const founders: {
         firstName: 'Son',
         lastName: 'Nguyen Hong',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: images.son,
+        avatar: founders.son,
         twitter: 'https://t.me/tiennguyenanh',
         linkedin: 'https://www.linkedin.com/in/tienna/',
         description: 'More than 2 years of building and operating on the Cardano platform.',
@@ -49,7 +49,7 @@ const founders: {
         firstName: 'Khanh',
         lastName: 'Nguyen Duy',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: images.khanh,
+        avatar: founders.khanh,
         twitter: 'https://t.me/nvhieu1978',
         linkedin: 'https://www.linkedin.com/in/nguyen-van-hieu-b4410121b/',
         description: 'More than 2 years of building and operating on the Cardano platform.',
@@ -57,13 +57,11 @@ const founders: {
     {
         id: 4,
         firstName: 'Dung',
-        lastName: 'Nguyen Duy',
+        lastName: 'Phung Tien',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: images.khanh,
-        twitter: 'https://t.me/nvhieu1978',
-        linkedin: 'https://www.linkedin.com/in/nguyen-van-hieu-b4410121b/',
+        avatar: founders.dung,
+        twitter: 'https://t.me/tidvn',
+        linkedin: 'https://www.linkedin.com/',
         description: 'More than 2 years of building and operating on the Cardano platform.',
     },
 ];
-
-export default founders;

@@ -1,9 +1,7 @@
 'use client';
-
-import configs from '@/configs';
-import images from '@/assets/images';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import images from '@/public/images';
 declare const window: any;
 
 export const wallets = [
@@ -16,7 +14,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.nami;
         },
-        downloadApi: configs.wallet.nami,
+        downloadApi:
+            'https://chrome.google.com/webstore/detail/nami/lpfcbjknijpeeillifnkikgncikgfhdo',
     },
     {
         name: 'Eternl',
@@ -27,7 +26,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.eternl;
         },
-        downloadApi: configs.wallet.eternl,
+        downloadApi:
+            'https://chrome.google.com/webstore/detail/eternl/kmhcihpebfmpgmihbkipmjlmmioameka',
     },
     {
         name: 'Flint',
@@ -38,7 +38,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.flint;
         },
-        downloadApi: configs.wallet.flint,
+        downloadApi:
+            'https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj',
     },
     {
         name: 'Lace',
@@ -49,7 +50,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.lace;
         },
-        downloadApi: configs.wallet.lace,
+        downloadApi:
+            'https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk',
     },
     {
         name: 'Gero',
@@ -60,7 +62,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.gero;
         },
-        downloadApi: configs.wallet.gero,
+        downloadApi:
+            'https://chrome.google.com/webstore/detail/gerowallet/bgpipimickeadkjlklgciifhnalhdjhe',
     },
     {
         name: 'Typhon',
@@ -71,7 +74,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.typhon;
         },
-        downloadApi: configs.wallet.typhon,
+        downloadApi:
+            'https://chrome.google.com/webstore/detail/typhon-wallet/kfdniefadaanbjodldohaedphafoffoh',
     },
     {
         name: 'Vespr',
@@ -82,7 +86,7 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.vespr;
         },
-        downloadApi: configs.wallet.vespr,
+        downloadApi: 'https://play.google.com/store/apps/details?id=art.nft_craze.gallery.main',
     },
     {
         name: 'Yoroi',
@@ -93,7 +97,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.yoroi;
         },
-        downloadApi: configs.wallet.yoroi,
+        downloadApi:
+            'https://chromewebstore.google.com/detail/yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb',
     },
     {
         name: 'Nufi',
@@ -104,7 +109,8 @@ export const wallets = [
         checkApi: async function () {
             return await window.cardano.nufi;
         },
-        downloadApi: configs.wallet.nufi,
+        downloadApi:
+            'https://chromewebstore.google.com/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca',
     },
 ] as const;
 
