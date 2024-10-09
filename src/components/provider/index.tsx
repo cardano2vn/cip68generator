@@ -6,6 +6,20 @@ import QueryClientProvider from './query';
 import ErrorClientProvider from './error';
 import { Toaster } from '@/components/ui/toaster';
 import Loading from '@/app/(loading)/loading';
+import dynamic from 'next/dynamic';
+const WalletProvider = dynamic(async () => await import('@/components/provider/wallet'), {
+    loading() {
+        return <Loading />;
+    },
+    ssr: false,
+});
+
+const NetworkProvider = dynamic(async () => await import('@/components/provider/network'), {
+    loading() {
+        return <Loading />;
+    },
+    ssr: false,
+});
 
 export default function AppProviders({ children }: { children: React.ReactNode }) {
     return (
@@ -13,7 +27,11 @@ export default function AppProviders({ children }: { children: React.ReactNode }
             <Toaster />
             <ErrorClientProvider>
                 <QueryClientProvider>
-                    <MeshProvider>{children}</MeshProvider>
+                    <MeshProvider>
+                        <NetworkProvider>
+                            <WalletProvider>{children}</WalletProvider>
+                        </NetworkProvider>
+                    </MeshProvider>
                 </QueryClientProvider>
             </ErrorClientProvider>
         </Suspense>
