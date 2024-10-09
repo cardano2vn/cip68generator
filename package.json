@@ -50,6 +50,7 @@
         "@types/node": "^20.16.11",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.0",
+        "@typescript-eslint/eslint-plugin": "^8.8.1",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.0.0-rc.0",
         "eslint-config-prettier": "^9.1.0",
