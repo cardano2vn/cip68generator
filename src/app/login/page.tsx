@@ -84,6 +84,7 @@ const Login = function () {
                             </header>
 
                             <aside className={cn('mt-5 flex')}>
+                                {/* network-begin */}
                                 <section
                                     className={cn(
                                         'item-center mr-[30px] flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgb(238,238,238)] pr-[30px]',
@@ -100,6 +101,8 @@ const Login = function () {
                                         );
                                     })}
                                 </section>
+                                {/* network-end */}
+                                {/* wallet-begin */}
                                 <section
                                     className={cn(
                                         'relative h-[230px] flex-1 overflow-y-auto overflow-x-hidden transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:bg-gray-700 before:opacity-0 before:content-[""] after:bottom-0',
@@ -121,6 +124,7 @@ const Login = function () {
                                         })}
                                     </ul>
                                 </section>
+                                {/* wallet-end */}
                             </aside>
                         </section>
                         {/* web3-end */}
