@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Lexend as FontSans } from 'next/font/google';
 import '@/styles/globals.css';
 import { cn } from '@/utils';
-import { Toaster } from '@/components/ui/toaster';
 import Providers from '@/components/provider';
 import { appConfig } from '@/constants';
 import { PropsWithChildren } from 'react';
@@ -21,7 +20,6 @@ const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={cn(fontSans.className)}>
-                <Toaster />
                 <Providers>{children}</Providers>
             </body>
         </html>
