@@ -172,18 +172,20 @@ const Landing = function () {
                     <div className={cn('flex w-full gap-7')}>
                         <div
                             className={cn(
-                                'relative aspect-video w-[60%] rounded-3xl before:absolute before:left-8 before:right-8 before:h-full before:w-full before:shadow-xl before:content-[""]',
+                                'relative aspect-video w-[60%] rounded-3xl before:absolute before:left-8 before:top-8 before:h-full before:w-full before:rounded-3xl before:bg-slate-900 before:shadow-xl before:content-[""]',
                             )}
                         >
                             <iframe
-                                className={cn('absolute inset-0 block h-full w-full rounded-xl')}
+                                className={cn(
+                                    'absolute inset-0 z-10 block h-full w-full rounded-xl',
+                                )}
                                 src="https://www.youtube.com/embed/_GrbIRoT3mU"
                                 title="Open source dynamic assets (Token/NFT) generator (CIP68)"
                                 frameBorder={'none'}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             ></iframe>
                         </div>
-                        <div className={cn('flex w-[40%] flex-col items-start gap-[15px]')}>
+                        <div className={cn('z-10 flex w-[40%] flex-col items-start gap-[15px]')}>
                             <h2 className={cn('text-left text-[25px] font-bold')}>
                                 About CIP68 Generator
                             </h2>
@@ -208,7 +210,7 @@ const Landing = function () {
             {/* about-end */}
 
             {/* founder-begin */}
-            <section className={cn('px-0 py-[100px]')}>
+            <section className={cn('px-0 pt-[100px]')}>
                 <aside className={cn('mx-auto my-0 flex w-full max-w-[1200px] flex-col gap-2')}>
                     {/* title-begin */}
                     <section

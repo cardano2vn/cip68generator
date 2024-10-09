@@ -11,5 +11,4 @@ export const networks = [
         id: 3,
         name: 'Preprod',
     },
-    
 ] as const;

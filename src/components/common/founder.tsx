@@ -29,7 +29,7 @@ const Founder = function ({
     return (
         <div
             className={cn(
-                'flex flex-col items-center gap-5 rounded-2xl p-7 transition-all duration-300 ease-in-out',
+                'flex flex-col items-center gap-5 rounded-2xl bg-slate-900 p-7 transition-all duration-300 ease-in-out',
             )}
         >
             <div
