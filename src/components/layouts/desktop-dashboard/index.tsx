@@ -16,7 +16,7 @@ export default function DesktopDashboardlLayout({ children }: { children: React.
             <main
                 className={cn(
                     'min-h-[calc(100vh_-_56px)] transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900',
-                    sidebar?.isOpen === false ? 'lg:ml-[90px]' : 'lg:ml-[300px]',
+                    sidebar?.isOpen === false ? 'lg:ml-[73px]' : 'lg:ml-[300px]',
                 )}
             >
                 <Navbar />

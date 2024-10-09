@@ -16,20 +16,20 @@ export function MenuList() {
     return (
         <div className="overflow-hidden">
             <nav className="mt-8 w-full">
-                <div className="flex min-h-[calc(100vh-48px-36px-16px-32px)] flex-col items-start space-y-1 px-2 lg:min-h-[calc(100vh-32px-40px-32px)]">
+                <div className="boder-r-2 flex min-h-[calc(100vh-48px-36px-16px-32px)] flex-col items-start space-y-2 px-[4.5px] lg:min-h-[calc(100vh-32px-40px-32px)]">
                     {mainMenu.map(({ title, href, icon, disabled }, index) => {
                         const Icon = Icons[icon || 'arrowRight'];
                         console.log(href, pathname);
                         const active = pathname === href;
                         return (
-                            <div className="w-full" key={index}>
+                            <div className="h-10 w-full" key={index}>
                                 <TooltipProvider disableHoverableContent>
                                     <Tooltip delayDuration={100}>
                                         <TooltipTrigger asChild>
                                             <Button
                                                 variant="outline"
                                                 className={cn(
-                                                    'mb-1 h-10 w-full justify-start border-none bg-transparent',
+                                                    'mb-1 h-10 w-full justify-start border-none bg-transparent !px-2',
                                                     active
                                                         ? 'border-primary bg-accent text-primary'
                                                         : 'border-transparent text-secondary',
@@ -40,12 +40,13 @@ export function MenuList() {
                                                 <Link href={href}>
                                                     <span
                                                         className={cn(
+                                                            'h-6 w-6',
                                                             isOpen === false ? '' : 'mr-4',
                                                         )}
                                                     >
-                                                        <Icon className={`size-5 flex-none`} />
+                                                        <Icon className={`h-6 w-6 flex-none`} />
                                                     </span>
-                                                    <p
+                                                    <span
                                                         className={cn(
                                                             'max-w-[200px] truncate',
                                                             isOpen === false
@@ -54,7 +55,7 @@ export function MenuList() {
                                                         )}
                                                     >
                                                         {title}
-                                                    </p>
+                                                    </span>
                                                 </Link>
                                             </Button>
                                         </TooltipTrigger>
@@ -76,7 +77,7 @@ export function MenuList() {
                                     <Link
                                         key={index}
                                         href={href}
-                                        className="flex h-10 w-full items-center justify-center rounded hover:bg-gray-700"
+                                        className="flex h-10 w-full items-center justify-center rounded text-secondary hover:text-primary"
                                     >
                                         <Icon className="h-6 w-6" />
                                     </Link>
