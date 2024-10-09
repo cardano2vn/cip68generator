@@ -47,6 +47,16 @@ const config: Config = {
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)',
             },
+
+            keyframes: {
+                animate: {
+                    '0%, 70%, 100%': { transform: 'scale3d(1, 1, 1)' },
+                    '35%': { transform: 'scale3d(0, 0, 1)' },
+                },
+            },
+            animation: {
+                animate: 'animate 1.3s ease-in-out infinite',
+            },
         },
     },
     plugins: [tailwindcssAnimate],

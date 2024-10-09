@@ -3,10 +3,11 @@
 import dynamic from 'next/dynamic';
 import { useToast } from '@/hooks/use-toast';
 import React from 'react';
+import Loading from '@/app/(loading)/loading';
 
 export const MeshProvider = dynamic(async () => (await import('@meshsdk/react')).MeshProvider, {
     loading() {
-        return <>...</>;
+        return <Loading />;
     },
     ssr: false,
 });
