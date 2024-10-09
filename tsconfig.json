@@ -19,7 +19,8 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
-            "@/public/*": ["./public/*"]
+            "@/public/*": ["./public/*"],
+            "@/contract/*": ["./contract/*"]
         },
         "target": "ES2017"
     },

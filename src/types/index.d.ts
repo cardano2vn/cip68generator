@@ -1,7 +1,18 @@
 import { Icons } from '@/components/common/icons';
 import { BrowserWallet } from '@meshsdk/core';
+import { StaticImageData } from 'next/image';
 
 export type CardanoNetwork = 'mainnet' | 'testnet' | 'preprod';
+
+export type WalletType = {
+    name: string;
+    image: string | StaticImageData;
+    balance?: number;
+    address?: string;
+    downloadApi?: string;
+    api?: () => Promise<void>;
+    checkApi?: () => Promise<void>;
+};
 
 export type UseWalletHookType = () => {
     name: string;

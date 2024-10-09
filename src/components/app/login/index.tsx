@@ -10,8 +10,14 @@ import Wallet from '@/components/app/login/components/wallet';
 import { FaTelegramPlane, FaMailBulk, FaYoutube, FaGoogle } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import routers from '@/constants/routers';
+import { useWalletContext } from '@/components/provider/wallet';
+import { WalletType } from '@/types';
 
 export default function LoginPage() {
+    const { connect } = useWalletContext();
+    const handleConnectWallet = async function ({ name, image, api }: WalletType) {
+        await connect({ name, image, api });
+    };
     return (
         <main className={cn('flex h-full text-[14px]')}>
             <div className={cn('m-3 flex flex-1 flex-col overflow-hidden rounded-xl bg-[#0d0e12]')}>
@@ -116,6 +122,7 @@ export default function LoginPage() {
                                                     key={index}
                                                     image={wallet.image}
                                                     name={wallet.name}
+                                                    onConnectWallet={handleConnectWallet}
                                                 />
                                             );
                                         })}

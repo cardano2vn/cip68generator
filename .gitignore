@@ -37,3 +37,10 @@ bun.lockb
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+artifacts/
+build/
+docs/
+
+plutus.json
