@@ -20,7 +20,7 @@ export default function DesktopDashboardlLayout({ children }: { children: React.
                 )}
             >
                 <Navbar />
-                <div className="container mt-20 px-2">{children}</div>
+                <div className="container mt-20 px-4">{children}</div>
             </main>
         </>
     );
