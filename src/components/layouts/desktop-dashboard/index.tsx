@@ -15,12 +15,12 @@ export default function DesktopDashboardlLayout({ children }: { children: React.
             <Sidebar />
             <main
                 className={cn(
-                    'min-h-[calc(100vh_-_56px)] transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900',
+                    'flex min-h-[calc(100vh_-_56px)] justify-center transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900',
                     sidebar?.isOpen === false ? 'lg:ml-[73px]' : 'lg:ml-[300px]',
                 )}
             >
                 <Navbar />
-                <div className="container mt-10 px-4 pb-16 pt-8 sm:px-8">{children}</div>
+                <div className="container mt-20 px-2">{children}</div>
             </main>
         </>
     );
