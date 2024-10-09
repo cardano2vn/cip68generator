@@ -4,12 +4,16 @@ import {
     Globe,
     House,
     ImagePlus,
+    LayoutGrid,
     LucideIcon,
     LucideProps,
     MenuIcon,
+    Search,
     Send,
+    SquareMenu,
     Store,
 } from 'lucide-react';
+import { Calendar } from '../ui/calendar';
 
 export type Icon = LucideIcon;
 
@@ -61,6 +65,10 @@ export const Icons = {
     store: Store,
     globe: Globe,
     send: Send,
+    squareMenu: SquareMenu,
+    layoutGrid: LayoutGrid,
+    search: Search,
+    calendar: Calendar,
     ideaScale: ({ ...props }: LucideProps) => (
         <svg
             width="24"
