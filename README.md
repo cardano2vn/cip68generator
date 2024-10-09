@@ -16,17 +16,15 @@ We primarily use two main SDKs, Mesh and Blockfrost, to efficiently retrieve inf
 
 ## Install
 
--   npm: `npm i @independenceee/cip68generator`
--   yarn: `yarn add @independenceee/cip68generator`
+-   npm: `npm i @cardano2vn/cip68generator`
+-   yarn: `yarn add @cardano2vn/cip68generator`
 
 ## Create `BlockfrostProvider` and `MeshTxBuilder` to efficiently retrieve information and execute transactions.
 
 ```ts
-import { BlockfrostProvider, MeshTxBuilder } from "@meshsdk/core";
+import { BlockfrostProvider, MeshTxBuilder } from '@meshsdk/core';
 
-const blockfrostProvider: BlockfrostProvider = new BlockfrostProvider(
-    "<Your-Api-Key>"
-);
+const blockfrostProvider: BlockfrostProvider = new BlockfrostProvider('<Your-Api-Key>');
 
 const meshTxBuilder: MeshTxBuilder = new MeshTxBuilder({
     fetcher: blockfrostProvider,
@@ -39,8 +37,8 @@ const wallet: MeshWallet = new MeshWallet({
     fetcher: blockfrostProvider,
     submitter: blockfrostProvider,
     key: {
-        type: "root",
-        bech32: "<Root-Private-Key>",
+        type: 'root',
+        bech32: '<Root-Private-Key>',
     },
 });
 ```
@@ -48,7 +46,7 @@ const wallet: MeshWallet = new MeshWallet({
 ## Mint: Create new NFTs with customizable metadata, adhering to Cardano standards.
 
 ```ts
-import { Cip68Contract } from "@independenceee/cip68generator";
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
 const cip68Contract: Cip68Contract = new Cip68Contract({
     wallet: wallet,
@@ -57,13 +55,13 @@ const cip68Contract: Cip68Contract = new Cip68Contract({
 });
 
 const unsignedTx = await cip68Contract.mint({
-    assetName: "CIP68 Generator",
-    quantity: "1",
+    assetName: 'CIP68 Generator',
+    quantity: '1',
     metadata: {
-        name: "CIP68 Generator",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
-        mediaType: "image/jpg",
-        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+        name: 'CIP68 Generator',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
+        mediaType: 'image/jpg',
+        description: 'Open source dynamic assets (Token/NFT) generator (CIP68)',
     },
 });
 
@@ -74,7 +72,7 @@ const txHash = await wallet.submitTx(signedTx);
 ## Burn: Permanently remove NFTs from circulation, controlling supply.
 
 ```ts
-import { Cip68Contract } from "@independenceee/cip68generator";
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
 const cip68Contract: Cip68Contract = new Cip68Contract({
     wallet: wallet,
@@ -83,9 +81,9 @@ const cip68Contract: Cip68Contract = new Cip68Contract({
 });
 
 const unsignedTx: string = await cip68Contract.burn({
-    txHash: "<Tx-Hash-Template>",
-    quantity: "-1",
-    assetName: "CIP68 Generators",
+    txHash: '<Tx-Hash-Template>',
+    quantity: '-1',
+    assetName: 'CIP68 Generators',
 });
 const signedTx = await wallet.signTx(unsignedTx, true);
 const txHash = await wallet.submitTx(signedTx);
@@ -94,7 +92,7 @@ const txHash = await wallet.submitTx(signedTx);
 ## Update: Modify the metadata of existing NFTs without changing their identity.
 
 ```ts
-import { Cip68Contract } from "@independenceee/cip68generator";
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
 const cip68Contract = new Cip68Contract({
     fetcher: blockfrostProvider,
@@ -103,14 +101,14 @@ const cip68Contract = new Cip68Contract({
 });
 
 const unsignedTx: string = await cip68Contract.update({
-    txHash: "<Tx-Hash-Template>",
-    quantity: "1",
-    assetName: "CIP68 Generators",
+    txHash: '<Tx-Hash-Template>',
+    quantity: '1',
+    assetName: 'CIP68 Generators',
     metadata: {
-        name: "CIP68 Generators",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
-        mediaType: "image/jpg",
-        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+        name: 'CIP68 Generators',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
+        mediaType: 'image/jpg',
+        description: 'Open source dynamic assets (Token/NFT) generator (CIP68)',
     },
 });
 const signedTx = await wallet.signTx(unsignedTx, true);
@@ -120,7 +118,7 @@ const txHash = await wallet.submitTx(signedTx);
 ## Remove: Change metadata to retire NFTs from active use without destroying them.
 
 ```ts
-import { Cip68Contract } from "@independenceee/cip68generator";
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
 const cip68Contract = new Cip68Contract({
     fetcher: blockfrostProvider,
@@ -129,12 +127,12 @@ const cip68Contract = new Cip68Contract({
 });
 
 const unsignedTx: string = await cip68Contract.update({
-    txHash: "<Tx-Hash-Template>",
-    quantity: "1",
-    assetName: "CIP68 Generators",
+    txHash: '<Tx-Hash-Template>',
+    quantity: '1',
+    assetName: 'CIP68 Generators',
     metadata: {
-        name: "CIP68 Generators",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+        name: 'CIP68 Generators',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
     },
 });
 const signedTx = await wallet.signTx(unsignedTx, true);
