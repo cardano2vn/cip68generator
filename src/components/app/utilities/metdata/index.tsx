@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsTrigger } from '@/components/ui/tabs';
 import { TabsList } from '@radix-ui/react-tabs';
 import { SearchBar } from './components/search-bar';
 import TableData from './components/table';
+import ListFileCard from './components/list-file';
 export default function MetadataPage() {
     return (
         <div className="mt-5 rounded-lg bg-section p-2">
@@ -50,7 +51,9 @@ export default function MetadataPage() {
                     <TabsContent value="list">
                         <TableData />
                     </TabsContent>
-                    <TabsContent value="grid">Change your password here.</TabsContent>
+                    <TabsContent value="grid">
+                        <ListFileCard />
+                    </TabsContent>
                 </Tabs>
             </div>
         </div>

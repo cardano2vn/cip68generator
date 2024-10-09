@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Checkbox } from '@/components/ui/checkbox';
 import {
     Table,
