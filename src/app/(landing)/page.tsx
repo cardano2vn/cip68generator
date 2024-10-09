@@ -59,7 +59,7 @@ const Landing = function () {
                         <div className="min-w-[160px]">
                             <p
                                 className={cn(
-                                    'mb-[10px] text-[42px] font-bold leading-[50px] text-[#fff]',
+                                    'mb-[10px] text-[42px] font-normal leading-[50px] text-[#fff]',
                                 )}
                             >
                                 152.77M
@@ -71,7 +71,7 @@ const Landing = function () {
                         <div className="min-w-[160px]">
                             <p
                                 className={cn(
-                                    'mb-[10px] text-[42px] font-bold leading-[50px] text-[#fff]',
+                                    'mb-[10px] text-[42px] font-normal leading-[50px] text-[#fff]',
                                 )}
                             >
                                 152.77M
@@ -83,7 +83,7 @@ const Landing = function () {
                         <div className="min-w-[160px]">
                             <p
                                 className={cn(
-                                    'mb-[10px] text-[42px] font-bold leading-[50px] text-[#fff]',
+                                    'mb-[10px] text-[42px] font-normal leading-[50px] text-[#fff]',
                                 )}
                             >
                                 152.77M
@@ -95,7 +95,7 @@ const Landing = function () {
                         <div className="min-w-[160px]">
                             <p
                                 className={cn(
-                                    'mb-[10px] text-[42px] font-bold leading-[50px] text-[#fff]',
+                                    'mb-[10px] text-[42px] font-normal leading-[50px] text-[#fff]',
                                 )}
                             >
                                 152.77M

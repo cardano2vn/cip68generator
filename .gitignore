@@ -30,7 +30,7 @@ package-lock.json
 bun.lockb
 # local env files
 .env*.local
-
+.env
 # vercel
 .vercel
 

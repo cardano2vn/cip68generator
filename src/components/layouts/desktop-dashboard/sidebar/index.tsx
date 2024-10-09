@@ -1,18 +1,13 @@
-'use client';
-import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
-import { cn } from '@/utils';
 import Link from 'next/link';
+import { cn } from '@/utils';
+import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
 import { SidebarToggle } from './sidebar-toggle';
-import { Button } from '@/components/ui/button';
-import { MenuList } from './menu-list';
-import { Icons } from '@/components/common/icons';
 import { Images } from '@/components/common/images';
+import { Icons } from '@/components/common/icons';
+import { MenuList } from './menu-list';
+import { Button } from '@/components/ui/button';
 
-type SidebarProps = {
-    className?: string;
-};
-
-export default function Sidebar({ className }: SidebarProps) {
+export function Sidebar() {
     const sidebar = useSidebarToggle();
 
     if (!sidebar) return null;
@@ -20,9 +15,8 @@ export default function Sidebar({ className }: SidebarProps) {
     return (
         <aside
             className={cn(
-                `relative hidden h-screen flex-none border-r bg-section transition-[width] duration-500 md:block`,
-                sidebar.isOpen ? 'w-[300px]' : 'w-[92px]',
-                className,
+                'fixed left-0 top-0 z-20 h-screen -translate-x-full bg-section transition-[width] duration-300 ease-in-out lg:translate-x-0',
+                sidebar?.isOpen === false ? 'w-[73px]' : 'w-[300px]',
             )}
         >
             <SidebarToggle isOpen={sidebar?.isOpen} toggle={sidebar?.toggle} />
@@ -36,7 +30,7 @@ export default function Sidebar({ className }: SidebarProps) {
                     asChild
                 >
                     <Link href="/dashboard" className="flex items-center gap-2">
-                        <Icons.logo className="h-6 w-6" />
+                        <Icons.logo className="mr-1 h-6 w-6" />
                         <Images.logo
                             className={cn(
                                 'whitespace-nowrap p-10 text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out',

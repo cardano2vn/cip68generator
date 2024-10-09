@@ -8,6 +8,8 @@ import images from '@/assets/images';
 import { networks, wallets } from '@/constants';
 import Network from '@/components/common/network';
 import Wallet from '@/components/common/wallet';
+import { FaTelegramPlane, FaMailBulk, FaYoutube, FaGoogle } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const Login = function () {
     return (
@@ -32,33 +34,37 @@ const Login = function () {
                             <span className="text-2xl">Generator</span>
                         </Link>
                         <div className={cn('flex items-center gap-8')}>
-                            <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                <Image
-                                    className={cn('h-full w-full object-cover')}
-                                    src={images.logo}
-                                    alt="Social Network"
-                                />
+                            <Link
+                                className={cn(
+                                    'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                )}
+                                href={''}
+                            >
+                                <FaTelegramPlane className={cn('text-[20px]')} />
                             </Link>
-                            <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                <Image
-                                    className={cn('h-full w-full object-cover')}
-                                    src={images.logo}
-                                    alt="Social Network"
-                                />
+                            <Link
+                                className={cn(
+                                    'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                )}
+                                href={''}
+                            >
+                                <FaMailBulk className={cn('text-[20px]')} />
                             </Link>
-                            <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                <Image
-                                    className={cn('h-full w-full object-cover')}
-                                    src={images.logo}
-                                    alt="Social Network"
-                                />
+                            <Link
+                                className={cn(
+                                    'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                )}
+                                href={''}
+                            >
+                                <FaXTwitter className={cn('text-[20px]')} />
                             </Link>
-                            <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                <Image
-                                    className={cn('h-full w-full object-cover')}
-                                    src={images.logo}
-                                    alt="Social Network"
-                                />
+                            <Link
+                                className={cn(
+                                    'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                )}
+                                href={''}
+                            >
+                                <FaYoutube className={cn('text-[20px]')} />
                             </Link>
                         </div>
                     </header>
@@ -96,12 +102,12 @@ const Login = function () {
                                 </section>
                                 <section
                                     className={cn(
-                                        'pointer-events-none relative h-[230px] flex-1 opacity-100 transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:opacity-100 before:content-[""] after:bottom-0 after:bg-[rgba(255,255,255,0.6)]',
+                                        'relative h-[230px] flex-1 overflow-y-auto overflow-x-hidden transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:bg-gray-700 before:opacity-0 before:content-[""] after:bottom-0',
                                     )}
                                 >
-                                    <div
+                                    <ul
                                         className={cn(
-                                            'mr-[-20px] flex h-full w-full flex-col gap-4 overflow-y-auto overflow-x-hidden pr-[20px]',
+                                            'mr-[-20px] flex h-full flex-col gap-3 overflow-y-auto overflow-x-hidden pr-[20px]',
                                         )}
                                     >
                                         {wallets.map(function (wallet, index: number) {
@@ -113,7 +119,7 @@ const Login = function () {
                                                 />
                                             );
                                         })}
-                                    </div>
+                                    </ul>
                                 </section>
                             </aside>
                         </section>
@@ -138,19 +144,21 @@ const Login = function () {
                                 </Link>
                             </div>
                             <div className={cn('mt-[25px] flex items-center justify-center gap-7')}>
-                                <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                    <Image
-                                        className={cn('h-full w-full')}
-                                        src={images.eternl}
-                                        alt=""
-                                    />
+                                <Link
+                                    className={cn(
+                                        'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                    )}
+                                    href={''}
+                                >
+                                    <FaGoogle className={cn('text-[20px]')} />
                                 </Link>
-                                <Link className={cn('h-8 w-8 rounded-full')} href={''}>
-                                    <Image
-                                        className={cn('h-full w-full')}
-                                        src={images.eternl}
-                                        alt=""
-                                    />
+                                <Link
+                                    className={cn(
+                                        'flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-2',
+                                    )}
+                                    href={''}
+                                >
+                                    <FaXTwitter className={cn('text-[20px]')} />
                                 </Link>
                             </div>
                         </section>

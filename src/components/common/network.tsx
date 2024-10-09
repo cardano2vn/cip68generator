@@ -15,7 +15,7 @@ const Network = function ({ image, name, active = true }: Props) {
     return (
         <div
             className={cn(
-                'flex h-14 w-14 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl text-[12px] text-gray-300',
+                'flex h-14 w-14 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl text-[12px] text-gray-300 hover:bg-slate-800',
                 active && 'bg-slate-800 text-gray-500',
             )}
         >
