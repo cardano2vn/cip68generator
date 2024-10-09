@@ -4,6 +4,7 @@ const nextConfig = {
     experimental: {
         after: true,
     },
+    output: 'standalone',
     reactStrictMode: true,
     webpack: function (config, _) {
         config.experiments = {

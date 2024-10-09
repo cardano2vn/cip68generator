@@ -11,7 +11,6 @@ on:
 jobs:
     CIP68Generator:
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout repository
               uses: actions/checkout@v3
@@ -22,7 +21,7 @@ jobs:
                   node-version: "18"
 
             - name: Install dependencies
-              run: npm install -force
+              run: npm install --force
 
             - name: Run Lint
               run: npm run lint
@@ -35,3 +34,17 @@ jobs:
               with:
                   name: nextjs-build
                   path: ./client/.next
+
+    Contract:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: aiken-lang/setup-aiken@v1
+              with:
+                  version: v1.1.0
+            - run: aiken fmt --check
+              working-directory: ./contract
+            - run: aiken check -D
+              working-directory: ./contract
+            - run: aiken build
+              working-directory: ./contract
