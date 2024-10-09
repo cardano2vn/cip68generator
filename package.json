@@ -33,11 +33,12 @@
         "date-fns": "^4.1.0",
         "lodash": "^4.17.21",
         "lucide-react": "^0.447.0",
-        "next": "14.2.14",
+        "next": "^15.0.0-rc.0",
         "next-auth": "^5.0.0-beta.22",
-        "react": "^18.3.1",
+        "react": "^19.0.0-rc-fb9a90fa48-20240614",
         "react-day-picker": "8.10.1",
-        "react-dom": "^18.3.1",
+        "react-dom": "^19.0.0-rc-fb9a90fa48-20240614",
+        "sharp": "^0.33.5",
         "tailwind-merge": "^2.5.3",
         "tailwindcss-animate": "^1.0.7",
         "zustand": "^5.0.0-rc.2"
@@ -46,11 +47,11 @@
         "@jest/globals": "^29.7.0",
         "@types/jest": "^29.5.13",
         "@types/lodash": "^4.17.10",
-        "@types/node": "^20.16.10",
+        "@types/node": "^20.16.11",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.0",
         "eslint": "^8.57.1",
-        "eslint-config-next": "14.2.14",
+        "eslint-config-next": "^15.0.0-rc.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-react": "^7.37.1",
@@ -63,6 +64,6 @@
         "prisma": "^5.20.0",
         "tailwindcss": "^3.4.13",
         "ts-jest": "^29.2.5",
-        "typescript": "^5.6.2"
+        "typescript": "^5.6.3"
     }
 }
