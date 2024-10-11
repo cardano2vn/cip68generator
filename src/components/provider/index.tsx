@@ -5,7 +5,7 @@ import MeshProvider from './mesh';
 import QueryClientProvider from './query';
 import ErrorClientProvider from './error';
 import { Toaster } from '@/components/ui/toaster';
-import Loading from '@/app/(loading)/loading';
+import Loading from '@/app/loading';
 import dynamic from 'next/dynamic';
 const WalletProvider = dynamic(async () => await import('@/components/provider/wallet'), {
     loading() {

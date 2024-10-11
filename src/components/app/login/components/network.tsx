@@ -1,8 +1,8 @@
 'use client';
 
+import { appImage } from '@/public/images';
 import { cn } from '@/utils';
 import Image from 'next/image';
-import images from '@/public/images';
 
 type Props = {
     active?: boolean;
@@ -20,7 +20,7 @@ const Network = function ({ name, active = true }: Props) {
         >
             <Image
                 className={cn('h-7 w-7 object-cover')}
-                src={images.cardano}
+                src={appImage.cardano}
                 alt="Network Image"
             />
             <span

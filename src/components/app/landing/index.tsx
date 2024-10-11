@@ -5,16 +5,16 @@ import { founderData } from '@/components/app/landing/data/founders';
 import Founder from '@/components/app/landing/components/founder';
 import Footer from '@/components/layouts/landing/footer';
 import Image from 'next/image';
-import images from '@/public/images';
 import features from '@/components/app/landing/data/features';
 import Feature from '@/components/app/landing/components/feature';
+import { appImage } from '@/public/images';
 
 export default function LandingPage() {
     return (
         <main className={cn('relative bg-[#0d0e12]')}>
             {/* background-begin */}
             <section className={cn('absolute inset-0 -z-10 h-full w-full')}>
-                <Image src={images.logo} alt="Background" className={cn('h-full w-full')} />
+                <Image src={appImage.logo} alt="Background" className={cn('h-full w-full')} />
             </section>
             {/* background-end */}
 

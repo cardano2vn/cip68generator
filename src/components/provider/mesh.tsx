@@ -1,7 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { PropsWithChildren } from 'react';
-import Loading from '@/app/(loading)/loading';
+import Loading from '@/app/loading';
 
 export const MeshProviderBase = dynamic(async () => (await import('@meshsdk/react')).MeshProvider, {
     loading() {
