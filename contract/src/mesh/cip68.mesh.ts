@@ -15,7 +15,7 @@ import {
 } from '@meshsdk/core';
 import { MeshAdapter } from '../adapters/mesh.adapter';
 import cbor from 'cbor';
-import { readValidator } from '../utils';
+import { readValidator, getUniqueAssetName } from '../utils';
 import { title } from '../configs';
 import { applyParamsToScript } from '@meshsdk/core-csl';
 
@@ -45,8 +45,11 @@ export class Cip68Contract extends MeshAdapter {
 
         const storeAddress = serializePlutusScript(storeScript, undefined, 0, false).address;
 
+        const uniqueAssetName = await getUniqueAssetName(utxos[0]);
+        console.log(uniqueAssetName);
+
         const asset: Mint = {
-            assetName: assetName,
+            assetName: uniqueAssetName,
             assetQuantity: quantity,
             metadata: metadata,
             recipient: walletAddress,
