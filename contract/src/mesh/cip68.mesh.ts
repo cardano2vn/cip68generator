@@ -12,41 +12,44 @@ import {
     CIP68_100,
     mConStr1,
     mConStr2,
-} from "@meshsdk/core";
-import { MeshAdapter } from "../adapters/mesh.adapter";
-import cbor from "cbor";
-import { readValidator } from "../utils";
-import { title } from "../configs";
-import { applyParamsToScript } from "@meshsdk/core-csl";
+} from '@meshsdk/core';
+import { MeshAdapter } from '../adapters/mesh.adapter';
+import cbor from 'cbor';
+import { readValidator, getUniqueAssetName } from '../utils';
+import { title } from '../configs';
+import { applyParamsToScript } from '@meshsdk/core-csl';
 
 export class Cip68Contract extends MeshAdapter {
     mint = async ({
         assetName,
         quantity,
         metadata,
-    }:  {
+    }: {
         assetName: string;
         quantity: string;
         metadata: any;
-    }): Promise<string>=> {
+    }): Promise<string> => {
         const { walletAddress, utxos, collateral } = await this.getWalletForTx();
         const mintCompileCode: string = readValidator(title.mint);
         const storeCompileCode: string = readValidator(title.store);
 
         const mintScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(mintCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(mintCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
 
         const storeScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(storeCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(storeCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
 
         const storeAddress = serializePlutusScript(storeScript, undefined, 0, false).address;
 
+        const uniqueAssetName = await getUniqueAssetName(utxos[0]);
+        console.log(uniqueAssetName);
+
         const asset: Mint = {
-            assetName: assetName,
+            assetName: uniqueAssetName,
             assetQuantity: quantity,
             metadata: metadata,
             recipient: walletAddress,
@@ -58,7 +61,7 @@ export class Cip68Contract extends MeshAdapter {
                 alternative: 0,
                 fields: [],
             },
-            tag: "MINT",
+            tag: 'MINT',
         };
 
         const transaction = new Transaction({
@@ -84,19 +87,19 @@ export class Cip68Contract extends MeshAdapter {
         const storeCompileCode: string = readValidator(title.store);
 
         const mintScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(mintCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(mintCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
 
         const storeScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(storeCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(storeCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
 
         const storeAddress = serializePlutusScript(storeScript, undefined, 0, false).address;
 
         const mintScriptCbor = applyParamsToScript(mintCompileCode, []);
-        const policyId = resolveScriptHash(mintScriptCbor, "V3");
+        const policyId = resolveScriptHash(mintScriptCbor, 'V3');
 
         const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
         const storeUtxo = await this.getUtxoForTx(storeAddress, txHash);
@@ -134,7 +137,7 @@ export class Cip68Contract extends MeshAdapter {
 
         return unsignedTx;
     };
-    update = async  ({
+    update = async ({
         txHash,
         assetName,
         quantity,
@@ -144,22 +147,22 @@ export class Cip68Contract extends MeshAdapter {
         assetName: string;
         quantity: string;
         metadata: any;
-    }):Promise<string> =>  {
+    }): Promise<string> => {
         const { walletAddress, utxos, collateral } = await this.getWalletForTx();
         const mintCompileCode: string = readValidator(title.mint);
         const storeCompileCode: string = readValidator(title.store);
         const mintScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(mintCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(mintCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
         const storeScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(storeCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(storeCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
         const storeAddress = serializePlutusScript(storeScript, undefined, 0, false).address;
 
         const mintScriptCbor = applyParamsToScript(mintCompileCode, []);
-        const policyId = resolveScriptHash(mintScriptCbor, "V3");
+        const policyId = resolveScriptHash(mintScriptCbor, 'V3');
 
         const recipient: Recipient = {
             address: storeAddress,
@@ -173,7 +176,7 @@ export class Cip68Contract extends MeshAdapter {
         ];
 
         const referenceAssets: Asset[] = [
-            { unit: policyId + CIP68_100(stringToHex(assetName)), quantity: "1" },
+            { unit: policyId + CIP68_100(stringToHex(assetName)), quantity: '1' },
         ];
 
         const redeemer = {
@@ -210,17 +213,17 @@ export class Cip68Contract extends MeshAdapter {
         const mintCompileCode: string = readValidator(title.mint);
         const storeCompileCode: string = readValidator(title.store);
         const mintScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(mintCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(mintCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
         const storeScript: PlutusScript = {
-            code: cbor.encode(Buffer.from(storeCompileCode, "hex")).toString("hex"),
-            version: "V3",
+            code: cbor.encode(Buffer.from(storeCompileCode, 'hex')).toString('hex'),
+            version: 'V3',
         };
         const storeAddress = serializePlutusScript(storeScript, undefined, 0, false).address;
 
         const mintScriptCbor = applyParamsToScript(mintCompileCode, []);
-        const policyId = resolveScriptHash(mintScriptCbor, "V3");
+        const policyId = resolveScriptHash(mintScriptCbor, 'V3');
 
         const recipient: Recipient = {
             address: storeAddress,
@@ -235,7 +238,7 @@ export class Cip68Contract extends MeshAdapter {
         ];
 
         const referenceAssets: Asset[] = [
-            { unit: policyId + CIP68_100(stringToHex(assetName)), quantity: "1" },
+            { unit: policyId + CIP68_100(stringToHex(assetName)), quantity: '1' },
         ];
 
         const redeemer = {

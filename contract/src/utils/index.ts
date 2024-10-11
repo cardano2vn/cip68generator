@@ -1,6 +1,6 @@
-import { BlockfrostProvider, stringToBSArray, stringToHex, UTxO } from "@meshsdk/core";
-import crypto from "crypto";
-import plutus from "../../plutus.json";
+import { BlockfrostProvider, stringToBSArray, stringToHex, UTxO } from '@meshsdk/core';
+import crypto from 'crypto-js';
+import plutus from '../../plutus.json';
 
 /**
  * @description Read validator compilecode from plutus
@@ -30,10 +30,9 @@ export const readValidator = function (title: string, version?: string): string 
  * @returns - Asset name unique
  */
 export const getUniqueAssetName = async function (utxo: UTxO): Promise<string> {
-    const hash = new Uint8Array(await crypto.subtle.digest("SHA3-256", fromHex(utxo.input.txHash)));
+    const hash = new Uint8Array(await crypto.SHA256(fromHex(utxo.input.txHash)));
     return toHex(new Uint8Array([utxo.input.outputIndex])) + toHex(hash.slice(0, 27));
 };
-
 
 /**
  * @description Return unique asset name using txHash and txIndex
@@ -44,7 +43,7 @@ export const getUniqueAssetName = async function (utxo: UTxO): Promise<string> {
  */
 function fromHex(hex: string): Uint8Array {
     if (hex.length % 2 !== 0) {
-        throw new Error("Hex string must have an even number of characters.");
+        throw new Error('Hex string must have an even number of characters.');
     }
 
     const length = hex.length / 2;
@@ -65,9 +64,8 @@ function fromHex(hex: string): Uint8Array {
  * @returns - Asset name unique
  */
 function toHex(uint8Array: Uint8Array): string {
-    return Array.from(uint8Array, (byte) => byte.toString(16).padStart(2, "0")).join("");
+    return Array.from(uint8Array, (byte) => byte.toString(16).padStart(2, '0')).join('');
 }
-
 
 /**
  * @description Return unique asset name using txHash and txIndex
