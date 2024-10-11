@@ -1,15 +1,8 @@
 import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export function CreateCollection() {
     return (
@@ -17,28 +10,26 @@ export function CreateCollection() {
             <DialogTrigger asChild>
                 <Button className="bg-orange-500 text-white hover:bg-orange-600">Create New</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>Make changes to your profile here.</DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                            Name
-                        </Label>
-                        <Input id="name" defaultValue="Pedro Duarte" className="col-span-3" />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                            Username
-                        </Label>
-                        <Input id="username" defaultValue="@peduarte" className="col-span-3" />
-                    </div>
+            <DialogContent className="bg-card">
+                <div className="w-full max-w-md rounded-l p-6">
+                    <form className="space-y-6">
+                        <div className="space-y-2">
+                            <Label htmlFor="name">Title</Label>
+                            <Input id="name" required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="description">Description</Label>
+                            <Textarea id="description" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="link">Link</Label>
+                            <Input id="link" />
+                        </div>
+                        <Button type="submit" className="w-full">
+                            Submit
+                        </Button>
+                    </form>
                 </div>
-                <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
