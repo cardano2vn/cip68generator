@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import images from '@/public/images';
 import { cn } from '@/utils';
 import { Button } from '@/components/ui/button';
 import routers from '@/constants/routers';
+import { appImage } from '@/public/images';
 
 const Header = function () {
     return (
@@ -19,7 +19,7 @@ const Header = function () {
                 className="relative flex items-center justify-center gap-2"
                 href={routers.landing}
             >
-                <Image className="h-[35px] w-[35px] object-cover" src={images.logo} alt="Logo" />
+                <Image className="h-[35px] w-[35px] object-cover" src={appImage.logo} alt="Logo" />
                 <span className="text-2xl">Generator</span>
             </Link>
             {/* logo-end */}

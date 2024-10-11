@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import images from '@/public/images';
+import { appImage } from '@/public/images';
 
 const Feature = function () {
     return (
@@ -14,7 +14,7 @@ const Feature = function () {
                         <div className="mb-4 inline-block h-14 w-14 flex-shrink-0 text-gray-600 md:mb-0">
                             <Image
                                 className="object-contain"
-                                src={images.logo}
+                                src={appImage.logo}
                                 alt={'Service Image'}
                                 width={52}
                                 height={52}

@@ -3,7 +3,7 @@
 import { cn } from '@/utils';
 import Link from 'next/link';
 import Image from 'next/image';
-import images from '@/public/images';
+import { appImage } from '@/public/images';
 import { networks, wallets } from '@/constants';
 import Network from '@/components/app/login/components/network';
 import Wallet from '@/components/app/login/components/wallet';
@@ -34,7 +34,7 @@ export default function LoginPage() {
                         >
                             <Image
                                 className={cn('h-[35px] w-[35px] object-cover')}
-                                src={images.logo}
+                                src={appImage.logo}
                                 alt="Logo"
                             />
                             <span className="text-2xl">Generator</span>
