@@ -21,7 +21,7 @@ export const useWallet = create<useWalletStore>((set, get) => ({
 
     connect: async ({ name, image }: WalletType) => {
         const browserWallet: BrowserWallet = await BrowserWallet.enable(name.toLowerCase());
-        const address = (await browserWallet.getRewardAddresses())[0];
+        const address = (await browserWallet.getUsedAddresses())[0];
         const balance = await browserWallet.getLovelace();
 
         set({
@@ -41,13 +41,13 @@ export const useWallet = create<useWalletStore>((set, get) => ({
         if (!browserWallet) {
             throw new Error('Failed to connect wallet');
         }
-        const stakeAddress = (await browserWallet.getRewardAddresses())[0];
-        if (stakeAddress.length === 0) {
-            throw new Error('Cant get stake address');
+        const address = (await browserWallet.getUsedAddresses())[0];
+        if (address.length === 0) {
+            throw new Error('Cant get address');
         }
 
         if (isNil(session)) {
-            const nonce = await getNonceByAddress(stakeAddress);
+            const nonce = await getNonceByAddress(address);
             if (isNil(nonce) || nonce === '') {
                 throw new Error('Cant get nonce');
             }
@@ -58,14 +58,14 @@ export const useWallet = create<useWalletStore>((set, get) => ({
             await signIn('credentials', {
                 data: JSON.stringify({
                     wallet: name,
-                    stakeAddress: stakeAddress,
+                    address: address,
                     signature,
                 }),
             });
-        } else if (session.user?.stakeAddress !== stakeAddress) {
+        } else if (session.user?.address !== address) {
             await signOut();
         } else {
-            const address = (await browserWallet.getRewardAddresses())[0];
+            const address = (await browserWallet.getUsedAddresses())[0];
             const balance = await browserWallet.getLovelace();
             set({
                 browserWallet: browserWallet,
@@ -83,7 +83,7 @@ export const useWallet = create<useWalletStore>((set, get) => ({
         const { browserWallet, wallet } = get();
 
         const balance = await browserWallet.getLovelace();
-        const address = (await browserWallet.getRewardAddresses())[0];
+        const address = (await browserWallet.getUsedAddresses())[0];
 
         set({
             wallet: {
