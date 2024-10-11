@@ -8,7 +8,7 @@ export default function UtilitiesPage() {
             <h1 className="text-2xl font-semibold leading-7">Utilities</h1>
             <div className="mt-2 grid grid-cols-1 gap-4 p-4 md:grid-cols-3">
                 <Link
-                    href="/dashboard/utilities/metadata"
+                    href="/dashboard/collection"
                     className="rounded-lg shadow-none transition-shadow duration-300 hover:shadow-lg hover:shadow-teal-400"
                 >
                     <Card>
@@ -17,7 +17,7 @@ export default function UtilitiesPage() {
                         </AspectRatio>
                         <div className="flex flex-col items-center justify-start gap-3 self-stretch px-4 py-2">
                             <div className="font-semibol self-stretch text-center text-base">
-                                Metadata Builder
+                                Collection Metadata
                             </div>
                             <div className="font- self-stretch text-center text-sm text-secondary">
                                 Have images but need JSON? We got you covered!
