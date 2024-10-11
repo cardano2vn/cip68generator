@@ -2,14 +2,17 @@
 
 import { cn } from '@/utils';
 import Image from 'next/image';
-import { Button } from '../ui/button';
-import { appImage, walletImage } from '@/public/images';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Button } from '../../ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import { IoIosHelpCircleOutline } from 'react-icons/io';
 import { MdOutlineFeedback } from 'react-icons/md';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+import { useWalletContext } from '@/components/providers/wallet';
 
 export default function Account() {
+    const { wallet } = useWalletContext();
+
     return (
         <Popover>
             <PopoverTrigger>
@@ -21,13 +24,15 @@ export default function Account() {
                             className={cn(
                                 'h-full w-full rounded-full bg-slate-700 object-cover p-1',
                             )}
-                            src={walletImage.nami}
-                            alt=""
+                            src={wallet.image || ''}
+                            alt={`${wallet.name} icon`}
                         />
                     </div>
                     <div className={cn('')}>
-                        <h2 className={cn('')}>addr1sdfg...vn7tdfsh9</h2>
-                        <p className={cn('text-left')}>51,047.097 ₳</p>
+                        <h2 className={cn('')}>
+                            {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
+                        </h2>
+                        <p className={cn('text-left')}>{wallet.balance} ₳</p>
                     </div>
                 </Button>
             </PopoverTrigger>
@@ -39,12 +44,12 @@ export default function Account() {
                     <div className={cn('h-10 w-10')}>
                         <Image
                             className={cn('h-full w-full object-cover p-1')}
-                            src={walletImage.nami}
-                            alt=""
+                            src={wallet.image || ''}
+                            alt={`${wallet.name} icon`}
                         />
                     </div>
                     <div className="">
-                        <h2 className={cn('text-[18px] font-medium')}>Nami Wallet</h2>
+                        <h2 className={cn('text-[18px] font-medium')}>{wallet.name}</h2>
                         <div className="flex items-center gap-2">
                             <p className={cn('select-none text-[12px] text-gray-500')}>
                                 Base Mainnet
@@ -73,7 +78,7 @@ export default function Account() {
                     <p className="whitespace-nowrap text-[12px] text-gray-400">Adress</p>
                     <p className="flex items-center gap-[6px] whitespace-nowrap">
                         <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
-                            addr1qyk...q9dhdjuđâsdadádas
+                            {wallet.address}
                         </span>
                         <span>
                             <svg
@@ -114,7 +119,7 @@ export default function Account() {
                     <p className="whitespace-nowrap text-[13px] text-gray-400">Adress</p>
                     <p className="flex items-center gap-[6px] whitespace-nowrap">
                         <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
-                            addr1qyk...q9dhdjuđâsdadádas
+                            {wallet.address}
                         </span>
                         <span>
                             <svg
@@ -190,6 +195,7 @@ export default function Account() {
                 <div className={cn('leading-0 h-[1px] overflow-hidden bg-slate-500')} />
                 <div className={cn('flex flex-col items-center gap-3')}>
                     <Button
+                        onClick={() => signOut()}
                         className={cn(
                             'w-[180px] cursor-pointer rounded-[35px] bg-slate-500 text-center text-[14px] leading-[25px] text-gray-400',
                         )}
