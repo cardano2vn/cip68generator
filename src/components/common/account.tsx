@@ -3,7 +3,7 @@
 import { cn } from '@/utils';
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import images from '@/public/images';
+import { appImage, walletImage } from '@/public/images';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { IoIosHelpCircleOutline } from 'react-icons/io';
 import { MdOutlineFeedback } from 'react-icons/md';
@@ -21,7 +21,7 @@ export default function Account() {
                             className={cn(
                                 'h-full w-full rounded-full bg-slate-700 object-cover p-1',
                             )}
-                            src={images.nami}
+                            src={walletImage.nami}
                             alt=""
                         />
                     </div>
@@ -39,7 +39,7 @@ export default function Account() {
                     <div className={cn('h-10 w-10')}>
                         <Image
                             className={cn('h-full w-full object-cover p-1')}
-                            src={images.nami}
+                            src={walletImage.nami}
                             alt=""
                         />
                     </div>

@@ -1,5 +1,5 @@
 import { BlockfrostProvider, stringToBSArray, stringToHex, UTxO } from '@meshsdk/core';
-import crypto from 'crypto-js';
+import crypto from 'crypto';
 import plutus from '../../plutus.json';
 
 /**
@@ -30,7 +30,8 @@ export const readValidator = function (title: string, version?: string): string 
  * @returns - Asset name unique
  */
 export const getUniqueAssetName = async function (utxo: UTxO): Promise<string> {
-    const hash = new Uint8Array(await crypto.SHA256(fromHex(utxo.input.txHash)));
+    const hash = new Uint8Array(await crypto.subtle.digest('SHA3-256', fromHex(utxo.input.txHash)));
+
     return toHex(new Uint8Array([utxo.input.outputIndex])) + toHex(hash.slice(0, 27));
 };
 

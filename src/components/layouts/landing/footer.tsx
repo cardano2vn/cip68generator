@@ -2,12 +2,12 @@
 
 import { cn } from '@/utils';
 import { Button } from '@/components/ui/button';
-import images from '@/public/images';
 import Image from 'next/image';
 import Link from 'next/link';
 import routers from '@/constants/routers';
 import { FaMailBulk, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { appImage } from '@/public/images';
 
 const Footer = function () {
     return (
@@ -21,7 +21,7 @@ const Footer = function () {
                 <div className={cn('mr-[100px] h-[150px] w-[150px]')}>
                     <Image
                         className={cn('h-full w-full animate-pulse object-cover')}
-                        src={images.logo}
+                        src={appImage.logo}
                         alt=""
                     />
                 </div>
@@ -60,7 +60,7 @@ const Footer = function () {
                     <Link className="relative flex items-center gap-[8px]" href={routers.landing}>
                         <Image
                             className="h-[35px] w-[35px] object-cover"
-                            src={images.logo}
+                            src={appImage.logo}
                             alt="Logo"
                         />
                         <span className="text-2xl">Generator</span>

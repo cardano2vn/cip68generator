@@ -1,3 +1,4 @@
+import { apiKey, apiUrl } from '../src/configs';
 import { describe, test, expect, beforeEach } from '@jest/globals';
 import {
     BlockfrostProvider,

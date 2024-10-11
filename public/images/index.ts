@@ -18,7 +18,9 @@ import logo from './common/logo.png';
 
 import cardano from './network/cardano.png';
 
-export const founders = {
+import metadata from './utilities/metadata.png';
+
+export const founderImage = {
     son: son,
     tien: tien,
     hieu: hieu,
@@ -26,10 +28,13 @@ export const founders = {
     dung: dung,
 } as const;
 
-const images = {
+export const appImage = {
     logo: logo,
+    cardano: cardano,
+    metadata: metadata,
+} as const;
 
-    /* wallet-begin */
+export const walletImage = {
     nami: nami,
     eternl: eternl,
     gero: gero,
@@ -39,11 +44,4 @@ const images = {
     lace: lace,
     nufi: nufi,
     yoroi: yoroi,
-    /* wallet-end */
-
-    /* network-begin */
-    cardano: cardano,
-    /* network-end */
 } as const;
-
-export default images;

@@ -1,13 +1,15 @@
 'use client';
+
+import { walletImage } from '@/public/images';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import images from '@/public/images';
 declare const window: any;
 
 export const wallets = [
     {
         name: 'Nami',
-        image: images.nami,
+        image: walletImage.nami,
         api: async function () {
             return await window.cardano.nami.enable();
         },
@@ -19,7 +21,7 @@ export const wallets = [
     },
     {
         name: 'Eternl',
-        image: images.eternl,
+        image: walletImage.eternl,
         api: async function () {
             return window.cardano.eternl.enable();
         },
@@ -31,7 +33,7 @@ export const wallets = [
     },
     {
         name: 'Flint',
-        image: images.flint,
+        image: walletImage.flint,
         api: async function () {
             return await window.cardano.flint.enable();
         },
@@ -43,7 +45,7 @@ export const wallets = [
     },
     {
         name: 'Lace',
-        image: images.lace,
+        image: walletImage.lace,
         api: async function () {
             return await window.cardano.lace.enable();
         },
@@ -55,7 +57,7 @@ export const wallets = [
     },
     {
         name: 'Gero',
-        image: images.gero,
+        image: walletImage.gero,
         api: async function () {
             return await window.cardano.gero.enable();
         },
@@ -67,7 +69,7 @@ export const wallets = [
     },
     {
         name: 'Typhon',
-        image: images.typhon,
+        image: walletImage.typhon,
         api: async function () {
             return await window.cardano.typhon.enable();
         },
@@ -79,7 +81,7 @@ export const wallets = [
     },
     {
         name: 'Vespr',
-        image: images.vespr,
+        image: walletImage.vespr,
         api: async function () {
             return await window.cardano.vespr.enable();
         },
@@ -90,7 +92,7 @@ export const wallets = [
     },
     {
         name: 'Yoroi',
-        image: images.yoroi,
+        image: walletImage.yoroi,
         api: async function () {
             return await window.cardano.yoroi.enable();
         },
@@ -102,7 +104,7 @@ export const wallets = [
     },
     {
         name: 'Nufi',
-        image: images.nufi,
+        image: walletImage.nufi,
         api: async function () {
             return await window.cardano.nufi.enable();
         },
