@@ -1,1 +1,1 @@
-export * from "./mesh/cip68.mesh"
+export * from './mesh/cip68.mesh';
