@@ -5,11 +5,11 @@ type Props = {
     redirect: string;
     name: string;
     isActive: boolean;
-    setSelected: React.Dispatch<React.SetStateAction<string>>;
+    setSelected?: React.Dispatch<React.SetStateAction<string>>;
     className?: string;
 };
 
-export default function NavLink({ redirect, name, isActive, setSelected, className }: Props) {
+export default function NavLink({ redirect, name, isActive, className }: Props) {
     return (
         <li className="">
             <Link

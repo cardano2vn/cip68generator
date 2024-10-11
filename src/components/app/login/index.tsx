@@ -16,7 +16,7 @@ import { WalletType } from '@/types';
 export default function LoginPage() {
     const { connect } = useWalletContext();
     const handleConnectWallet = async function ({ name, image, api }: WalletType) {
-        // await connect({ name, image, api });
+        await connect({ name, image, api });
     };
     return (
         <main className={cn('flex h-full text-[14px]')}>

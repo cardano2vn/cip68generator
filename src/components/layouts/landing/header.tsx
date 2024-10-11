@@ -2,10 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@/utils';
 import { Button } from '@/components/ui/button';
 import routers, { publicRoutes } from '@/constants/routers';
-import Account from '@/components/common/account';
 import NavLink from './nav-link';
 import { appImage } from '@/public/images';
 
@@ -38,8 +36,8 @@ const Header = function () {
             </ul>
 
             {/* connect-wallet-begin */}
-            {/* <Button>Connect Wallet</Button> */}
-            <Account />
+            <Button>Start Create</Button>
+            {/* <Account /> */}
             {/* connect-wallet-end */}
         </header>
     );

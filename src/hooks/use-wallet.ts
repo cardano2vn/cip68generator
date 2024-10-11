@@ -72,7 +72,7 @@ export const useWallet = create<useWalletStore>((set, get) => ({
                 wallet: {
                     name: name,
                     image: image,
-                    balance: Number(balance),
+                    balance: Number((Number(balance) / 1_000_000).toPrecision(6)),
                     address: String(address),
                 },
             });
