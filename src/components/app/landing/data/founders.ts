@@ -1,4 +1,4 @@
-import { founders } from '@/public/images';
+import { founderImage } from '@/public/images';
 import { StaticImageData } from 'next/image';
 
 export const founderData: {
@@ -17,7 +17,7 @@ export const founderData: {
         firstName: 'Tien',
         lastName: 'Nguyen Anh',
         role: 'Computer Science Experts',
-        avatar: founders.tien,
+        avatar: founderImage.tien,
         twitter: 'https://t.me/tiennguyenanh',
         linkedin: 'https://www.linkedin.com/in/tienna/',
         description:
@@ -28,7 +28,7 @@ export const founderData: {
         firstName: 'Hieu',
         lastName: 'Nguyen Van',
         role: 'MSc. Electronics and Telecommunication',
-        avatar: founders.hieu,
+        avatar: founderImage.hieu,
         twitter: 'https://t.me/nvhieu1978',
         linkedin: 'https://www.linkedin.com/in/nguyen-van-hieu-b4410121b/',
         description:
@@ -39,7 +39,7 @@ export const founderData: {
         firstName: 'Son',
         lastName: 'Nguyen Hong',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: founders.son,
+        avatar: founderImage.son,
         twitter: 'https://t.me/tiennguyenanh',
         linkedin: 'https://www.linkedin.com/in/tienna/',
         description: 'More than 2 years of building and operating on the Cardano platform.',
@@ -49,7 +49,7 @@ export const founderData: {
         firstName: 'Khanh',
         lastName: 'Nguyen Duy',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: founders.khanh,
+        avatar: founderImage.khanh,
         twitter: 'https://t.me/nvhieu1978',
         linkedin: 'https://www.linkedin.com/in/nguyen-van-hieu-b4410121b/',
         description: 'More than 2 years of building and operating on the Cardano platform.',
@@ -59,7 +59,7 @@ export const founderData: {
         firstName: 'Dung',
         lastName: 'Phung Tien',
         role: 'Full-stack Developer/Blockchain Developer',
-        avatar: founders.dung,
+        avatar: founderImage.dung,
         twitter: 'https://t.me/tidvn',
         linkedin: 'https://www.linkedin.com/',
         description: 'More than 2 years of building and operating on the Cardano platform.',

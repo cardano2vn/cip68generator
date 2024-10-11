@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { cn } from '@/utils';
 import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
 import { SidebarToggle } from './sidebar-toggle';
-import { Images } from '@/components/common/images';
 import { Icons } from '@/components/common/icons';
 import { MenuList } from './menu-list';
 import { Button } from '@/components/ui/button';
+import { Images } from '@/components/common/images';
 
 export function Sidebar() {
     const sidebar = useSidebarToggle();
