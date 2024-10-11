@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Lexend as FontSans } from 'next/font/google';
 import '@/styles/globals.css';
 import { cn } from '@/utils';
-import Providers from '@/components/provider';
 import { appConfig } from '@/constants';
 import { PropsWithChildren } from 'react';
+import AppProviders from '@/components/providers';
+import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
     title: appConfig.title,
@@ -16,11 +17,12 @@ const fontSans = FontSans({
     weight: ['400', '500', '700'],
 });
 
-const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
+const RootLayout = async function ({ children }: Readonly<PropsWithChildren>) {
+    const session = await auth();
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={cn(fontSans.className)}>
-                <Providers>{children}</Providers>
+                <AppProviders session={session}>{children}</AppProviders>
             </body>
         </html>
     );
