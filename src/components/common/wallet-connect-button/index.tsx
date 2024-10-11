@@ -1,7 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { useWallet, useWalletList } from '@meshsdk/react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,31 +8,21 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { appNetwork } from '@/constants';
+import { appNetwork, wallets } from '@/constants';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
+import Loading from '@/app/loading';
+import { isNil } from 'lodash';
+import { signOut, useSession } from 'next-auth/react';
+import { useWalletContext } from '@/components/providers/wallet';
 
 const CardanoWallet = () => {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [changeAddress, setChangeAddress] = useState('');
-    const { connect, wallet, connected, name, disconnect } = useWallet();
-    useEffect(() => {
-        (async () => {
-            if (!connected || !wallet) return;
-
-            setChangeAddress(await wallet.getChangeAddress());
-        })();
-    }, [connected, wallet]);
-
-    const wallets = useWalletList();
-
-    const handleConnect = async (walletName: string) => {
-        await connect(walletName);
-    };
-
+    const { signIn, wallet } = useWalletContext();
+    const { data: session } = useSession();
     return (
         <div style={{ width: 'min-content', zIndex: 50 }}>
-            {connected && changeAddress ? (
+            {!isNil(wallet) ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <Button
@@ -41,30 +30,30 @@ const CardanoWallet = () => {
                             className="h-15 w-full items-center gap-2 bg-card px-4"
                         >
                             <Image
-                                src={wallets.find((wallet) => wallet.id === name)?.icon || ''}
-                                alt={`${name} icon`}
+                                src={wallet.image || ''}
+                                alt={`${wallet.name} icon`}
                                 height={24}
                                 width={24}
                             />
-                            {changeAddress?.slice(0, 12)}...{changeAddress?.slice(-4)}
+                            {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem
                             onClick={async () => {
-                                await navigator.clipboard.writeText(changeAddress || '');
+                                await navigator.clipboard.writeText(wallet.address || '');
                             }}
                         >
                             Copy Stake Address
                         </DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={async () => {
-                                await navigator.clipboard.writeText(changeAddress || '');
+                                await navigator.clipboard.writeText(wallet.address || '');
                             }}
                         >
                             Copy Change Address
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => disconnect()}>Logout</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             ) : (
@@ -79,15 +68,14 @@ const CardanoWallet = () => {
                                 <div className="flex flex-col items-center gap-4 pt-6">
                                     {wallets.length > 0 ? (
                                         wallets.map((wallet, index) => {
-                                            if (wallet.name === 'MetaMask') return null;
                                             return (
                                                 <Button
                                                     key={index}
                                                     className="h-15 w-full items-center gap-2 bg-card"
-                                                    onClick={() => handleConnect(wallet.id)}
+                                                    onClick={() => signIn(session, wallet)}
                                                 >
                                                     <Image
-                                                        src={wallet.icon || ''}
+                                                        src={wallet.image || ''}
                                                         alt={`${wallet.name} icon`}
                                                         width={32}
                                                         height={32}
@@ -110,6 +98,6 @@ const CardanoWallet = () => {
 };
 
 export const WalletConnectButton = dynamic(() => Promise.resolve(CardanoWallet), {
-    loading: () => <>loading...</>,
+    loading: () => <Loading />,
     ssr: false,
 });
