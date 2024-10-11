@@ -2,9 +2,9 @@ import { Icons } from '@/components/common/icons';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsTrigger } from '@/components/ui/tabs';
 import { TabsList } from '@radix-ui/react-tabs';
-import { SearchBar } from './components/search-bar';
-import TableData from './components/table';
-import ListFileCard from './components/list-file';
+import { SearchBar } from '../components/search-bar';
+import TableData from '../components/file-table';
+import ListFileCard from '../components/list-file';
 export default function MetadataPage() {
     return (
         <div className="mt-5 rounded-lg bg-section p-2">

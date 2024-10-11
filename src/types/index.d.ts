@@ -5,7 +5,7 @@ import { StaticImageData } from 'next/image';
 export type CardanoNetwork = 'mainnet' | 'testnet' | 'preprod';
 declare module 'next-auth' {
     interface User {
-        stakeAddress?: string;
+        address?: string;
         wallet?: string;
     }
 }

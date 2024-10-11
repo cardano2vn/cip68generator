@@ -15,19 +15,19 @@ const authConfig = {
             async authorize(credentials) {
                 const {
                     wallet,
-                    stakeAddress,
+                    address,
                     signature,
                 }: {
                     wallet: string;
-                    stakeAddress: string;
+                    address: string;
                     signature: DataSignature;
                 } = JSON.parse(credentials.data as string);
-                if (isNil(wallet) || isNil(stakeAddress) || isNil(signature)) {
+                if (isNil(wallet) || isNil(address) || isNil(signature)) {
                     throw new Error('Invalid credentials');
                 }
                 const walletNonce = await prisma.walletNonce.findFirst({
                     where: {
-                        stakeAddress: stakeAddress,
+                        address,
                     },
                 });
                 if (isNil(walletNonce) || isNil(walletNonce.nonce)) {
@@ -40,16 +40,16 @@ const authConfig = {
                 }
                 const user = await prisma.user.upsert({
                     where: {
-                        stakeAddress: stakeAddress,
+                        address,
                     },
                     create: {
-                        stakeAddress: stakeAddress,
+                        address,
                     },
                     update: {},
                 });
                 return {
                     id: user.id,
-                    stakeAddress: user.stakeAddress,
+                    address: user.address,
                     wallet: wallet,
                 };
             },
@@ -59,7 +59,7 @@ const authConfig = {
         async signIn({ user }: any) {
             await prisma.walletNonce.update({
                 where: {
-                    stakeAddress: user.stakeAddress,
+                    address: user.address,
                 },
                 data: {
                     nonce: generateNonce('signin to cip68 nft '),
