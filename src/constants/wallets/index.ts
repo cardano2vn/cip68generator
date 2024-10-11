@@ -1,12 +1,13 @@
 'use client';
 
 import { walletImage } from '@/public/images';
+import { WalletType } from '@/types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare const window: any;
 
-export const wallets = [
+export const wallets: WalletType[] = [
     {
         name: 'Nami',
         image: walletImage.nami,

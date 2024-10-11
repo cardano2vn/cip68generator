@@ -1,5 +1,5 @@
 import { Images } from '@/components/common/images';
-import { WalletConnectButton } from '@/components/common/mesh/wallet-connect';
+import { WalletConnectButton } from '@/components/common/wallet-connect-button';
 
 export function Navbar() {
     return (

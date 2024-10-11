@@ -3,6 +3,12 @@ import { BrowserWallet } from '@meshsdk/core';
 import { StaticImageData } from 'next/image';
 
 export type CardanoNetwork = 'mainnet' | 'testnet' | 'preprod';
+declare module 'next-auth' {
+    interface User {
+        stakeAddress?: string;
+        wallet?: string;
+    }
+}
 
 export type WalletType = {
     name: string;

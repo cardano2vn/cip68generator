@@ -10,7 +10,7 @@ import Wallet from '@/components/app/login/components/wallet';
 import { FaTelegramPlane, FaMailBulk, FaYoutube, FaGoogle } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import routers from '@/constants/routers';
-import { useWalletContext } from '@/components/provider/wallet';
+import { useWalletContext } from '@/components/providers/wallet';
 import { WalletType } from '@/types';
 
 export default function LoginPage() {
@@ -20,7 +20,7 @@ export default function LoginPage() {
     };
     return (
         <main className={cn('flex h-full text-[14px]')}>
-            <div className={cn('m-3 flex flex-1 flex-col overflow-hidden rounded-xl bg-[#0d0e12]')}>
+            <div className={cn('m-3 flex flex-1 flex-col rounded-xl bg-[#0d0e12]')}>
                 <div
                     className={cn(
                         'box-border flex h-screen flex-col items-center justify-between px-[14vw] pb-[4vh] pt-[10vh]',
@@ -81,7 +81,7 @@ export default function LoginPage() {
                         {/* web3-begin */}
                         <section
                             className={cn(
-                                'box-border w-[540px] rounded-2xl bg-slate-900 px-[45px] py-[35px] shadow-xl',
+                                'box-border max-w-[540px] rounded-2xl bg-slate-900 px-[45px] py-[35px] shadow-xl max-sm:px-6',
                             )}
                         >
                             <header className={cn('flex items-center justify-between')}>
@@ -89,10 +89,10 @@ export default function LoginPage() {
                                 <h2 className={cn('text-[16px] text-white')}>Mainnet</h2>
                             </header>
 
-                            <aside className={cn('mt-5 flex')}>
+                            <aside className={cn('mt-5 flex max-sm:flex-col')}>
                                 <section
                                     className={cn(
-                                        'item-center mr-[30px] flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgb(238,238,238)] pr-[30px]',
+                                        'item-center mr-[30px] flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgba(238,238,238,0.5)] pr-[30px] max-sm:h-[70px] max-sm:flex-row max-sm:overflow-hidden max-sm:overflow-x-auto max-sm:border-b-[1px] max-sm:border-r-0 max-sm:pb-[30px] max-sm:pr-0',
                                     )}
                                 >
                                     {networks.map(function (network, index: number) {
@@ -108,12 +108,12 @@ export default function LoginPage() {
                                 </section>
                                 <section
                                     className={cn(
-                                        'relative h-[230px] flex-1 overflow-y-auto overflow-x-hidden transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:bg-gray-700 before:opacity-0 before:content-[""] after:bottom-0',
+                                        'relative h-[230px] flex-1 overflow-y-auto overflow-x-hidden transition-all duration-100 ease-in-out before:absolute before:left-0 before:right-0 before:h-[50px] before:bg-gray-700 before:opacity-0 before:content-[""] after:bottom-0 max-sm:h-[230px] max-sm:w-full',
                                     )}
                                 >
                                     <ul
                                         className={cn(
-                                            'mr-[-20px] flex h-full flex-col gap-3 overflow-y-auto overflow-x-hidden pr-[20px]',
+                                            'mr-[-20px] flex h-full flex-col gap-3 overflow-y-auto overflow-x-hidden pr-[20px] max-sm:mt-5 max-sm:w-full max-sm:pr-0',
                                         )}
                                     >
                                         {wallets.map(function (wallet, index: number) {

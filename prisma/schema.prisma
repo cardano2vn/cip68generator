@@ -15,19 +15,68 @@ datasource db {
 
 model User {
   id           String   @id @default(cuid())
-  stakeAddress String   @unique @map(name: "stake_address")
+  address String   @unique @map(name: "address")
   createdAt    DateTime @default(now()) @map(name: "created_at")
   updatedAt    DateTime @updatedAt @map(name: "updated_at")
 
   @@map(name: "users")
+  Media Media[]
+  Collection Collection[]
 }
 
 model WalletNonce {
   id           String   @id @default(cuid())
-  stakeAddress String   @unique @map(name: "stake_address")
+  address String   @unique @map(name: "address")
   nonce        String   @unique @default(uuid())
   createdAt    DateTime @default(now()) @map(name: "created_at")
   updatedAt    DateTime @updatedAt @map(name: "updated_at")
 
   @@map(name: "wallet_nonces")
 }
+
+model Wallet {
+  id           String   @id @default(cuid())
+  address String   @unique @map(name: "address")
+  balance      String   @map(name: "balance")
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "wallets")
+}
+
+model Collection {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+  userId       String   @map(name: "user_id")
+  user         User     @relation(fields: [userId], references: [id])
+  thumbnail    String   @map(name: "thumbnail")
+  title        String   @map(name: "title")
+  description  String   @map(name: "description")
+
+  @@map(name: "collections")
+  Metadata Metadata[]
+}
+
+model Metadata {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+  content     Json   @map(name: "content")
+  collectionId String   @map(name: "collection_id")
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  @@map(name: "metadata")
+}
+
+model Media {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+  userId       String   @map(name: "user_id")
+  user         User     @relation(fields: [userId], references: [id])
+  name     String   @map(name: "name")
+  type     String   @map(name: "type")
+  url      String   @map(name: "url")
+  @@map(name: "media")
+}
+
