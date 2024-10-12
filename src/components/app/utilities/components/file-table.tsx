@@ -10,15 +10,12 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Copy, MoreVertical, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Media } from '@prisma/client';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import Image from 'next/image';
+import { ipfsConfig } from '@/constants';
 
-export default function TableData() {
-    const file = {
-        name: 'VSDHBJCKJC.PNG',
-        size: '2.34 MB',
-        cid: 'QMBSCM6E6CR..VDDVMECRQT',
-        date: '10/30/2023',
-    };
-
+export default function TableData({ listMedia }: { listMedia: Media[] }) {
     return (
         <div className="w-full space-y-4 rounded-lg p-4">
             <div className="overflow-x-auto">
@@ -32,7 +29,7 @@ export default function TableData() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {Array.from({ length: 10 }, () => file).map((file, index) => (
+                        {listMedia.map((file, index) => (
                             <TableRow key={index} className="mb-2 rounded-lg">
                                 <TableCell className="rounded-l-lg font-medium">
                                     <div className="flex items-center space-x-4">
@@ -41,25 +38,33 @@ export default function TableData() {
                                             className="rounded-full"
                                         />
                                         <div className="h-10 w-10 overflow-hidden rounded-lg">
-                                            <img
-                                                src="https://placehold.co/40x40/EEE/31343C"
-                                                alt="File thumbnail"
-                                                className="h-full w-full object-cover"
-                                            />
+                                            <AspectRatio ratio={10 / 10} className="bg-muted">
+                                                <Image
+                                                    src={
+                                                        ipfsConfig.gateway +
+                                                        file.url.replace('ipfs://', '')
+                                                    }
+                                                    alt={file.name}
+                                                    fill
+                                                    className="h-full w-full rounded-md object-cover"
+                                                />
+                                            </AspectRatio>
                                         </div>
                                         <div>
                                             <div className="">{file.name}</div>
-                                            <div className="text-sm">{file.size}</div>
+                                            <div className="text-sm">{file.type}</div>
                                         </div>
                                     </div>
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
                                     <div className="flex items-center space-x-2">
-                                        <span className="">{file.cid}</span>
+                                        <span className="">{file.url}</span>
                                         <Copy className="h-5 w-5" />
                                     </div>
                                 </TableCell>
-                                <TableCell className="hidden sm:table-cell">{file.date}</TableCell>
+                                <TableCell className="hidden sm:table-cell">
+                                    {file.createdAt.toLocaleDateString()}
+                                </TableCell>
                                 <TableCell className="rounded-r-lg text-right">
                                     <Button variant="ghost" size="icon" className="hover:">
                                         <MoreVertical className="h-5 w-5" />

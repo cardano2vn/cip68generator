@@ -1,9 +1,3 @@
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
-import { ImagePlus } from 'lucide-react';
-
 export default function MintOnePage() {
     return (
         <div className="rounded-lg bg-section p-2">

@@ -1,3 +1,5 @@
+import UploadIpfsPage from '@/components/app/utilities/storage/upload';
+
 export default function page() {
-    return <div> page</div>;
+    return <UploadIpfsPage />;
 }
