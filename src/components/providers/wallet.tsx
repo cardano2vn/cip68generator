@@ -23,7 +23,6 @@ export default function WalletProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         (async () => {
-            console.count('load');
             if (isNil(session)) {
                 disconnect();
                 return;

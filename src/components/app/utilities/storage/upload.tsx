@@ -1,5 +1,32 @@
+'use client';
+import { useState } from 'react';
+import ImagePicker from '../components/image-picker';
 import ListImageCard from '../components/list-image';
+import { Button } from '@/components/ui/button';
+import { uploadIPFS } from '@/services/upload';
 export default function UploadIpfsPage() {
+    const [files, setFiles] = useState<File[]>([]);
+
+    const handleUpload = async () => {
+        if (files) {
+            const formData = new FormData();
+            const pinataMetadata = JSON.stringify({
+                name: `ipfs-upload-${new Date().toISOString()}`,
+            });
+            formData.append('pinataMetadata', pinataMetadata);
+            Array.from(files).forEach((file) => {
+                formData.append('file', file);
+            });
+            uploadIPFS(formData).then(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.error(error);
+                },
+            );
+        }
+    };
     return (
         <div className="mt-5 rounded-lg bg-section p-4">
             <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
@@ -9,22 +36,9 @@ export default function UploadIpfsPage() {
             </p>
             <div className="mt-5">
                 <div className="px-4">
-                    <div className="flex w-full items-center rounded-lg bg-gray-800 p-4">
-                        <label
-                            htmlFor="file-upload"
-                            className="cursor-pointer rounded-md bg-blue-600 p-2"
-                        >
-                            Upload File
-                        </label>
-                        <input
-                            id="file-upload"
-                            type="file"
-                            className="hidden"
-                            multiple
-                            // onChange={handleFileUpload}
-                        />
-                    </div>
-                    <ListImageCard />
+                    <ImagePicker setFiles={setFiles} />
+                    {files && <ListImageCard files={files} setFiles={setFiles} />}
+                    <Button onClick={handleUpload}>Upload</Button>
                 </div>
             </div>
         </div>

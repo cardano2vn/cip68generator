@@ -19,7 +19,6 @@ export function MenuList() {
                 <div className="boder-r-2 flex min-h-[calc(100vh-48px-36px-16px-32px)] flex-col items-start space-y-2 px-[4.5px] lg:min-h-[calc(100vh-32px-40px-32px)]">
                     {mainMenu.map(({ title, href, icon, disabled }, index) => {
                         const Icon = Icons[icon || 'arrowRight'];
-                        console.log(href, pathname);
                         const active = pathname === href;
                         return (
                             <div className="h-10 w-full" key={index}>
