@@ -1,6 +1,8 @@
-const appConfig = {
+export const appConfig = {
     title: 'cip68_nft',
     description: '',
 };
-
-export { appConfig };
+export const uploadConfig = {
+    maxFiles: 50,
+    maxSize: 5,
+};

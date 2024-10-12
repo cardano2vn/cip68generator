@@ -3,7 +3,11 @@ const nextConfig = {
     serverExternalPackages: ['@meshsdk/core', '@meshsdk/core-cst', '@meshsdk/react'],
     experimental: {
         after: true,
+        serverActions: {
+            bodySizeLimit: '100mb',
+        },
     },
+
     output: 'standalone',
     reactStrictMode: true,
     webpack: function (config, _) {

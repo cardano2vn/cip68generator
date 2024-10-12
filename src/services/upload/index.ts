@@ -1,3 +1,5 @@
-import { pinataUpload } from './pinata';
+// import { infuraUpload } from './infura';
+import { kudoUpload } from './kudo';
+// import { pinataUpload } from './pinata';
 
-export { pinataUpload as uploadIPFS };
+export { kudoUpload as uploadIPFS };
