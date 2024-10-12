@@ -15,11 +15,9 @@ export default function MintOnePage() {
                 <div className="h-[600px] rounded-lg bg-slate-600"></div>
             </div> */}
             <div className="mx-auto max-w-4xl rounded-lg bg-gray-900 p-6 text-gray-300">
-                
-
                 {/* Right side empty area */}
                 <div className="mt-6 h-96 rounded-lg border-2 border-dashed border-gray-700">
-                  dxcfgvjhb
+                    dxcfgvjhb
                 </div>
             </div>
         </div>

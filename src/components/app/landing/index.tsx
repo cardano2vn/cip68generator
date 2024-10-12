@@ -209,11 +209,7 @@ export default function LandingPage() {
             {/* founder-end */}
 
             {/* bottom-begin */}
-            <section className={cn('px-auto pb-[50px] pt-[100px]')}>
-                <aside className={cn('mx-auto my-0 w-full max-w-[1200px]')}>
-                    <Footer />
-                </aside>
-            </section>
+            <Footer />
             {/* bottom-end */}
         </main>
     );
