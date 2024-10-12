@@ -19,7 +19,14 @@ export default function FaqPage() {
             <Title />
             <section className="mx-auto my-0 flex w-full max-w-[1024px] flex-wrap justify-between py-2 text-left">
                 {faqs.map(function (faq, index: number) {
-                    return <FaqItem key={index} Children={faq.Children} title={faq.title} />;
+                    return (
+                        <FaqItem
+                            index={index}
+                            key={index}
+                            Children={faq.Children}
+                            title={faq.title}
+                        />
+                    );
                 })}
             </section>
             <Footer />

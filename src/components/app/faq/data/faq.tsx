@@ -477,6 +477,8 @@ const faqs: { title: string; Children: () => JSX.Element }[] = [
                     </h2>
 
                     <div>
+                        {/*  eslint-disable @typescript-eslint/no-explicit-any  */}
+
                         {smartContractGuides.map(function (
                             { id, title, description, bonus }: any,
                             index,
