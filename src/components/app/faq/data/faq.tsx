@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import GuideStep from '../components/faq-step';
 import { cn } from '@/utils';
 
