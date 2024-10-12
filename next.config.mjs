@@ -7,6 +7,16 @@ const nextConfig = {
             bodySizeLimit: '100mb',
         },
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: '18.143.169.117',
+                port: '8080',
+                pathname: '/ipfs/**',
+            },
+        ],
+    },
 
     output: 'standalone',
     reactStrictMode: true,

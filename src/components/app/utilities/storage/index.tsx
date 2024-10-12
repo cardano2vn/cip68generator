@@ -6,7 +6,9 @@ import { SearchBar } from '../components/search-bar';
 import TableData from '../components/file-table';
 import ListFileCard from '../components/list-file';
 import Link from 'next/link';
-export default function StogarePage() {
+import { getMedia } from '@/services/media';
+export default async function StogarePage() {
+    const listMedia = await getMedia();
     return (
         <div className="mt-5 rounded-lg bg-section p-2">
             <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
@@ -52,10 +54,10 @@ export default function StogarePage() {
                     </div>
                     <SearchBar />
                     <TabsContent value="list">
-                        <TableData />
+                        <TableData listMedia={listMedia} />
                     </TabsContent>
                     <TabsContent value="grid">
-                        <ListFileCard />
+                        <ListFileCard listMedia={listMedia} />
                     </TabsContent>
                 </Tabs>
             </div>

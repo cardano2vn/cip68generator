@@ -8,5 +8,5 @@ export const Images = {
     ),
     metadata: (props: LucideProps) => (
         <Image src={appImage.metadata} className={props.className} alt="metadata" />
-    ),
+    )
 };
