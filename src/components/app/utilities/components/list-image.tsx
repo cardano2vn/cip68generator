@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
 
 export default function ListImageCard({
     files,
