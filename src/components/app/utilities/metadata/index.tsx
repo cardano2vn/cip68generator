@@ -49,10 +49,10 @@ export default function MetadataPage() {
                     </div>
                     <SearchBar />
                     <TabsContent value="list">
-                        <TableData />
+                        <TableData listMedia={[]} />
                     </TabsContent>
                     <TabsContent value="grid">
-                        <ListFileCard />
+                        <ListFileCard listMedia={[]} />
                     </TabsContent>
                 </Tabs>
             </div>

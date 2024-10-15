@@ -29,16 +29,24 @@ export function Sidebar() {
                     variant="link"
                     asChild
                 >
-                    <Link href="/dashboard" className="flex items-center gap-2">
-                        <Icons.logo className="mr-1 h-6 w-6" />
-                        <Images.logo
+                    <Link
+                        href="/dashboard"
+                        className="flex items-center no-underline hover:no-underline"
+                    >
+                        <Images.logo className="h-4 w-4" />
+                        <p
                             className={cn(
-                                'whitespace-nowrap p-10 text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out',
+                                'ml-2 whitespace-nowrap text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out',
                                 sidebar?.isOpen === false
                                     ? 'hidden -translate-x-96 opacity-0'
                                     : 'translate-x-0 opacity-100',
                             )}
-                        />
+                        >
+                            Generator
+                        </p>
+                        {/* <Images.logo
+                            }
+                        /> */}
                     </Link>
                 </Button>
                 <MenuList />
