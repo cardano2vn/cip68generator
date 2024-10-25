@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Lexend as FontSans } from 'next/font/google';
 import '@/styles/globals.css';
+import 'react-vertical-timeline-component/style.min.css';
 import { cn } from '@/utils';
 import { appConfig } from '@/constants';
 import { PropsWithChildren } from 'react';
