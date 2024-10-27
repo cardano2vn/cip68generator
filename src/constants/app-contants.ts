@@ -1,5 +1,5 @@
 export const appConfig = {
-    title: 'cip68_nft',
+    title: 'CIP68 Generator',
     description: '',
 };
 export const uploadConfig = {
