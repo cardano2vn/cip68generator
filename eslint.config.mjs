@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ["**/node_modules", "**/.eslintrc.js", "src/components/ui"],
+    ignores: ["**/node_modules", "**/.eslintrc.js", "src/components/ui/**"],
   },
   ...compat.extends(
     "eslint:recommended",
