@@ -48,8 +48,12 @@ export default function MetadataPage() {
                         </div>
                     </div>
                     <SearchBar />
-                    <TabsContent value="list">{/* <TableData /> */}</TabsContent>
-                    <TabsContent value="grid">{/* <ListFileCard /> */}</TabsContent>
+                    <TabsContent value="list">
+                        <TableData listMedia={[]} />
+                    </TabsContent>
+                    <TabsContent value="grid">
+                        <ListFileCard listMedia={[]} />
+                    </TabsContent>
                 </Tabs>
             </div>
         </div>
