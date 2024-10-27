@@ -12,8 +12,8 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
-import ImagePicker from "../../_components/image-picker";
-import ListImageCard from "../../_components/list-image";
+import ImagePicker from "../../../_components/image-picker";
+import ListImageCard from "../../../_components/list-image";
 export default function UploadIpfsPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [alert, showAlert] = useState<any>(null);
@@ -56,7 +56,7 @@ export default function UploadIpfsPage() {
               Continue upload
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => router.push("/dashboard/storage")}
+              onClick={() => router.push("/dashboard/utilities/storage")}
             >
               Go to Storage
             </AlertDialogAction>

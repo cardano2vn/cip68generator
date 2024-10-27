@@ -13,6 +13,5 @@ export async function getMedia() {
       userId: userId,
     },
   });
-  console.log("media", media);
   return media;
 }

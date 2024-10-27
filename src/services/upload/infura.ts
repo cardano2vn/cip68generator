@@ -1,6 +1,5 @@
 "use server";
 export async function infuraUpload(formData: FormData) {
-  console.log("formData", formData);
   const request = await fetch("https://ipfs.infura.io:5001/api/v0/add", {
     method: "POST",
     headers: {

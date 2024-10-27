@@ -1,12 +1,21 @@
 import { Icons } from "@/components/common/icons";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { getMedia } from "@/services/media";
+import { getMedia } from "@/services/database/media";
 import { SearchBar } from "../_components/search-bar";
 import TableData from "../_components/file-table";
 import ListFileCard from "../_components/list-file";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/utils";
 export default async function StogarePage() {
   const listMedia = await getMedia();
   return (
@@ -51,11 +60,25 @@ export default async function StogarePage() {
                   Delete
                 </Button>
               </div>
-              <Link href="/dashboard/storage/create">
-                <Button className="bg-orange-500 text-white hover:bg-orange-600">
-                  Create New
-                </Button>
-              </Link>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  className={cn(
+                    buttonVariants({ variant: "default" }),
+                    "bg-orange-500 text-white hover:bg-orange-600 border-none",
+                  )}
+                >
+                  Upload New
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <Link href="storage/upload/file">
+                    <DropdownMenuItem> Upload File</DropdownMenuItem>
+                  </Link>
+                  <Link href="storage/upload/folder">
+                    <DropdownMenuItem> Upload Folder</DropdownMenuItem>
+                  </Link>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
           <SearchBar />

@@ -27,7 +27,7 @@ export default function UtilitiesPage() {
         </Link>
 
         <Link
-          href="/dashboard/storage"
+          href="/dashboard/utilities/storage"
           className="rounded-lg shadow-none transition-shadow duration-300 hover:shadow-lg hover:shadow-teal-400"
         >
           <Card className="h-full">
