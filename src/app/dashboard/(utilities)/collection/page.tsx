@@ -1,5 +1,5 @@
-import CollectionPage from '@/components/app/utilities/collection';
+import CollectionPage from "@/components/app/utilities/collection";
 
 export default function page() {
-    return <CollectionPage />;
+  return <CollectionPage />;
 }

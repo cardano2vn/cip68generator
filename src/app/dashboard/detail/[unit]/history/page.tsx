@@ -1,5 +1,5 @@
-import DetailHistoryPage from '@/components/app/detail/history';
+import DetailHistoryPage from "@/components/app/detail/history";
 
 export default function page() {
-    return <DetailHistoryPage />;
+  return <DetailHistoryPage />;
 }

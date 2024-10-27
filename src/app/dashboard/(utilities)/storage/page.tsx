@@ -1,5 +1,5 @@
-import StogarePage from '@/components/app/utilities/storage';
+import StogarePage from "@/components/app/utilities/storage";
 
 export default function page() {
-    return <StogarePage />;
+  return <StogarePage />;
 }
