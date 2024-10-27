@@ -1,5 +1,5 @@
-import MetadataPage from '@/components/app/utilities/metadata';
+import MetadataPage from "@/components/app/utilities/metadata";
 
 export default function Page() {
-    return <MetadataPage />;
+  return <MetadataPage />;
 }
