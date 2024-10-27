@@ -13,6 +13,7 @@ import { appImage } from '@/public/images';
 export default function LandingPage() {
     return (
         <main className={cn('relative bg-[#0d0e12] px-4')}>
+            <Header />
             {/* background-begin */}
             <section className={cn('absolute inset-0 -z-10 h-full w-full')}>
                 <Image src={appImage.logo} alt="Background" className={cn('h-full w-full')} />
@@ -21,7 +22,6 @@ export default function LandingPage() {
 
             {/* banner-begin */}
             <section className={cn('px-0 pt-[215px]')}>
-                <Header />
                 <aside className={cn('mx-auto my-0 w-full max-w-[1200px]')}>
                     {/* slogan-begin */}
                     <section className={cn('text-center')}>
@@ -46,8 +46,12 @@ export default function LandingPage() {
 
                     {/* links-begin */}
                     <section className={cn('mt-[60px] flex justify-center gap-10')}>
-                        <Button>Launch Token</Button>
-                        <Button>Subcription</Button>
+                        <Button className="box-border flex cursor-pointer items-center rounded-[10px] px-6 py-0 text-[16px] font-medium leading-8 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                            Launch Token
+                        </Button>
+                        <Button className="box-border flex cursor-pointer items-center rounded-[10px] px-6 py-0 text-[16px] font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                            Subcription
+                        </Button>
                     </section>
                     {/* links-end */}
 
@@ -208,13 +212,9 @@ export default function LandingPage() {
             </section>
             {/* founder-end */}
 
-            {/* bottom-begin */}
-            <section className={cn('px-auto pb-[50px] pt-[100px]')}>
-                <aside className={cn('mx-auto my-0 w-full max-w-[1200px]')}>
-                    <Footer />
-                </aside>
-            </section>
-            {/* bottom-end */}
+            {/* footer-begin */}
+            <Footer />
+            {/* footer-end */}
         </main>
     );
 }

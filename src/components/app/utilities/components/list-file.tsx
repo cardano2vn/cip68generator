@@ -1,23 +1,15 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import FileCard from './file-card';
+import { Media } from '@prisma/client';
 
-export default function ListFileCard() {
-    const file = {
-        name: 'VSDHBJCKJC.PNG',
-        size: '2.34 MB',
-        cid: 'QMBSCM6E6CR..VDDVMECRQT',
-        date: '10/30/2023',
-    };
-
+export default function ListFileCard({ listMedia }: { listMedia: Media[] }) {
     return (
         <div className="w-full space-y-4 rounded-lg p-4">
             <div className="overflow-x-auto">
                 <div className="md:grid-col-2 grid grid-cols-1 gap-4 lg:grid-cols-3 xl:grid-cols-4">
-                    {Array.from({ length: 12 }, () => file).map((file, index) => (
-                        <FileCard key={index} />
+                    {listMedia.map((file, index) => (
+                        <FileCard file={file} key={index} />
                     ))}
                 </div>
             </div>

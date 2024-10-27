@@ -14,6 +14,8 @@ import lace from './wallet/lace.png';
 import yoroi from './wallet/yoroi.png';
 import nufi from './wallet/nufi.png';
 
+import faq from './banner/faq.jpg';
+
 import logo from './common/logo.png';
 
 import cardano from './network/cardano.png';
@@ -44,4 +46,8 @@ export const walletImage = {
     lace: lace,
     nufi: nufi,
     yoroi: yoroi,
+} as const;
+
+export const bannerImage = {
+    faq: faq,
 } as const;
