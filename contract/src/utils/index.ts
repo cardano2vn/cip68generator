@@ -1,6 +1,11 @@
-import { BlockfrostProvider, stringToBSArray, stringToHex, UTxO } from '@meshsdk/core';
-import crypto from 'crypto';
-import plutus from '../../plutus.json';
+import {
+  BlockfrostProvider,
+  stringToBSArray,
+  stringToHex,
+  UTxO,
+} from "@meshsdk/core";
+import crypto from "crypto";
+import plutus from "../../plutus.json";
 
 /**
  * @description Read validator compilecode from plutus
@@ -10,16 +15,19 @@ import plutus from '../../plutus.json';
  * @returns - Compilecode
  */
 
-export const readValidator = function (title: string, version?: string): string {
-    const validator = plutus.validators.find(function (validator) {
-        return validator.title === title;
-    });
+export const readValidator = function (
+  title: string,
+  version?: string,
+): string {
+  const validator = plutus.validators.find(function (validator) {
+    return validator.title === title;
+  });
 
-    if (!validator) {
-        throw new Error(`${title} validator not found.`);
-    }
+  if (!validator) {
+    throw new Error(`${title} validator not found.`);
+  }
 
-    return validator.compiledCode;
+  return validator.compiledCode;
 };
 
 /**
@@ -30,9 +38,13 @@ export const readValidator = function (title: string, version?: string): string 
  * @returns - Asset name unique
  */
 export const getUniqueAssetName = async function (utxo: UTxO): Promise<string> {
-    const hash = new Uint8Array(await crypto.subtle.digest('SHA3-256', fromHex(utxo.input.txHash)));
+  const hash = new Uint8Array(
+    await crypto.subtle.digest("SHA3-256", fromHex(utxo.input.txHash)),
+  );
 
-    return toHex(new Uint8Array([utxo.input.outputIndex])) + toHex(hash.slice(0, 27));
+  return (
+    toHex(new Uint8Array([utxo.input.outputIndex])) + toHex(hash.slice(0, 27))
+  );
 };
 
 /**
@@ -43,18 +55,18 @@ export const getUniqueAssetName = async function (utxo: UTxO): Promise<string> {
  * @returns - Asset name unique
  */
 function fromHex(hex: string): Uint8Array {
-    if (hex.length % 2 !== 0) {
-        throw new Error('Hex string must have an even number of characters.');
-    }
+  if (hex.length % 2 !== 0) {
+    throw new Error("Hex string must have an even number of characters.");
+  }
 
-    const length = hex.length / 2;
-    const uint8Array = new Uint8Array(length);
+  const length = hex.length / 2;
+  const uint8Array = new Uint8Array(length);
 
-    for (let i = 0; i < length; i++) {
-        uint8Array[i] = parseInt(hex.substr(i * 2, 2), 16);
-    }
+  for (let i = 0; i < length; i++) {
+    uint8Array[i] = parseInt(hex.substr(i * 2, 2), 16);
+  }
 
-    return uint8Array;
+  return uint8Array;
 }
 
 /**
@@ -65,7 +77,9 @@ function fromHex(hex: string): Uint8Array {
  * @returns - Asset name unique
  */
 function toHex(uint8Array: Uint8Array): string {
-    return Array.from(uint8Array, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return Array.from(uint8Array, (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
 }
 
 /**
@@ -75,9 +89,13 @@ function toHex(uint8Array: Uint8Array): string {
  * @param utxo - UTxO used to generate unique asset name
  * @returns - Asset name unique
  */
-export async function fetchUtxo(provider: BlockfrostProvider, address: string, txHash: string) {
-    const utxos = await provider.fetchAddressUTxOs(address);
-    return utxos.find((utxo) => {
-        return utxo.input.txHash == txHash;
-    });
+export async function fetchUtxo(
+  provider: BlockfrostProvider,
+  address: string,
+  txHash: string,
+) {
+  const utxos = await provider.fetchAddressUTxOs(address);
+  return utxos.find((utxo) => {
+    return utxo.input.txHash == txHash;
+  });
 }
