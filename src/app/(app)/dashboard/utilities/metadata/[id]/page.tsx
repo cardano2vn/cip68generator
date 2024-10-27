@@ -2,16 +2,13 @@ import { Icons } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
-import { SearchBar } from "../components/search-bar";
-import TableData from "../components/file-table";
-import ListFileCard from "../components/list-file";
-import Link from "next/link";
-import { getMedia } from "@/services/media";
-export default async function StogarePage() {
-  const listMedia = await getMedia();
+import { SearchBar } from "../../_components/search-bar";
+import TableData from "../../_components/file-table";
+import ListFileCard from "../../_components/list-file";
+export default function MetadataPage() {
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
-      <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
+      <h1 className="text-2xl font-semibold leading-7">Metadata</h1>
       <div className="mt-5">
         <Tabs defaultValue="list" className="px-4">
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg p-2">
@@ -51,19 +48,17 @@ export default async function StogarePage() {
                   Delete
                 </Button>
               </div>
-              <Link href="/dashboard/storage/create">
-                <Button className="bg-orange-500 text-white hover:bg-orange-600">
-                  Create New
-                </Button>
-              </Link>
+              <Button className="bg-orange-500 text-white hover:bg-orange-600">
+                Create New
+              </Button>
             </div>
           </div>
           <SearchBar />
           <TabsContent value="list">
-            <TableData listMedia={listMedia} />
+            <TableData listMedia={[]} />
           </TabsContent>
           <TabsContent value="grid">
-            <ListFileCard listMedia={listMedia} />
+            <ListFileCard listMedia={[]} />
           </TabsContent>
         </Tabs>
       </div>

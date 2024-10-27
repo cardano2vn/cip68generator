@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
-import ImagePicker from "../components/image-picker";
-import ListImageCard from "../components/list-image";
 import { Button } from "@/components/ui/button";
 import { uploadIPFS } from "@/services/upload";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +12,8 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
+import ImagePicker from "../../../_components/image-picker";
+import ListImageCard from "../../../_components/list-image";
 export default function UploadIpfsPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [alert, showAlert] = useState<any>(null);
