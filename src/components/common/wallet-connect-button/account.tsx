@@ -15,28 +15,26 @@ export default function Account() {
 
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button
-          className={cn(
-            "flex items-center gap-2 rounded-3xl bg-slate-800 px-2 py-6",
-          )}
-        >
-          <div className={cn("h-8 w-8")}>
-            <Image
-              className={cn(
-                "h-full w-full rounded-full bg-slate-300 object-cover p-1",
-              )}
-              src={wallet.image || ""}
-              alt={`${wallet.name} icon`}
-            />
-          </div>
-          <div className={cn("")}>
-            <h2 className={cn("")}>
-              {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
-            </h2>
-            <p className={cn("text-left")}>{wallet.balance} ₳</p>
-          </div>
-        </Button>
+      <PopoverTrigger
+        className={cn(
+          "flex items-center h-10 gap-2 rounded-3xl bg-slate-800 px-2 py-6",
+        )}
+      >
+        <div className={cn("h-8 w-8")}>
+          <Image
+            className={cn(
+              "h-full w-full rounded-full bg-slate-300 object-cover p-1",
+            )}
+            src={wallet.image || ""}
+            alt={`${wallet.name} icon`}
+          />
+        </div>
+        <div className={cn("")}>
+          <h2 className={cn("")}>
+            {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
+          </h2>
+          <p className={cn("text-left")}>{wallet.balance} ₳</p>
+        </div>
       </PopoverTrigger>
       <PopoverContent
         className={cn("mt-3 flex min-w-[315px] flex-col gap-4 rounded-xl p-5")}
