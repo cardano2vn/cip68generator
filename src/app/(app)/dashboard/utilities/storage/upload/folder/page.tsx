@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import ImagePicker from "../../../_components/image-picker";
 import ListImageCard from "../../../_components/list-image";
-export default function UploadIpfsPage() {
+export default function UploadFolderPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [alert, showAlert] = useState<any>(null);
   const { toast } = useToast();

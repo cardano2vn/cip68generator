@@ -15,3 +15,31 @@ export const publicRoutes = [
   { name: "About", redirect: router.about },
   { name: "Faq", redirect: router.faq },
 ];
+
+export const dashboardRoutes = {
+  home: {
+    redirect: "/dashboard",
+  },
+  utilities: {
+    redirect: "/dashboard/utilities",
+    children: {
+      collection: {
+        redirect: "/dashboard/collection",
+      },
+      storage: {
+        redirect: "/dashboard/utilities/storage",
+        children: {
+          uploadFile: {
+            redirect: "/dashboard/utilities/storage/upload/file",
+          },
+          uploadFolder: {
+            redirect: "/dashboard/utilities/storage/upload/folder",
+          },
+        },
+      },
+      fastCollection: {
+        redirect: "/dashboard/utilities/fast-collection",
+      },
+    },
+  },
+};

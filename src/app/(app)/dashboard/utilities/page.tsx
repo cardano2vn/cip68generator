@@ -2,13 +2,14 @@ import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Images } from "@/components/common/images";
 import Link from "next/link";
+import { dashboardRoutes } from "@/constants/routers";
 export default function UtilitiesPage() {
   return (
     <div className="rounded-lg bg-section p-2">
       <h1 className="text-2xl font-semibold leading-7">Utilities</h1>
       <div className="mt-2 grid grid-cols-1 gap-4 p-4 md:grid-cols-3">
         <Link
-          href="/dashboard/collection"
+          href={dashboardRoutes.utilities.children.collection.redirect}
           className="rounded-lg shadow-none transition-shadow duration-300 hover:shadow-lg hover:shadow-teal-400"
         >
           <Card className="h-full">
@@ -27,7 +28,7 @@ export default function UtilitiesPage() {
         </Link>
 
         <Link
-          href="/dashboard/utilities/storage"
+          href={dashboardRoutes.utilities.children.storage.redirect}
           className="rounded-lg shadow-none transition-shadow duration-300 hover:shadow-lg hover:shadow-teal-400"
         >
           <Card className="h-full">

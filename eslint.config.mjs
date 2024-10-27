@@ -50,9 +50,8 @@ const eslintConfig = [
     },
 
     rules: {
-      "prettier/prettier": 1,
+      "prettier/prettier": "error",
       "react/react-in-jsx-scope": "off",
-
       "jsx-a11y/anchor-is-valid": [
         "error",
         {

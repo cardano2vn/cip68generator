@@ -1,9 +1,9 @@
+"use client";
 import { Icons } from "@/components/common/icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { getMedia } from "@/services/database/media";
 import { SearchBar } from "../_components/search-bar";
 import TableData from "../_components/file-table";
 import ListFileCard from "../_components/list-file";
@@ -11,13 +11,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/utils";
-export default async function StogarePage() {
-  const listMedia = await getMedia();
+import { dashboardRoutes } from "@/constants/routers";
+import { useUploadContext } from "./_context";
+export default function StogarePage() {
+  const { listMedia } = useUploadContext();
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
       <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
@@ -71,10 +71,20 @@ export default async function StogarePage() {
                   Upload New
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <Link href="storage/upload/file">
+                  <Link
+                    href={
+                      dashboardRoutes.utilities.children.storage.children
+                        .uploadFile.redirect
+                    }
+                  >
                     <DropdownMenuItem> Upload File</DropdownMenuItem>
                   </Link>
-                  <Link href="storage/upload/folder">
+                  <Link
+                    href={
+                      dashboardRoutes.utilities.children.storage.children
+                        .uploadFolder.redirect
+                    }
+                  >
                     <DropdownMenuItem> Upload Folder</DropdownMenuItem>
                   </Link>
                 </DropdownMenuContent>
