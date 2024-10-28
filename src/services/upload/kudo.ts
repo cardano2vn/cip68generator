@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+import { IPFS_ENDPOINT } from "@/constants";
 import mimeTypes from "@/constants/mimeTypes";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -14,7 +15,8 @@ export async function kudoUpload(formData: FormData) {
   }
   try {
     const response = await axios.post(
-      "http://18.143.169.117:5001/api/v0/add?stream-channels=true&pin=false&wrap-with-directory=false&progress=false",
+      IPFS_ENDPOINT +
+        "/api/v0/add?stream-channels=true&pin=false&wrap-with-directory=false&progress=false",
       formData,
       {
         headers: {
@@ -57,7 +59,8 @@ export async function kudoUpload(formData: FormData) {
 }
 
 async function cp(argCid: string, argName: string) {
-  const url = `http://18.143.169.117:5001/api/v0/files/cp?arg=/ipfs/${argCid}&arg=/${argName}`;
+  const url =
+    IPFS_ENDPOINT + `/api/v0/files/cp?arg=/ipfs/${argCid}&arg=/${argName}`;
   try {
     const response = await axios.post(url, null, {
       headers: {
