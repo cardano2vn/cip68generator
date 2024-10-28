@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { SearchBar } from "../components/search-bar";
-import ListFolderCard from "../components/list-folder";
-import { CreateCollection } from "../components/create-collection-button";
+import { CreateCollection } from "../_components/create-collection-button";
+import { SearchBar } from "../_components/search-bar";
+import ListFolderCard from "../_components/list-folder";
 export default function CollectionPage() {
   return (
     <div className="mt-5 rounded-lg bg-section p-2">

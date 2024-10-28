@@ -8,5 +8,6 @@ const appNetwork: CardanoNetwork =
 
 const BACKEND_URL = process.env.BACKEND_URL || "";
 const CONTEXT_PATH = process.env.CONTEXT_PATH || "/api";
+const IPFS_ENDPOINT = process.env.IPFS_ENDPOINT || "";
 
-export { appNetwork, BACKEND_URL, CONTEXT_PATH };
+export { appNetwork, BACKEND_URL, CONTEXT_PATH, IPFS_ENDPOINT };

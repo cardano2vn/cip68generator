@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
-import ImagePicker from "../components/image-picker";
-import ListImageCard from "../components/list-image";
 import { Button } from "@/components/ui/button";
 import { uploadIPFS } from "@/services/upload";
 import { useToast } from "@/hooks/use-toast";
@@ -14,7 +12,9 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
-export default function UploadIpfsPage() {
+import ImagePicker from "../../../_components/image-picker";
+import ListImageCard from "../../../_components/list-image";
+export default function UploadFolderPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [alert, showAlert] = useState<any>(null);
   const { toast } = useToast();
@@ -56,7 +56,7 @@ export default function UploadIpfsPage() {
               Continue upload
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => router.push("/dashboard/storage")}
+              onClick={() => router.push("/dashboard/utilities/storage")}
             >
               Go to Storage
             </AlertDialogAction>
