@@ -5,8 +5,6 @@ import "react-vertical-timeline-component/style.min.css";
 import { cn } from "@/utils";
 import { appConfig } from "@/constants";
 import { PropsWithChildren } from "react";
-import AppProviders from "@/components/providers";
-import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: appConfig.title,
@@ -18,13 +16,10 @@ const fontSans = FontSans({
   weight: ["400", "500", "700"],
 });
 
-const RootLayout = async function ({ children }: Readonly<PropsWithChildren>) {
-  const session = await auth();
+const RootLayout = function ({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(fontSans.className)}>
-        <AppProviders session={session}>{children}</AppProviders>
-      </body>
+      <body className={cn(fontSans.className)}>{children}</body>
     </html>
   );
 };
