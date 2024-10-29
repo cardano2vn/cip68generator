@@ -28,10 +28,10 @@ export async function kudoUpload(formData: FormData) {
     if (!response.data) {
       throw new Error("Empty response data from upload");
     }
-    if (typeof response.data === "object") {
-      const { Hash, Name } = response.data;
-      return cp(Hash, Name);
-    }
+    // if (typeof response.data === "object") {
+    //   const { Hash, Name } = response.data;
+    //   return cp(Hash, Name);
+    // }
     Promise.all(
       response.data
         .trim()

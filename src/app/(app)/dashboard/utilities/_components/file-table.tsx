@@ -18,7 +18,7 @@ import {
 import { Media } from "@prisma/client";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import { ipfsConfig } from "@/constants";
+import { IPFS_GATEWAY } from "@/constants";
 
 export default function TableData({ listMedia }: { listMedia: Media[] }) {
   return (
@@ -50,7 +50,7 @@ export default function TableData({ listMedia }: { listMedia: Media[] }) {
                       <AspectRatio ratio={10 / 10} className="bg-muted">
                         <Image
                           src={
-                            ipfsConfig.gateway + file.url.replace("ipfs://", "")
+                            IPFS_GATEWAY + file.url.replace("ipfs://", "ipfs/")
                           }
                           alt={file.name}
                           fill

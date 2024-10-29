@@ -6,8 +6,18 @@ const appNetwork: CardanoNetwork =
     7,
   ) as CardanoNetwork) || "preprod";
 
+const appNetworkIs = appNetwork === "mainnet" ? 1 : 0;
+
 const BACKEND_URL = process.env.BACKEND_URL || "";
 const CONTEXT_PATH = process.env.CONTEXT_PATH || "/api";
 const IPFS_ENDPOINT = process.env.IPFS_ENDPOINT || "";
+const IPFS_GATEWAY = process.env.IPFS_GATEWAY || "";
 
-export { appNetwork, BACKEND_URL, CONTEXT_PATH, IPFS_ENDPOINT };
+export {
+  appNetwork,
+  appNetworkIs,
+  BACKEND_URL,
+  CONTEXT_PATH,
+  IPFS_ENDPOINT,
+  IPFS_GATEWAY,
+};
