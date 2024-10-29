@@ -1,6 +1,7 @@
 {
   "name": "@cardano2vn/cip68generator",
   "version": "0.1.0",
+  "type": "module",
   "description": "Open source dynamic assets (Token/NFT) generator (CIP68)",
   "main": "contract/src/index.ts",
   "scripts": {
