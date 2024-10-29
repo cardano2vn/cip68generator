@@ -11,7 +11,7 @@ const appNetworkIs = appNetwork === "mainnet" ? 1 : 0;
 const BACKEND_URL = process.env.BACKEND_URL || "";
 const CONTEXT_PATH = process.env.CONTEXT_PATH || "/api";
 const IPFS_ENDPOINT = process.env.IPFS_ENDPOINT || "";
-const IPFS_GATEWAY = process.env.IPFS_GATEWAY || "";
+const IPFS_GATEWAY = process.env.IPFS_GATEWAY || "https://ipfs.io/";
 
 export {
   appNetwork,

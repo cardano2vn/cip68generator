@@ -28,33 +28,55 @@ export async function kudoUpload(formData: FormData) {
     if (!response.data) {
       throw new Error("Empty response data from upload");
     }
-    // if (typeof response.data === "object") {
-    //   const { Hash, Name } = response.data;
-    //   return cp(Hash, Name);
-    // }
-    Promise.all(
-      response.data
-        .trim()
-        .split("\n")
-        .map((line: string) => {
-          const { Hash, Name } = JSON.parse(line);
-          return cp(Hash, Name);
-        }),
-    ).then(async (result) => {
-      return await prisma.media.createMany({
-        data: result.map((item) => ({
-          userId: userId,
-          name: item.name,
-          type:
-            mimeTypes[item.name.split(".").pop()?.toLowerCase()] || "unknown",
-          url: `ipfs://${item.cid}`,
-        })),
-        skipDuplicates: true,
+    if (typeof response.data === "object") {
+      const { Hash, Name } = response.data;
+      await cp(Hash, Name).then(async (result) => {
+        return await prisma.media.upsert({
+          where: {
+            url: `ipfs://${result.cid}`,
+          },
+          update: {},
+          create: {
+            userId: userId,
+            name: result.name,
+            type:
+              mimeTypes[result.name.split(".").pop()?.toLowerCase() ?? ""] ||
+              "unknown",
+            url: `ipfs://${result.cid}`,
+          },
+        });
       });
-    });
-  } catch (error) {
-    console.error("Error during file upload or processing:", error);
-    throw error;
+    } else {
+      Promise.all(
+        response.data
+          .trim()
+          .split("\n")
+          .map((line: string) => {
+            const { Hash, Name } = JSON.parse(line);
+            return cp(Hash, Name);
+          }),
+      ).then(async (result) => {
+        return await prisma.media.createMany({
+          data: result.map((item) => ({
+            userId: userId,
+            name: item.name,
+            type:
+              mimeTypes[item.name.split(".").pop()?.toLowerCase()] || "unknown",
+            url: `ipfs://${item.cid}`,
+          })),
+          skipDuplicates: true,
+        });
+      });
+    }
+    return {
+      message: "success",
+      result: true,
+    };
+  } catch (error: any) {
+    return {
+      message: error.message,
+      result: false,
+    };
   }
 }
 
@@ -71,7 +93,6 @@ async function cp(argCid: string, argName: string) {
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
-
     return { cid: argCid, name: argName, status: "success" };
   } catch (error: any) {
     if (error.response) {

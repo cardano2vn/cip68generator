@@ -4,9 +4,6 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { SearchBar } from "../_components/search-bar";
-import TableData from "../_components/file-table";
-import ListFileCard from "../_components/list-file";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,10 +13,17 @@ import {
 import { cn } from "@/utils";
 import { dashboardRoutes } from "@/constants/routers";
 import { useUploadContext } from "./_context";
+import { UploadOneDialog } from "./_components/upload-one-dialog";
+import MediaGird from "./_components/media-gird";
+import MediaList from "./_components/media-list";
+import { ExternalLink } from "lucide-react";
+import Pagination from "./_components/pagination";
+import { Filter } from "./_components/filter";
 export default function StogarePage() {
-  const { listMedia } = useUploadContext();
+  const { setUploadOneDialogOpen } = useUploadContext();
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
+      <UploadOneDialog />
       <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
       <div className="mt-5">
         <Tabs defaultValue="list" className="px-4">
@@ -71,34 +75,43 @@ export default function StogarePage() {
                   Upload New
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <Link
-                    href={
-                      dashboardRoutes.utilities.children.storage.children
-                        .uploadFile.redirect
-                    }
-                  >
-                    <DropdownMenuItem> Upload File</DropdownMenuItem>
-                  </Link>
+                  <DropdownMenuItem>
+                    <Button
+                      onClick={() => setUploadOneDialogOpen(true)}
+                      variant="ghost"
+                      className="border-none h-6"
+                    >
+                      Upload One
+                    </Button>
+                  </DropdownMenuItem>
                   <Link
                     href={
                       dashboardRoutes.utilities.children.storage.children
                         .uploadFolder.redirect
                     }
+                    className={cn(buttonVariants({ variant: "ghost" }))}
                   >
-                    <DropdownMenuItem> Upload Folder</DropdownMenuItem>
+                    <DropdownMenuItem> Upload Many</DropdownMenuItem>
                   </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
-          <SearchBar />
+          <Filter />
           <TabsContent value="list">
-            <TableData listMedia={listMedia} />
+            <MediaList />
           </TabsContent>
           <TabsContent value="grid">
-            <ListFileCard listMedia={listMedia} />
+            <MediaGird />
           </TabsContent>
         </Tabs>
+        <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
+          <Button variant="link" className="text-sm font-semibold sm:text-base">
+            <span>Document</span>
+            <ExternalLink className="ml-2 h-4 w-4" />
+          </Button>
+          <Pagination />
+        </div>
       </div>
     </div>
   );

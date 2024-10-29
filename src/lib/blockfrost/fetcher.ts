@@ -37,7 +37,6 @@ export class BlockfrostFetcher {
       );
 
       if (status === 200 || status == 202) return data;
-      console.error(data);
       throw parseHttpError(data);
     } catch (error) {
       throw parseHttpError(error);

@@ -3,7 +3,7 @@
 import { Icons } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DatePickerWithRange } from "./date-range-picker";
+import { DatePickerWithRange } from "../../../../../components/common/date-range-picker";
 
 export const SearchBar = () => {
   return (

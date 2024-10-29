@@ -55,9 +55,9 @@ model Media {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   userId    String   @map(name: "user_id")
-  name      String   @map(name: "name")
-  type      String   @map(name: "type")
-  url       String   @map(name: "url")
+  name      String   
+  type      String   
+  url       String   @unique
   user      User     @relation(fields: [userId], references: [id])
 
   @@map(name: "media")

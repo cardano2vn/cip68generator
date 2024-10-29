@@ -51,7 +51,6 @@ export class Cip68Contract extends MeshAdapter {
     ).address;
 
     const uniqueAssetName = await getUniqueAssetName(utxos[0]);
-    console.log(uniqueAssetName);
 
     const asset: Mint = {
       assetName: uniqueAssetName,
