@@ -10,6 +10,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: "100mb",
     },
+    instrumentationHook: true,
   },
   images: {
     remotePatterns: [
@@ -24,7 +25,7 @@ const nextConfig = {
 
   // output: "standalone",
   reactStrictMode: true,
-  webpack: function (config, _) {
+  webpack: function (config) {
     config.experiments = {
       asyncWebAssembly: true,
       layers: true,

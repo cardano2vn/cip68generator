@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { checkSignature, DataSignature, generateNonce } from "@meshsdk/core";
+import { checkSignature, DataSignature } from "@meshsdk/core";
 import { NextAuthConfig } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
@@ -25,15 +25,11 @@ const authConfig = {
         if (isNil(wallet) || isNil(address) || isNil(signature)) {
           throw new Error("Invalid credentials");
         }
-        const walletNonce = await prisma.walletNonce.findFirst({
-          where: {
-            address,
-          },
-        });
-        if (isNil(walletNonce) || isNil(walletNonce.nonce)) {
+        const walletNonce = await global.cacheUser.get(`nonce-${address}`);
+        if (isNil(walletNonce)) {
           throw new Error("Nonce not found");
         }
-        const isSignatureValid = checkSignature(walletNonce.nonce, signature);
+        const isSignatureValid = checkSignature(walletNonce, signature);
 
         if (!isSignatureValid) {
           throw new Error("Invalid signature");
@@ -57,15 +53,7 @@ const authConfig = {
   ],
   callbacks: {
     async signIn({ user }: any) {
-      await prisma.walletNonce.update({
-        where: {
-          address: user.address,
-        },
-        data: {
-          nonce: generateNonce("signin to cip68 nft "),
-        },
-      });
-      return true;
+      return global.cacheUser.del(`nonce-${user.address}`);
     },
     async jwt({ user, token }) {
       if (user) {
