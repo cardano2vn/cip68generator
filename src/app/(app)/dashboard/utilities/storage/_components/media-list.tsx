@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
@@ -8,21 +10,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  Copy,
-  MoreVertical,
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-} from "lucide-react";
+import { Copy, MoreVertical } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import { IPFS_GATEWAY } from "@/constants";
-import { useUploadContext } from "../storage/_context";
+import { useUploadContext } from "../_context";
+import { Media } from "@prisma/client";
+import FileDisplay from "./media-image";
 
-export default function TableData() {
-  const { loading, listMedia } = useUploadContext();
+export default function MediaList() {
+  const { loading, listMedia, listSelected, setListSelected } =
+    useUploadContext();
   if (loading) return <div>Loading...</div>;
+
+  const handleSellect = (media: Media, checked: boolean) => {
+    if (checked) {
+      setListSelected([...listSelected, media]);
+    } else {
+      setListSelected(listSelected.filter((item) => item !== media));
+    }
+  };
+
   return (
     <div className="w-full space-y-4 rounded-lg p-4">
       <div className="overflow-x-auto">
@@ -46,28 +53,43 @@ export default function TableData() {
                   <div className="flex items-center space-x-4">
                     <Checkbox
                       id={`checkbox-${index}`}
+                      checked={listSelected.includes(file)}
                       className="rounded-full"
+                      onClick={() =>
+                        handleSellect(file, !listSelected.includes(file))
+                      }
                     />
+
                     <div className="h-10 w-10 overflow-hidden rounded-lg">
                       <AspectRatio ratio={10 / 10} className="bg-muted">
-                        <Image
+                        <FileDisplay
                           src={
                             IPFS_GATEWAY + file.url.replace("ipfs://", "ipfs/")
                           }
                           alt={file.name}
-                          fill
+                          type={file.type}
                           className="h-full w-full rounded-md object-cover"
                         />
                       </AspectRatio>
                     </div>
                     <div>
-                      <div className="">{file.name}</div>
-                      <div className="text-sm">{file.type}</div>
+                      <div className="font-bold">
+                        {" "}
+                        {file.name.length > 30
+                          ? file.name.slice(0, 30) + "..."
+                          : file.name}
+                      </div>
+                      <div className="text-sm font-light">{file.type}</div>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <div className="flex items-center space-x-2">
+                  <div
+                    onClick={async () => {
+                      await navigator.clipboard.writeText(file.url || "");
+                    }}
+                    className="flex items-center space-x-2"
+                  >
                     <span className="">{file.url}</span>
                     <Copy className="h-5 w-5" />
                   </div>
@@ -84,24 +106,6 @@ export default function TableData() {
             ))}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
-        <Button variant="link" className="text-sm font-semibold sm:text-base">
-          <span>Document</span>
-          <ExternalLink className="ml-2 h-4 w-4" />
-        </Button>
-        <div className="flex items-center space-x-2 rounded-lg p-1">
-          <Button variant="ghost" size="icon" className="hover: h-8 w-8">
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="text-sm">
-            Page <span className="font-medium">1</span> of{" "}
-            <span className="font-medium">20</span>
-          </span>
-          <Button variant="ghost" size="icon" className="hover: h-8 w-8">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </div>
   );

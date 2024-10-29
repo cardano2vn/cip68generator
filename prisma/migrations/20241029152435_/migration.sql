@@ -49,6 +49,9 @@ CREATE TABLE "media" (
 -- CreateIndex
 CREATE UNIQUE INDEX "user_address_key" ON "user"("address");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "media_url_key" ON "media"("url");
+
 -- AddForeignKey
 ALTER TABLE "collection" ADD CONSTRAINT "collection_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

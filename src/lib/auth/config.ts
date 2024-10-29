@@ -53,7 +53,21 @@ const authConfig = {
   ],
   callbacks: {
     async signIn({ user }: any) {
-      return global.cacheUser.del(`nonce-${user.address}`);
+      await global.cacheUser.del(`nonce-${user.address}`);
+      const result = await prisma.user.upsert({
+        where: {
+          address: user.address,
+        },
+        create: {
+          address: user.address,
+        },
+        update: {},
+      });
+
+      return !isNil(result);
+    },
+    async redirect() {
+      return "/dashboard";
     },
     async jwt({ user, token }) {
       if (user) {

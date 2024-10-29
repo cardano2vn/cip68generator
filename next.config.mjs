@@ -10,14 +10,12 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: "100mb",
     },
-    instrumentationHook: true,
   },
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "18.143.169.117",
-        port: "8080",
+        protocol: "https",
+        hostname: "ipfs.io",
         pathname: "/ipfs/**",
       },
     ],
