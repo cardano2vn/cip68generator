@@ -74,7 +74,8 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
         image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
         mediaType: "image/jpg",
       },
-      txHash: "d3c92245ad396c3c05e2530be2e0d3a3adbf1871113fcb18a197c23e4fdfcd1a",
+      txHash:
+        "d3c92245ad396c3c05e2530be2e0d3a3adbf1871113fcb18a197c23e4fdfcd1a",
     });
     const signedTx = await wallet.signTx(unsignedTx, true);
     const txHash = await wallet.submitTx(signedTx);

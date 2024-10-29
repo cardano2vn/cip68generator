@@ -73,7 +73,10 @@ const Header = function () {
       </ul>
 
       {/* connect-wallet-begin */}
-      <Button>Start Create</Button>
+      <Link href={"/login"}>
+        <Button>Start Create</Button>
+      </Link>
+      {/* <Button>Start Create</Button> */}
       {/* <Account /> */}
       {/* connect-wallet-end */}
     </motion.header>
