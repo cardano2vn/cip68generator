@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
@@ -10,10 +12,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, MoreVertical } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import { IPFS_GATEWAY } from "@/constants";
 import { useUploadContext } from "../_context";
 import { Media } from "@prisma/client";
+import FileDisplay from "./media-image";
 
 export default function MediaList() {
   const { loading, listMedia, listSelected, setListSelected } =
@@ -60,24 +62,34 @@ export default function MediaList() {
 
                     <div className="h-10 w-10 overflow-hidden rounded-lg">
                       <AspectRatio ratio={10 / 10} className="bg-muted">
-                        <Image
+                        <FileDisplay
                           src={
                             IPFS_GATEWAY + file.url.replace("ipfs://", "ipfs/")
                           }
                           alt={file.name}
-                          fill
+                          type={file.type}
                           className="h-full w-full rounded-md object-cover"
                         />
                       </AspectRatio>
                     </div>
                     <div>
-                      <div className="">{file.name}</div>
-                      <div className="text-sm">{file.type}</div>
+                      <div className="font-bold">
+                        {" "}
+                        {file.name.length > 30
+                          ? file.name.slice(0, 30) + "..."
+                          : file.name}
+                      </div>
+                      <div className="text-sm font-light">{file.type}</div>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <div className="flex items-center space-x-2">
+                  <div
+                    onClick={async () => {
+                      await navigator.clipboard.writeText(file.url || "");
+                    }}
+                    className="flex items-center space-x-2"
+                  >
                     <span className="">{file.url}</span>
                     <Copy className="h-5 w-5" />
                   </div>
