@@ -47,6 +47,11 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     false,
   ).address;
 
+  /**
+   *
+   * @param param0
+   * @returns unsignedTx
+   */
   mint = async ({
     assetName,
     metadata,
@@ -90,6 +95,60 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     return unsignedTx.complete();
   };
 
+  update = async ({
+    assetName,
+    metadata,
+    txHash,
+  }: {
+    assetName: string;
+    metadata: AssetMetadata;
+    txHash: string;
+  }) => {
+    const { utxos, walletAddress, collateral } = await this.getWalletForTx();
+    const utxoRef: UTxO = await this.getUtxoForTx(
+      STORE_REFERENCE_SCRIPT_ADDRESS,
+      STORE_REFERENCE_SCRIPT_HASH,
+    );
+    const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
+    const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
+    if (!userUtxo) throw new Error("User UTXO not found");
+    if (!storeUtxo) throw new Error("Store UTXO not found");
+    const unsignedTx = this.meshTxBuilder
+      .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
+      .txOut(this.storeAddress, [
+        {
+          unit: this.policyId + CIP68_222(stringToHex(assetName)),
+          quantity: "1",
+        },
+      ])
+
+      .spendingPlutusScriptV3()
+      .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
+      .txInInlineDatumPresent()
+      .txInRedeemerValue(mConStr0([]))
+      .spendingTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+      .txOut(this.storeAddress, [
+        {
+          unit: this.policyId + CIP68_100(stringToHex(assetName)),
+          quantity: "1",
+        },
+      ])
+      .txOutInlineDatumValue(metadataToCip68(metadata))
+      .changeAddress(walletAddress)
+      .selectUtxosFrom(utxos)
+      .txInCollateral(
+        collateral.input.txHash,
+        collateral.input.outputIndex,
+        collateral.output.amount,
+        collateral.output.address,
+      );
+
+    return unsignedTx.complete();
+  };
+
+  /**
+   * @description Create reference script for mint transaction
+   */
   createReferenceScriptMint = async () => {
     const { walletAddress, utxos, collateral } = await this.getWalletForTx();
 
