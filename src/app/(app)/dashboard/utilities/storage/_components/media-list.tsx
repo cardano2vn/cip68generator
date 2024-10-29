@@ -13,10 +13,20 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { IPFS_GATEWAY } from "@/constants";
 import { useUploadContext } from "../_context";
+import { Media } from "@prisma/client";
 
 export default function MediaList() {
-  const { loading, listMedia } = useUploadContext();
+  const { loading, listMedia, listSelected, setListSelected } =
+    useUploadContext();
   if (loading) return <div>Loading...</div>;
+
+  const handleSellect = (media: Media, checked: boolean) => {
+    if (checked) {
+      setListSelected([...listSelected, media]);
+    } else {
+      setListSelected(listSelected.filter((item) => item !== media));
+    }
+  };
 
   return (
     <div className="w-full space-y-4 rounded-lg p-4">
@@ -41,8 +51,13 @@ export default function MediaList() {
                   <div className="flex items-center space-x-4">
                     <Checkbox
                       id={`checkbox-${index}`}
+                      checked={listSelected.includes(file)}
                       className="rounded-full"
+                      onClick={() =>
+                        handleSellect(file, !listSelected.includes(file))
+                      }
                     />
+
                     <div className="h-10 w-10 overflow-hidden rounded-lg">
                       <AspectRatio ratio={10 / 10} className="bg-muted">
                         <Image

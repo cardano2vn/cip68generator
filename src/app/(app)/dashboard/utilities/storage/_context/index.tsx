@@ -1,53 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { dashboardRoutes } from "@/constants/routers";
 import { toast } from "@/hooks/use-toast";
-import { getMedia } from "@/services/database/media";
+import { deleteMedia, getMedia } from "@/services/database/media";
 import { uploadIPFS } from "@/services/upload";
-import { Media } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { DateRange } from "react-day-picker";
+import { createContext, PropsWithChildren, useContext } from "react";
+import useUploadStore, { UploadStore } from "./store";
 
-type FilterType = {
-  range: DateRange;
-  query: string;
-};
-
-type useUploadStore = {
-  loading: boolean;
-  listMedia: Media[];
-  listSelected: Media[];
-  listFileToUpload: File[];
-  uploadOneDialogOpen: boolean;
-  currentPage: number;
-  totalPages: number;
-  filter: FilterType;
-  setListSelected: (media: Media[]) => void;
-  setUploadOneDialogOpen: (open: boolean) => void;
-  setListFileToUpload: (files: File[]) => void;
+type UploadContextType = UploadStore & {
   uploadFiles: () => void;
-  setCurrentPage: (page: number) => void;
-  setFilter: (filter: FilterType) => void;
+  deleteMediaSelected: () => any;
+  loading: boolean;
 };
 
 export default function UploadProvider({ children }: PropsWithChildren) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [listSelected, setListSelected] = useState<Media[]>([]);
-  const [uploadOneDialogOpen, setUploadOneDialogOpen] = useState(false);
-  const [listFileToUpload, setListFileToUpload] = useState<File[]>([]);
   const router = useRouter();
-  const [filter, setFilter] = useState<FilterType>({
-    range: {
-      from: new Date(2024, 0, 1),
-      to: new Date(2024, 11, 31),
-    },
-    query: "",
-  });
+  const {
+    currentPage,
+    setCurrentPage,
+    setListSelected,
+    setUploadOneDialogOpen,
+    setListFileToUpload,
+    setFilter,
+    listFileToUpload,
+    listSelected,
+    uploadOneDialogOpen,
+    filter,
+  } = useUploadStore();
 
-  const { data: listMedia, isLoading } = useQuery({
+  const {
+    data: listMedia,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["getMedia", currentPage, filter],
     queryFn: () =>
       getMedia({
@@ -55,6 +44,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
         query: filter.query,
         range: filter.range,
       }),
+    refetchInterval: 5000,
   });
 
   const uploadFiles = async () => {
@@ -65,6 +55,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
       });
       const { result, message } = await uploadIPFS(formData);
       if (result) {
+        refetch();
         toast({
           title: "Sucess",
           variant: "default",
@@ -87,7 +78,22 @@ export default function UploadProvider({ children }: PropsWithChildren) {
         });
       }
     }
+    refetch();
   };
+
+  const deleteMediaSelected = async () => {
+    const result = await deleteMedia(listSelected);
+    if (result.result) {
+      toast({
+        title: "Sucess",
+        description: "Delete media sucess",
+        variant: "default",
+      });
+      setListSelected([]);
+    }
+    refetch();
+  };
+
   return (
     <UploadContext.Provider
       value={{
@@ -105,6 +111,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
         uploadFiles: uploadFiles,
         setCurrentPage: setCurrentPage,
         setFilter: setFilter,
+        deleteMediaSelected: deleteMediaSelected,
       }}
     >
       {children}
@@ -112,7 +119,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   );
 }
 
-const UploadContext = createContext<useUploadStore>(null!);
+const UploadContext = createContext<UploadContextType>(null!);
 export const useUploadContext = function () {
   const context = useContext(UploadContext);
   if (!context) {

@@ -7,21 +7,21 @@ import { DatePickerWithRange } from "@/components/common/date-range-picker";
 import { useUploadContext } from "../_context";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
+import { filterDefault, FilterType } from "../_context/store";
 
 export const Filter = () => {
   const { filter, setFilter } = useUploadContext();
-  const [query, setQuery] = useState<string>(filter.query);
-  const [range, setRange] = useState<DateRange | undefined>(filter.range);
+  const [temp, setTemp] = useState<FilterType>(filter);
 
   const handleSearch = () => {
-    if (range) {
-      setFilter({
-        query,
-        range,
-      });
+    if (temp) {
+      setFilter(temp);
     }
   };
-
+  const resetFilter = () => {
+    setTemp(filterDefault);
+    setFilter(filterDefault);
+  };
   return (
     <div className="flex flex-col items-center space-y-2 rounded-lg p-4 sm:flex-row sm:space-x-2 sm:space-y-0">
       <div className="relative flex-grow">
@@ -29,20 +29,38 @@ export const Filter = () => {
         <Input
           type="text"
           placeholder="Search by Name or CID"
-          value={query}
+          value={temp.query}
           className="w-full rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setTemp({ ...temp, query: e.target.value })}
         />
       </div>
       <div className="flex space-x-2">
-        <DatePickerWithRange range={range} setRange={setRange} />
+        <DatePickerWithRange
+          range={temp.range || filter.range}
+          setRange={(range: DateRange | undefined) =>
+            setTemp({
+              ...temp,
+              range: range ?? filter.range,
+            })
+          }
+        />
       </div>
-      <Button
-        onClick={handleSearch}
-        className="rounded-md bg-blue-500 px-4 py-2 font-semibold transition duration-300 ease-in-out"
-      >
-        Search
-      </Button>
+      {JSON.stringify(filter) == JSON.stringify(filterDefault) ? (
+        <Button
+          variant="secondary"
+          onClick={handleSearch}
+          className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
+        >
+          Search
+        </Button>
+      ) : (
+        <Button
+          onClick={resetFilter}
+          className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
+        >
+          Reset
+        </Button>
+      )}
     </div>
   );
 };

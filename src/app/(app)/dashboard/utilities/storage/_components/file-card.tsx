@@ -6,13 +6,26 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Media } from "@prisma/client";
 import Image from "next/image";
 import { IPFS_GATEWAY } from "@/constants";
+import { useUploadContext } from "../_context";
 
 export default function FileCard({ file }: { file: Media }) {
+  const { listSelected, setListSelected } = useUploadContext();
+  const handleSellect = (media: Media, checked: boolean) => {
+    if (checked) {
+      setListSelected([...listSelected, media]);
+    } else {
+      setListSelected(listSelected.filter((item) => item !== media));
+    }
+  };
   return (
     <Card className="rounded-lg p-2">
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Checkbox id="file-select" className="h-4 w-4 rounded-full" />
+          <Checkbox
+            className="h-4 w-4 rounded-full"
+            checked={listSelected.includes(file)}
+            onClick={() => handleSellect(file, !listSelected.includes(file))}
+          />
           <label
             htmlFor="file-select"
             className="cursor-pointer truncate text-sm"
