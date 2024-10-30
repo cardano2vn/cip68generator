@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import { Icons } from "@/components/common/icons";
 import { BrowserWallet } from "@meshsdk/core";
 import { StaticImageData } from "next/image";
@@ -8,6 +9,10 @@ declare module "next-auth" {
     address?: string;
     wallet?: string;
   }
+}
+declare global {
+  var cacheConfigs: NodeCache;
+  var cacheUser: NodeCache;
 }
 
 export type WalletType = {

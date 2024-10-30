@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import FileCard from "./file-card";
-import { Media } from "@prisma/client";
+import FileCard from "../storage/_components/file-card";
+import { useUploadContext } from "../storage/_context";
 
-export default function ListFileCard({ listMedia }: { listMedia: Media[] }) {
+export default function ListFileCard() {
+  const { listMedia } = useUploadContext();
   return (
     <div className="w-full space-y-4 rounded-lg p-4">
       <div className="overflow-x-auto">
