@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/app/(landing)/_layout/footer";
 import Image from "next/image";
 import Title from "./title";
-import { appImage } from "@/public/images";
+import { appImage, bannerImage } from "@/public/images";
 import features from "../_data/features";
 import Feature from "./feature-section";
 import { founderData } from "../_data/founders";
