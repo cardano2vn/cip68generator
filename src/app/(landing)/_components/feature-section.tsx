@@ -11,7 +11,7 @@ const Feature = function () {
         {/* Front Side of the Flip Card */}
         <div className="flip-card-front group-hover:rotate-y-180 absolute inset-0 flex items-center justify-center rounded-lg bg-slate-900 p-6 transition-transform duration-700 ease-in-out">
           <div className="flex flex-col items-center md:flex-row">
-            <div className="mb-4 inline-block h-14 w-14 flex-shrink-0 text-gray-600 md:mb-0">
+            <div className="mb-4 max-md:mb-1 inline-block h-14 w-14 flex-shrink-0 text-gray-600 md:mb-0">
               <Image
                 className="object-contain"
                 src={appImage.logo}
@@ -21,10 +21,10 @@ const Feature = function () {
               />
             </div>
             <div className="text-center md:ml-6 md:text-left">
-              <h3 className="truncate text-xl font-normal text-white">
+              <h3 className="truncate text-xl font-normal text-white max-md:text-base">
                 Transform
               </h3>
-              <p className="line-clamp-4 text-sm font-normal text-white">
+              <p className="line-clamp-4 text-sm font-normal text-white max-md:text-xs">
                 To enable transformations you have to add the transform utility.
               </p>
             </div>
@@ -32,16 +32,16 @@ const Feature = function () {
         </div>
 
         {/* Back Side of the Flip Card */}
-        <div className="flip-card-back group-hover:rotate-y-0 rotate-y-180 absolute inset-0 rounded-lg bg-slate-900 p-6 transition-transform duration-700 ease-in-out">
+        <div className="flip-card-back group-hover:rotate-y-0 rotate-y-180 absolute inset-0 rounded-lg bg-slate-900 p-6 max-md:p-4 transition-transform duration-700 ease-in-out">
           <div className="flex h-full flex-col gap-3">
-            <div className="text-sm font-normal text-white">
+            <div className="text-sm font-normal text-white max-md:text-xs">
               <p>
                 A lot of transformations can be executed on the GPU instead of
                 the CPU. This enables better performance. You can use the
                 transform-gpu utility to enable GPU Acceleration.
               </p>
             </div>
-            <Button>Explore</Button>
+            <Button className="max-md:text-xs h-8">Explore</Button>
           </div>
         </div>
       </div>
