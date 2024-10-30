@@ -1,8 +1,10 @@
 export default function Title() {
   return (
-    <section className="relative mx-auto mb-[30px] flex flex-col items-center justify-center">
+    <section className=" relative mx-auto mb-[30px] flex flex-col items-center justify-center">
       <div className="relative mt-[15px] text-[42px] leading-[50px] text-[#fff]">
-        <h3 className="mb-3 font-bold text-white">Features</h3>
+        <h3 className="mb-3 font-bold text-center text-white max-md:text-[28px] max-md:leading-[33px] max-md:w-[320px] max-md:my-0 max-md:mx-auto">
+          Features
+        </h3>
         <svg
           className="absolute bottom-[-8px] right-[-24px] w-14"
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +28,7 @@ export default function Title() {
           </defs>
         </svg>
       </div>
-      <p className="max-w-[600px] text-center font-normal">
+      <p className="max-w-[600px] text-center font-normal max-md:text-[14px] max-md:leading-[18px] max-md:w-[320px] max-md:my-0 max-md:mx-auto">
         Empowering Blockchain Innovation with Dynamic Metadata Upgrades and
         Seamless Asset Management
       </p>
