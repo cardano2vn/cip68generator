@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { CreateCollection } from "../_components/create-collection-button";
-import { SearchBar } from "../_components/search-bar";
-import ListFolderCard from "../_components/list-folder";
+import { CreateCollection } from "./_components/create-collection-button";
+import FolderCard from "../_components/folder-card";
+import { Filter } from "./_components/filter";
 export default function CollectionPage() {
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
@@ -33,8 +33,16 @@ export default function CollectionPage() {
             <CreateCollection />
           </div>
         </div>
-        <SearchBar />
-        <ListFolderCard />
+        {/* <Filter /> */}
+        <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
+          <div className="overflow-x-auto">
+            <div className="md:grid-col-2 grid grid-cols-1 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <FolderCard key={index} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
