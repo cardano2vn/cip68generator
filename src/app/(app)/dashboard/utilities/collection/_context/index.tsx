@@ -1,8 +1,11 @@
 "use client";
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
+import useCollectionStore, { CollectionStore } from "./store";
+import { getAllCollection } from "@/services/database/collection";
+import { useQuery } from "@tanstack/react-query";
 
-type CollectionContextType = {
+type CollectionContextType = CollectionStore & {
   loading: boolean;
   createNewDialogOpen: boolean;
   toggleCreateNewDialogOpen: (open: boolean) => void;
@@ -11,13 +14,21 @@ type CollectionContextType = {
 export default function CollectionProvider({ children }: PropsWithChildren) {
   const [createNewDialogOpen, toggleCreateNewDialogOpen] =
     useState<boolean>(false);
-
+  const { listSelected, setListSelected } = useCollectionStore();
+  const { data, isLoading } = useQuery({
+    queryKey: ["getCollection"],
+    queryFn: () => getAllCollection(),
+    refetchInterval: 5000,
+  });
   return (
     <CollectionContext.Provider
       value={{
-        loading: false,
+        loading: isLoading,
+        listCollection: data?.data || [],
         createNewDialogOpen,
         toggleCreateNewDialogOpen,
+        listSelected,
+        setListSelected,
       }}
     >
       {children}

@@ -5,10 +5,8 @@ import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
@@ -16,33 +14,45 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
 import { useCollectionContext } from "../_context";
+import { toast } from "@/hooks/use-toast";
+import { createCollection } from "@/services/database/collection";
 
 const formSchema = z.object({
-  name: z.string(),
-  thumbnail: z.string(),
+  name: z.string().min(1, "Name is required"),
   description: z.string(),
 });
 
-export function CreateCollection() {
+export function CreateCollectionButton() {
   const { createNewDialogOpen, toggleCreateNewDialogOpen } =
     useCollectionContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      console.log(values);
-    } catch (error) {
-      console.error("Form submission error", error);
+  async function handleSubmit(values: z.infer<typeof formSchema>) {
+    const { result, message } = await createCollection(values);
+    if (result) {
+      toast({ title: "Success", description: message });
+      form.reset();
+      toggleCreateNewDialogOpen(false);
+    } else {
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     }
   }
 
   return (
     <>
       <Button
-        onClick={() => toggleCreateNewDialogOpen(!createNewDialogOpen)}
+        onClick={() => toggleCreateNewDialogOpen(true)}
         className="bg-orange-500 text-white hover:bg-orange-600"
       >
         Create New
@@ -54,41 +64,20 @@ export function CreateCollection() {
         <DialogContent className="bg-card">
           <DialogTitle>Create New Collection</DialogTitle>
 
-          <div className="w-full max-w-md rounded-l p-6">
+          <div className="w-full max-w-md rounded-l p-2">
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8 max-w-3xl mx-auto py-10"
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="space-y-8 max-w-3xl mx-auto"
               >
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
+                        <Input placeholder="Collection Name" {...field} />
                       </FormControl>
-                      <FormDescription>
-                        This is your public display name.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="thumbnail"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        This is your public display name.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -99,17 +88,13 @@ export function CreateCollection() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>description</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Placeholder"
+                          placeholder="Description..."
                           className="resize-none"
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        You can @mention other users and organizations.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
