@@ -11,10 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "lucide-react";
-import Image from "next/image";
-import router from "@/constants/routers";
-import { appImage } from "@/public/images";
 
 export default function Hamburger() {
   const [open, setOpen] = useState<boolean>(false);
