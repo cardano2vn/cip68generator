@@ -82,18 +82,18 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   expect(txHash.length).toBe(64);
   // });
 
-   test('Mint Reference Script', async function () {
-        const cip68Contract: Cip68Contract = new Cip68Contract({
-            fetcher: blockfrostProvider,
-            wallet: wallet,
-            meshTxBuilder: meshTxBuilder,
-        });
-        const unsignedTx: string = await cip68Contract.createReferenceScriptMint();
-        const signedTx = await wallet.signTx(unsignedTx, true);
-        const txHash = await wallet.submitTx(signedTx);
-        console.log(txHash);
-        expect(txHash.length).toBe(64);
+  test("Mint Reference Script", async function () {
+    const cip68Contract: Cip68Contract = new Cip68Contract({
+      fetcher: blockfrostProvider,
+      wallet: wallet,
+      meshTxBuilder: meshTxBuilder,
     });
+    const unsignedTx: string = await cip68Contract.createReferenceScriptMint();
+    const signedTx = await wallet.signTx(unsignedTx, true);
+    const txHash = await wallet.submitTx(signedTx);
+    console.log(txHash);
+    expect(txHash.length).toBe(64);
+  });
 
   // test('Store Reference Script', async function () {
   //     const cip68Contract: Cip68Contract = new Cip68Contract({

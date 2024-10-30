@@ -21,7 +21,9 @@ export default function NavLink({
     <li className="">
       <Link
         onClick={() => {
-          setOpen && setOpen(false);
+          if (setOpen) {
+            setOpen(false);
+          }
         }}
         href={redirect}
         className={cn(
