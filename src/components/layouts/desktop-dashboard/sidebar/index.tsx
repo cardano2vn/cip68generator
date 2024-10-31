@@ -36,29 +36,24 @@ export function Sidebar() {
           asChild
         >
           <Link
-            href="/dashboard"
-            className="flex items-center decoration-transparent "
+            className="relative flex items-center decoration-transparent justify-center gap-1"
+            href={router.landing}
           >
-            <Link
-              className="relative flex items-center justify-center gap-1"
-              href={router.landing}
+            <Image
+              className="h-[35px] w-[35px] object-cover"
+              src={appImage.logo}
+              alt="Logo"
+            />
+            <p
+              className={cn(
+                "ml-2 whitespace-nowrap text-2xl font-medium transition-[transform,opacity,display] duration-300 ease-in-out text-gray-200",
+                sidebar?.isOpen === false
+                  ? "hidden -translate-x-96 opacity-0"
+                  : "translate-x-0 opacity-100",
+              )}
             >
-              <Image
-                className="h-[35px] w-[35px] object-cover"
-                src={appImage.logo}
-                alt="Logo"
-              />
-              <p
-                className={cn(
-                  "ml-2 whitespace-nowrap text-2xl font-medium transition-[transform,opacity,display] duration-300 ease-in-out text-gray-200",
-                  sidebar?.isOpen === false
-                    ? "hidden -translate-x-96 opacity-0"
-                    : "translate-x-0 opacity-100",
-                )}
-              >
-                Generator
-              </p>
-            </Link>
+              Generator
+            </p>
           </Link>
         </Button>
         <MenuList />
