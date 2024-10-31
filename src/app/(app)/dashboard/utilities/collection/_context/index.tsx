@@ -7,14 +7,16 @@ import { useQuery } from "@tanstack/react-query";
 
 type CollectionContextType = CollectionStore & {
   loading: boolean;
-  createNewDialogOpen: boolean;
-  toggleCreateNewDialogOpen: (open: boolean) => void;
 };
 
 export default function CollectionProvider({ children }: PropsWithChildren) {
-  const [createNewDialogOpen, toggleCreateNewDialogOpen] =
-    useState<boolean>(false);
-  const { listSelected, setListSelected } = useCollectionStore();
+  useState<boolean>(false);
+  const {
+    listSelected,
+    setListSelected,
+    createNewDialogOpen,
+    toggleCreateNewDialogOpen,
+  } = useCollectionStore();
   const { data, isLoading } = useQuery({
     queryKey: ["getCollection"],
     queryFn: () => getAllCollection(),
