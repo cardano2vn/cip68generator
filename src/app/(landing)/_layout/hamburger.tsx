@@ -17,7 +17,7 @@ export default function Hamburger() {
   const [hideX, setHideX] = useState<boolean>(false);
 
   const handleOpenMenu = () => setOpen((prev) => !prev);
-  console.log(open);
+  // console.log(open);
 
   useLayoutEffect(() => {
     const handleResponsiveSidebar = () => {
