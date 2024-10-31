@@ -6,17 +6,20 @@ import { VscVerified } from "react-icons/vsc";
 
 export default function Asset() {
   return (
-    <Link className="flex flex-col gap-2 min-w-[256px] " href={"/"}>
+    <Link
+      className="flex flex-col gap-2 min-w-[256px] "
+      href={"/dashboard/detail/123456789abcdxyx"}
+    >
       <section className="w-full min-w-full flex flex-col bg-[#13161b] rounded-lg overflow-hidden relative shadow-lg border-gray-700 border-[1px]">
         <div className="absolute left-[12px] right-[12px] top-[12px] flex justify-between items-start z-10">
           <div></div>
           <div></div>
         </div>
-        <div className="bg-[linear-gradient(180deg, rgba(250, 89, 160, 0), rgba(250, 89, 160, .15))] w-full h-[calc(100% -105px)]  flex flex-col items-center justify-center z-10 aspect-square ">
-          <div className="w-[160px] h-[160px] min-h-[160px] min-w-[160px] relative overflow-hidden">
+        <div className="bg-[linear-gradient(180deg, rgba(250, 89, 160, 0), rgba(250, 89, 160, .15))] w-full h-[calc(100% -105px)] flex flex-col items-center justify-center z-10 aspect-square ">
+          <div className="w-full h-full min-h-[160px] min-w-[160px] relative overflow-hidden">
             <Image
               className="w-full h-full object-cover"
-              src={appImage.logo}
+              src={appImage.collection}
               alt=""
             />
           </div>
