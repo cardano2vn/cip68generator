@@ -1,3 +1,5 @@
+import DetailPage from "./_components/detail-page";
+
 export default function page() {
-  return <div>detail page</div>;
+  return <DetailPage />;
 }

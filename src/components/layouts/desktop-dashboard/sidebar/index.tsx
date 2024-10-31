@@ -40,7 +40,9 @@ export function Sidebar() {
             href={router.landing}
           >
             <Image
-              className="h-[35px] w-[35px] object-cover"
+              className={cn("h-[35px] w-[35px] object-cover", {
+                " absolute": !sidebar.isOpen,
+              })}
               src={appImage.logo}
               alt="Logo"
             />
