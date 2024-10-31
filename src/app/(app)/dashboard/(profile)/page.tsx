@@ -1,3 +1,5 @@
+import ProfilePage from "./_components/profile-page";
+
 export default function page() {
-  return <div>profile page</div>;
+  return <ProfilePage />;
 }
