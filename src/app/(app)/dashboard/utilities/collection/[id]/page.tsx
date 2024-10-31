@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import { SearchBar } from "../../_components/search-bar";
-export default function MetadataPage() {
+export default async function MetadataPage() {
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
       <h1 className="text-2xl font-semibold leading-7">Metadata</h1>
