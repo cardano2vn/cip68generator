@@ -17,7 +17,7 @@ export default function Account() {
     <Popover>
       <PopoverTrigger
         className={cn(
-          "flex items-center h-10 gap-2 rounded-3xl bg-slate-800 px-2 py-6",
+          "flex items-center h-9 gap-2 rounded-3xl bg-slate-800 px-2 py-4",
         )}
       >
         <div className={cn("h-8 w-8")}>
@@ -29,11 +29,13 @@ export default function Account() {
             alt={`${wallet.name} icon`}
           />
         </div>
-        <div className={cn("")}>
-          <h2 className={cn("")}>
+        <div className="">
+          <h2 className="text-[12px] leading-4">
             {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
           </h2>
-          <p className={cn("text-left")}>{wallet.balance} ₳</p>
+          <p className={cn("text-left text-[14px] leading-4")}>
+            {wallet.balance} ₳
+          </p>
         </div>
       </PopoverTrigger>
       <PopoverContent
@@ -50,27 +52,27 @@ export default function Account() {
           </div>
           <div className="">
             <h2 className={cn("text-[18px] font-medium")}>{wallet.name}</h2>
-            {/* <div className="flex items-center gap-2">
-                            <p className={cn('select-none text-[12px] text-gray-500')}>
-                                Base Mainnet
-                            </p>
-                            <svg
-                                className=""
-                                width="10"
-                                height="5"
-                                viewBox="0 0 10 5"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    id="Vector 60"
-                                    d="M1 1L4.14029 3.41561C4.49974 3.69211 5.00026 3.69211 5.35971 3.41561L8.5 1"
-                                    stroke="#666"
-                                    strokeWidth="1.4"
-                                    strokeLinecap="round"
-                                ></path>
-                            </svg>
-                        </div> */}
+            <div className="flex items-center gap-2">
+              <p className={cn("select-none text-[12px] text-gray-500")}>
+                Base Mainnet
+              </p>
+              <svg
+                className=""
+                width="10"
+                height="5"
+                viewBox="0 0 10 5"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  id="Vector 60"
+                  d="M1 1L4.14029 3.41561C4.49974 3.69211 5.00026 3.69211 5.35971 3.41561L8.5 1"
+                  stroke="#666"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                ></path>
+              </svg>
+            </div>
           </div>
         </div>
         <div className={cn("leading-0 h-[1px] overflow-hidden bg-slate-500")} />
@@ -115,22 +117,26 @@ export default function Account() {
             </span>
           </p>
         </div>
-        {/* <div className={'relative flex items-center gap-[5px]'}>
-                    <p className="whitespace-nowrap text-[13px] text-gray-400">Metadata</p>
-                    <p className="flex items-center gap-[6px] whitespace-nowrap">
-                        <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
-                            20
-                        </span>
-                    </p>
-                </div> */}
-        {/* <div className={'relative flex items-center gap-[5px]'}>
-                    <p className="whitespace-nowrap text-[13px] text-gray-400">NFT</p>
-                    <p className="flex items-center gap-[6px] whitespace-nowrap">
-                        <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
-                            10
-                        </span>
-                    </p>
-                </div> */}
+        <div className={"relative flex items-center gap-[5px]"}>
+          <p className="whitespace-nowrap text-[13px] text-gray-400">
+            Metadatas
+          </p>
+          <p className="flex items-center gap-[6px] whitespace-nowrap">
+            <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
+              20
+            </span>
+          </p>
+        </div>
+        <div className={"relative flex items-center gap-[5px]"}>
+          <p className="whitespace-nowrap text-[13px] text-gray-400">
+            Storages
+          </p>
+          <p className="flex items-center gap-[6px] whitespace-nowrap">
+            <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
+              10
+            </span>
+          </p>
+        </div>
         <div className={cn("leading-0 h-[1px] overflow-hidden bg-slate-500")} />
         <div className={cn("relative flex items-center")}>
           <Link
