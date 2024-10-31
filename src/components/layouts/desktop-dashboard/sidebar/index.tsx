@@ -5,6 +5,9 @@ import { SidebarToggle } from "./sidebar-toggle";
 import { MenuList } from "./menu-list";
 import { Button } from "@/components/ui/button";
 import { Images } from "@/components/common/images";
+import router from "@/constants/routers";
+import Image from "next/image";
+import { appImage } from "@/public/images";
 
 export function Sidebar() {
   const sidebar = useSidebarToggle();
@@ -19,7 +22,11 @@ export function Sidebar() {
       )}
     >
       <SidebarToggle isOpen={sidebar?.isOpen} toggle={sidebar?.toggle} />
-      <div className="relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800">
+      <div
+        className={cn(
+          "relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800",
+        )}
+      >
         <Button
           className={cn(
             "mb-1 transition-transform duration-300 ease-in-out",
@@ -30,22 +37,28 @@ export function Sidebar() {
         >
           <Link
             href="/dashboard"
-            className="flex items-center no-underline hover:no-underline"
+            className="flex items-center decoration-transparent "
           >
-            <Images.logo className="h-4 w-4" />
-            <p
-              className={cn(
-                "ml-2 whitespace-nowrap text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out",
-                sidebar?.isOpen === false
-                  ? "hidden -translate-x-96 opacity-0"
-                  : "translate-x-0 opacity-100",
-              )}
+            <Link
+              className="relative flex items-center justify-center gap-1"
+              href={router.landing}
             >
-              Generator
-            </p>
-            {/* <Images.logo
-                            }
-                        /> */}
+              <Image
+                className="h-[35px] w-[35px] object-cover"
+                src={appImage.logo}
+                alt="Logo"
+              />
+              <p
+                className={cn(
+                  "ml-2 whitespace-nowrap text-2xl font-medium transition-[transform,opacity,display] duration-300 ease-in-out text-gray-200",
+                  sidebar?.isOpen === false
+                    ? "hidden -translate-x-96 opacity-0"
+                    : "translate-x-0 opacity-100",
+                )}
+              >
+                Generator
+              </p>
+            </Link>
           </Link>
         </Button>
         <MenuList />
