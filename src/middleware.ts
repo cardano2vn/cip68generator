@@ -1,9 +1,9 @@
-import { auth } from "./lib/auth";
+// import { auth } from "./lib/auth";
 
 export async function middleware() {
-  //   const session = await auth();
-  //   console.log("session", session);
-  //   return;
+  // const session = await auth();
+  // console.log("session", session);
+  // return;
 }
 
 export const config = {

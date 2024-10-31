@@ -8,8 +8,7 @@ import {
 import { useUploadContext } from "../_context";
 
 export function UploadOneDialog() {
-  const { uploadOneDialogOpen, setUploadOneDialogOpen, setListFileToUpload } =
-    useUploadContext();
+  const { uploadOneDialogOpen, setUploadOneDialogOpen } = useUploadContext();
   return (
     <Dialog open={uploadOneDialogOpen} onOpenChange={setUploadOneDialogOpen}>
       <DialogContent className="sm:max-w-[425px]">
