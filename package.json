@@ -51,6 +51,7 @@
     "react-simple-typewriter": "^5.0.1",
     "react-vertical-timeline-component": "^3.6.0",
     "sharp": "^0.33.5",
+    "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "yarn": "^1.22.22",

@@ -22,7 +22,11 @@ export function Sidebar() {
       )}
     >
       <SidebarToggle isOpen={sidebar?.isOpen} toggle={sidebar?.toggle} />
-      <div className="relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800">
+      <div
+        className={cn(
+          "relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800",
+        )}
+      >
         <Button
           className={cn(
             "mb-1 transition-transform duration-300 ease-in-out",
@@ -33,10 +37,10 @@ export function Sidebar() {
         >
           <Link
             href="/dashboard"
-            className="flex items-center decoration-transparent"
+            className="flex items-center decoration-transparent "
           >
             <Link
-              className="relative flex items-center justify-center gap-2"
+              className="relative flex items-center justify-center gap-1"
               href={router.landing}
             >
               <Image
@@ -46,7 +50,7 @@ export function Sidebar() {
               />
               <p
                 className={cn(
-                  "ml-2 whitespace-nowrap text-2xl font-bold transition-[transform,opacity,display] duration-300 ease-in-out",
+                  "ml-2 whitespace-nowrap text-2xl font-medium transition-[transform,opacity,display] duration-300 ease-in-out text-gray-200",
                   sidebar?.isOpen === false
                     ? "hidden -translate-x-96 opacity-0"
                     : "translate-x-0 opacity-100",

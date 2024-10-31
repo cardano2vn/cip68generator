@@ -1,5 +1,14 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import { appImage, walletImage } from "@/public/images";
 import Image from "next/image";
+import Link from "next/link";
+import { Pagination } from "swiper/modules";
+import { IoLocation } from "react-icons/io5";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { VscVerified } from "react-icons/vsc";
+import Asset from "./asset";
 
 export default function ProfilePage() {
   return (
@@ -20,11 +29,7 @@ export default function ProfilePage() {
                   Independence
                 </h3>
                 <div className="flex items-center justify-center py-1 px-2 rounded-lg bg-[#282c34] text-gray-400 shadow-md gap-1">
-                  <Image
-                    src={walletImage.nami}
-                    alt="Wallet"
-                    className="w-4 h-4 object-cover"
-                  />
+                  <IoLocation className="text-[20px] font-bold text-gray-200" />
                   <span>addr_test1qz...rtm6</span>
                   <svg viewBox="0 0 24 24" width="12" height="12">
                     <path
@@ -52,6 +57,163 @@ export default function ProfilePage() {
             </section>
           </div>
           <div></div>
+        </section>
+        <section className="relative flex flex-none before:bg-[#282c34] before:absolute before:left-0 before:right-0 before:bottom-0 before:content-[''] before:h-[1px]">
+          <div className="py-0 px-10 flex flex-none overflow-hidden whitespace-normal relative translate-x-0 transition-shadow duration-300">
+            <div className="px-4 py-2 text-gray-200">Overview</div>
+            <div className="px-4 py-2 text-gray-200">Metadata</div>
+            <div className="px-4 py-2 text-gray-200">Storage</div>
+            <div className="px-4 py-2 text-gray-200">Assets</div>
+          </div>
+        </section>
+        <section className="flex flex-col">
+          <div className="flex shrink-0 basis-auto flex-grow-0 relative">
+            <section className="pt-2 flex-auto">
+              <div className="flex w-full">
+                <ul className="flex flex-col gap-8 w-full">
+                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl grid-rows-[auto_400px] w-full">
+                    <header className="flex items-center justify-between gap-4">
+                      <h5 className="text-[20px] text-gray-200 font-semibold leading-[24px]">
+                        Ownership
+                      </h5>
+                      <Link
+                        href={"/"}
+                        className="flex items-center gap-2 h-7 py-0 px-3 bg-transparent  rounded-lg"
+                      >
+                        <span className="text-[14px] leading-6 text-wrap text-gray-300 ">
+                          View All
+                        </span>
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M18.707 12.707a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.586 11H6a1 1 0 1 0 0 2h9.586l-2.293 2.293a1 1 0 0 0 1.414 1.414l4-4Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </Link>
+                    </header>
+                    <aside className="relative min-w-0 flex justify-center items-center h-full">
+                      <section className="overflow-hidden h-full">
+                        <Swiper
+                          className="h-full"
+                          slidesPerView={4}
+                          spaceBetween={30}
+                          // pagination={{
+                          //   clickable: true,
+                          // }}
+                          // modules={[Pagination]}
+                        >
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                        </Swiper>
+                      </section>
+                      <section className="bg-[linear-gradient(270deg, #13161b 3.23%, rgba(13, 14, 18, 0) 76.21%)] justify-end pl-0 pr-[10px] right-[-30px] absolute flex items-center z-10 h-full top-0 ">
+                        <Button className="bg-[#282C34] text-gray-200 rounded-xl text-[16px] leading-6 p-2">
+                          <svg
+                            className="w-6 h-6 object-cover"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M18.707 12.707a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.586 11H6a1 1 0 1 0 0 2h9.586l-2.293 2.293a1 1 0 0 0 1.414 1.414l4-4Z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
+                        </Button>
+                      </section>
+                    </aside>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section className="flex flex-col">
+          <div className="flex shrink-0 basis-auto flex-grow-0 relative">
+            <section className="pt-2 flex-auto">
+              <div className="flex w-full">
+                <ul className="flex flex-col gap-8 w-full">
+                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl grid-rows-[auto_400px] w-full">
+                    <header className="flex items-center justify-between gap-4">
+                      <h5 className="text-[20px] text-gray-200 font-semibold leading-[24px]">
+                        Ownership
+                      </h5>
+                    </header>
+                    <aside className="relative min-w-0 flex justify-center items-center h-full">
+                      <section className="overflow-hidden h-full">
+                        <Swiper
+                          className="h-full"
+                          slidesPerView={4}
+                          spaceBetween={30}
+                          // pagination={{
+                          //   clickable: true,
+                          // }}
+                          // modules={[Pagination]}
+                        >
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <Asset />
+                          </SwiperSlide>
+                        </Swiper>
+                      </section>
+                      <section className="bg-[linear-gradient(270deg, #13161b 3.23%, rgba(13, 14, 18, 0) 76.21%)] justify-end pl-0 pr-[10px] right-[-30px] absolute flex items-center z-10 h-full top-0 ">
+                        <Button className="bg-[#282C34] text-gray-200 rounded-xl text-[16px] leading-6 p-2">
+                          <svg
+                            className="w-6 h-6 object-cover"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M18.707 12.707a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.586 11H6a1 1 0 1 0 0 2h9.586l-2.293 2.293a1 1 0 0 0 1.414 1.414l4-4Z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
+                        </Button>
+                      </section>
+                    </aside>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
         </section>
       </aside>
     </main>
