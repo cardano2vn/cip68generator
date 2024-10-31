@@ -9,4 +9,14 @@ export const Images = {
   metadata: (props: LucideProps) => (
     <Image src={appImage.metadata} className={props.className} alt="metadata" />
   ),
+  collection: (props: LucideProps) => (
+    <Image
+      src={appImage.collection}
+      className={props.className}
+      alt="metadata"
+    />
+  ),
+  storegae: (props: LucideProps) => (
+    <Image src={appImage.storegae} className={props.className} alt="metadata" />
+  ),
 };
