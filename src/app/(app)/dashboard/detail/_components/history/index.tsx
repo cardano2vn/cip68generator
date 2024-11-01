@@ -12,8 +12,8 @@ export default function DetailHistoryPage() {
         className="vertical-timeline-element--work shadow-sm"
         contentStyle={{ background: "#13161B", color: "#fff" }}
         contentArrowStyle={{ borderRight: "7px solid  #13161B" }}
-        date="2011 - present"
-        iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+        date="25 Sep, 2024 10:46 - Mint"
+        iconStyle={{ background: "#13161B", color: "#fff" }}
       >
         <h3 className="vertical-timeline-element-title">Creative Director</h3>
         <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
