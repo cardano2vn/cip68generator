@@ -11,7 +11,8 @@
     "lint": "next lint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,json}' --config ./.prettierrc",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest",
+    "build:contract": "cd ./contract && aiken build"
   },
   "dependencies": {
     "@meshsdk/core": "^1.7.9",
