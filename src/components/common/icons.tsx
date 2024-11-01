@@ -13,27 +13,44 @@ import {
   SquareMenu,
   Store,
 } from "lucide-react";
+import { IoIosCreate } from "react-icons/io";
 import { Calendar } from "../ui/calendar";
-
-export type Icon = LucideIcon;
+import { IconType } from "react-icons";
+import { FaYoutube } from "react-icons/fa";
+import { TiHome } from "react-icons/ti";
+import { FaToolbox } from "react-icons/fa6";
+import { SiCoinmarketcap } from "react-icons/si";
+export type Icon = LucideIcon | IconType;
 
 export const Icons = {
-  arrowRight: ArrowRight,
-  house: House,
-  imagePlus: ImagePlus,
-  circuitBoard: CircuitBoard,
-  menuIcon: MenuIcon,
-  store: Store,
-  globe: Globe,
-  send: Send,
-  squareMenu: SquareMenu,
-  layoutGrid: LayoutGrid,
-  search: Search,
+  arrowRight: ({ ...props }: LucideProps) => {
+    return (
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10ZM10.47 8.47l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72H16a.75.75 0 0 0 0-1.5H9.81l1.72-1.72a.75.75 0 0 0-1.06-1.06Z"
+          fill="currentColor"
+        ></path>
+      </svg>
+    );
+  },
+  house: TiHome,
+  imagePlus: IoIosCreate,
+  circuitBoard: FaToolbox,
+  menuIcon: SiCoinmarketcap,
+  store: SiCoinmarketcap,
+  globe: SiCoinmarketcap,
+  send: SiCoinmarketcap,
+  squareMenu: SiCoinmarketcap,
+  layoutGrid: SiCoinmarketcap,
+  search: SiCoinmarketcap,
   calendar: Calendar,
   ideaScale: ({ ...props }: LucideProps) => (
     <svg
-      width="24"
-      height="25"
+      width="22"
+      height="22"
+      className="object-cover"
       viewBox="0 0 24 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -47,19 +64,5 @@ export const Icons = {
       />
     </svg>
   ),
-  youtube: ({ ...props }: LucideProps) => (
-    <svg
-      width="24"
-      height="18"
-      viewBox="0 0 24 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        d="M23.498 3.18592C23.3624 2.6752 23.095 2.20906 22.7226 1.83419C22.3502 1.45931 21.8858 1.18886 21.376 1.04992C19.505 0.544922 12 0.544922 12 0.544922C12 0.544922 4.495 0.544922 2.623 1.04992C2.11341 1.18911 1.64929 1.45966 1.27708 1.8345C0.904861 2.20935 0.637591 2.67536 0.502 3.18592C0 5.06992 0 8.99992 0 8.99992C0 8.99992 0 12.9299 0.502 14.8139C0.637586 15.3246 0.904975 15.7908 1.27739 16.1657C1.64981 16.5405 2.11418 16.811 2.624 16.9499C4.495 17.4549 12 17.4549 12 17.4549C12 17.4549 19.505 17.4549 21.377 16.9499C21.8869 16.8111 22.3513 16.5407 22.7237 16.1658C23.0961 15.7909 23.3635 15.3247 23.499 14.8139C24 12.9299 24 8.99992 24 8.99992C24 8.99992 24 5.06992 23.498 3.18592ZM9.545 12.5679V5.43192L15.818 8.99992L9.545 12.5679Z"
-        fill="currentColor"
-      />
-    </svg>
-  ),
+  youtube: FaYoutube,
 };

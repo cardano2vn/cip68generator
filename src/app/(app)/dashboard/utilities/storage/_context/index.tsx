@@ -1,25 +1,117 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Media } from "@prisma/client";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { dashboardRoutes } from "@/constants/routers";
+import { toast } from "@/hooks/use-toast";
+import { deleteMedia, getMedia } from "@/services/database/media";
+import { uploadIPFS } from "@/services/upload";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { createContext, PropsWithChildren, useContext } from "react";
+import useUploadStore, { UploadStore } from "./store";
 
-type useUploadStore = {
-  listMedia: Media[];
-  listSelected: Media[];
-  setListMedia: (media: Media[]) => void;
-  setListSelected: (media: Media[]) => void;
+type UploadContextType = UploadStore & {
+  uploadFiles: () => void;
+  deleteMediaSelected: () => any;
+  loading: boolean;
 };
 
 export default function UploadProvider({ children }: PropsWithChildren) {
-  const [listMedia, setListMedia] = useState<Media[]>([]);
-  const [listSelected, setListSelected] = useState<Media[]>([]);
+  const router = useRouter();
+  const {
+    currentPage,
+    setCurrentPage,
+    setListSelected,
+    setUploadOneDialogOpen,
+    setListFileToUpload,
+    setFilter,
+    listFileToUpload,
+    listSelected,
+    uploadOneDialogOpen,
+    filter,
+  } = useUploadStore();
+
+  const {
+    data: listMedia,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["getMedia", currentPage, filter],
+    queryFn: () =>
+      getMedia({
+        page: currentPage,
+        query: filter.query,
+        range: filter.range,
+      }),
+    refetchInterval: 5000,
+  });
+
+  const uploadFiles = async () => {
+    if (listFileToUpload) {
+      const formData = new FormData();
+      Array.from(listFileToUpload).forEach((file) => {
+        formData.append("file", file);
+      });
+      const { result, message } = await uploadIPFS(formData);
+      if (result) {
+        refetch();
+        toast({
+          title: "Sucess",
+          variant: "default",
+          description: (
+            <Button
+              onClick={() =>
+                router.push(dashboardRoutes.utilities.children.storage.redirect)
+              }
+            >
+              Go to Storage
+            </Button>
+          ),
+        });
+        setListFileToUpload([]);
+      } else {
+        toast({
+          title: "Error",
+          description: message,
+          variant: "destructive",
+        });
+      }
+    }
+    refetch();
+  };
+
+  const deleteMediaSelected = async () => {
+    const result = await deleteMedia(listSelected);
+    if (result.result) {
+      toast({
+        title: "Sucess",
+        description: "Delete media sucess",
+        variant: "default",
+      });
+      setListSelected([]);
+    }
+    refetch();
+  };
+
   return (
     <UploadContext.Provider
       value={{
-        listMedia: listMedia,
+        loading: isLoading,
+        listMedia: listMedia?.data ?? [],
         listSelected: listSelected,
-        setListMedia: setListMedia,
+        uploadOneDialogOpen: uploadOneDialogOpen,
+        listFileToUpload: listFileToUpload ?? [],
+        currentPage: currentPage,
+        totalPages: listMedia?.totalPages ?? 0,
+        filter: filter,
         setListSelected: setListSelected,
+        setUploadOneDialogOpen: setUploadOneDialogOpen,
+        setListFileToUpload: setListFileToUpload,
+        uploadFiles: uploadFiles,
+        setCurrentPage: setCurrentPage,
+        setFilter: setFilter,
+        deleteMediaSelected: deleteMediaSelected,
       }}
     >
       {children}
@@ -27,7 +119,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   );
 }
 
-const UploadContext = createContext<useUploadStore>(null!);
+const UploadContext = createContext<UploadContextType>(null!);
 export const useUploadContext = function () {
   const context = useContext(UploadContext);
   if (!context) {

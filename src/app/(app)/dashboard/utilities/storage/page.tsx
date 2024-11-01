@@ -4,9 +4,6 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { SearchBar } from "../_components/search-bar";
-import TableData from "../_components/file-table";
-import ListFileCard from "../_components/list-file";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +13,24 @@ import {
 import { cn } from "@/utils";
 import { dashboardRoutes } from "@/constants/routers";
 import { useUploadContext } from "./_context";
+import { UploadOneDialog } from "./_components/upload-one-dialog";
+import MediaGird from "./_components/media-gird";
+import MediaList from "./_components/media-list";
+import { ExternalLink } from "lucide-react";
+import Pagination from "./_components/pagination";
+import { Filter } from "./_components/filter";
+import FileAction from "./_components/file-action";
 export default function StogarePage() {
-  const { listMedia } = useUploadContext();
+  const { setUploadOneDialogOpen } = useUploadContext();
   return (
     <div className="mt-5 rounded-lg bg-section p-2">
-      <h1 className="text-2xl font-semibold leading-7">Stogare</h1>
-      <div className="mt-5">
-        <Tabs defaultValue="list" className="px-4">
+      <UploadOneDialog />
+      <h1 className="text-2xl font-semibold leading-7">Storage</h1>
+      <div className="mt-5 flex flex-col h-full">
+        <Tabs
+          defaultValue="list"
+          className="px-4 min-h-[70vh] flex-grow overflow-y-auto"
+        >
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg p-2">
             <TabsList>
               <TabsTrigger
@@ -38,29 +46,8 @@ export default function StogarePage() {
                 <Icons.layoutGrid className="h-5 w-5" />
               </TabsTrigger>
             </TabsList>
-
             <div className="flex items-center space-x-2">
-              <div className="inline-flex rounded-md shadow-sm" role="group">
-                <Button variant="secondary" className="rounded-r-none">
-                  Select All
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="rounded-none border-x border-gray-600"
-                >
-                  Format
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="rounded-none border-r border-gray-600"
-                >
-                  Download
-                </Button>
-                <Button variant="secondary" className="rounded-l-none">
-                  Delete
-                </Button>
-              </div>
-
+              <FileAction />
               <DropdownMenu>
                 <DropdownMenuTrigger
                   className={cn(
@@ -71,34 +58,43 @@ export default function StogarePage() {
                   Upload New
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <Link
-                    href={
-                      dashboardRoutes.utilities.children.storage.children
-                        .uploadFile.redirect
-                    }
-                  >
-                    <DropdownMenuItem> Upload File</DropdownMenuItem>
-                  </Link>
+                  <DropdownMenuItem>
+                    <Button
+                      onClick={() => setUploadOneDialogOpen(true)}
+                      variant="ghost"
+                      className="border-none h-6"
+                    >
+                      Upload One
+                    </Button>
+                  </DropdownMenuItem>
                   <Link
                     href={
                       dashboardRoutes.utilities.children.storage.children
                         .uploadFolder.redirect
                     }
+                    className={cn(buttonVariants({ variant: "ghost" }))}
                   >
-                    <DropdownMenuItem> Upload Folder</DropdownMenuItem>
+                    <DropdownMenuItem> Upload Many</DropdownMenuItem>
                   </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
-          <SearchBar />
+          <Filter />
           <TabsContent value="list">
-            <TableData listMedia={listMedia} />
+            <MediaList />
           </TabsContent>
           <TabsContent value="grid">
-            <ListFileCard listMedia={listMedia} />
+            <MediaGird />
           </TabsContent>
         </Tabs>
+        <div className="mt-auto flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
+          <Button variant="link" className="text-sm font-semibold sm:text-base">
+            <span>Document</span>
+            <ExternalLink className="ml-2 h-4 w-4" />
+          </Button>
+          <Pagination />
+        </div>
       </div>
     </div>
   );

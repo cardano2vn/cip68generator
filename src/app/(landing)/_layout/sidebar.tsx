@@ -1,27 +1,37 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import router from "@/constants/routers";
+import { Button } from "@/components/ui/button";
+import router, { publicRoutes } from "@/constants/routers";
 import { cn } from "@/utils";
 import React, { useState } from "react";
+import NavLink from "./nav-link";
 
 type Props = {
-  open: boolean;
   className?: string;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Sidebar({ open, setOpen, className }: Props) {
+export default function Sidebar({ className }: Props) {
   const [selected, setSelected] = useState<string>(router.landing);
 
   return (
-    <div
-      className={cn(
-        "fixed top-0 right-0 h-screen min-w-[30px] after:fixed after:content-[''] after:left-0 after:top-0 after:w-screen after:h-screen after:blur-sm after:bg-slate-700 after:z-[-1] after:bg-none ",
-        className,
-        {
-          "right-0 opacity-100": open,
-        },
-      )}
-    ></div>
+    <div className={cn(className)}>
+      <Button>Connect Wallet</Button>
+      <nav className="py-[25px] px-[18px]">
+        <ul>
+          {publicRoutes.map(function ({ name, redirect }, index: number) {
+            return (
+              <NavLink
+                key={index}
+                isActive={false}
+                name={name}
+                redirect={redirect}
+                setSelected={setSelected}
+              />
+            );
+          })}
+        </ul>
+      </nav>
+    </div>
   );
 }

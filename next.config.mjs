@@ -14,9 +14,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "18.143.169.117",
-        port: "8080",
+        protocol: "https",
+        hostname: "ipfs.io",
         pathname: "/ipfs/**",
       },
     ],
@@ -24,7 +23,7 @@ const nextConfig = {
 
   // output: "standalone",
   reactStrictMode: true,
-  webpack: function (config, _) {
+  webpack: function (config) {
     config.experiments = {
       asyncWebAssembly: true,
       layers: true,

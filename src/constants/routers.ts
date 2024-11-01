@@ -30,10 +30,10 @@ export const dashboardRoutes = {
         redirect: "/dashboard/utilities/storage",
         children: {
           uploadFile: {
-            redirect: "/dashboard/utilities/storage/upload/file",
+            redirect: "/dashboard/utilities/storage/upload/one",
           },
           uploadFolder: {
-            redirect: "/dashboard/utilities/storage/upload/folder",
+            redirect: "/dashboard/utilities/storage/upload/many",
           },
         },
       },
