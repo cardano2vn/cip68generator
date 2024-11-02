@@ -1,11 +1,23 @@
 "use client";
 
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import useMetadataStore, { MetadataStore } from "./store";
+import { AssetMetadata } from "@meshsdk/core";
+import {
+  addMetadata,
+  deleteMetadata,
+  getMetadata,
+} from "@/services/database/metadata";
+import { toast } from "@/hooks/use-toast";
+import { dashboardRoutes } from "@/constants/routers";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
 type MetadataContextType = MetadataStore & {
   loading: boolean;
+  collectionId: string;
+  createMetadata: (metadataContent: AssetMetadata) => void;
+  deleteMetadataSelected: () => void;
 };
 
 export default function MetadataProvider({
@@ -15,22 +27,92 @@ export default function MetadataProvider({
   collectionId: string;
   children: React.ReactNode;
 }) {
-  useState<boolean>(false);
+  const {
+    setListMetadata,
+    currentPage,
+    filter,
+    setFilter,
+    listSelected,
+    setListSelected,
+    setCurrentPage,
+  } = useMetadataStore();
+  const router = useRouter();
 
-  const { listSelected, setListSelected } = useMetadataStore();
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["getMedia", currentPage, filter],
+    queryFn: () =>
+      getMetadata({
+        collectionId,
+        page: currentPage,
+        query: filter.query,
+        range: filter.range,
+      }),
+    refetchInterval: 5000,
+  });
 
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["getMetadata"],
-  //   queryFn: () => getAllMetadata(),
-  //   refetchInterval: 5000,
-  // });
+  const createMetadata = async (metadataContent: AssetMetadata) => {
+    const { result, message } = await addMetadata({
+      collectionId,
+      listMetadata: [metadataContent],
+    });
+    if (result) {
+      toast({
+        title: "Sucess",
+        variant: "default",
+        description: "Metadata created",
+      });
+      router.push(
+        dashboardRoutes.utilities.children.collection.redirect +
+          "/" +
+          collectionId,
+      );
+    } else {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: message,
+      });
+    }
+    refetch();
+  };
+
+  const deleteMetadataSelected = async () => {
+    const { result, message } = await deleteMetadata({
+      collectionId,
+      listMetadata: listSelected,
+    });
+    if (result) {
+      toast({
+        title: "Sucess",
+        variant: "default",
+        description: "Metadata deleted",
+      });
+      setListSelected([]);
+    } else {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: message,
+      });
+    }
+    refetch();
+  };
 
   return (
     <MetadataContext.Provider
       value={{
-        loading: false,
-        listMetadata: [],
+        loading: isLoading,
+        listMetadata: data?.data || [],
+        currentPage,
+        totalPages: data?.totalPages || 0,
+        filter,
+        setFilter,
+        setListMetadata,
+        setCurrentPage,
+        collectionId,
         listSelected,
+        deleteMetadataSelected,
+        createMetadata,
         setListSelected,
       }}
     >

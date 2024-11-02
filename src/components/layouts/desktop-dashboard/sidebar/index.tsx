@@ -4,7 +4,6 @@ import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { SidebarToggle } from "./sidebar-toggle";
 import { MenuList } from "./menu-list";
 import { Button } from "@/components/ui/button";
-import { Images } from "@/components/common/images";
 import router from "@/constants/routers";
 import Image from "next/image";
 import { appImage } from "@/public/images";

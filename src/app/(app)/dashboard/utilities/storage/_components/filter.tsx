@@ -7,7 +7,8 @@ import { DatePickerWithRange } from "@/components/common/date-range-picker";
 import { useUploadContext } from "../_context";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
-import { filterDefault, FilterType } from "../_context/store";
+import { filterDefault } from "@/constants";
+import { FilterType } from "@/types";
 
 export const Filter = () => {
   const { filter, setFilter } = useUploadContext();

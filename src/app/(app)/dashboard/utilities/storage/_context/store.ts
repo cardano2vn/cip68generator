@@ -1,19 +1,8 @@
 import { create } from "zustand";
 import { Media } from "@prisma/client";
-import { DateRange } from "react-day-picker";
+import { FilterType } from "@/types";
+import { filterDefault } from "@/constants";
 
-export type FilterType = {
-  range: DateRange;
-  query: string;
-};
-
-export const filterDefault: FilterType = {
-  range: {
-    from: new Date(2024, 0, 1),
-    to: new Date(2024, 11, 31),
-  },
-  query: "",
-};
 export type UploadStore = {
   listMedia: Media[];
   listSelected: Media[];
