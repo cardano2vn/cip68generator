@@ -21,8 +21,8 @@ import logo from "./common/logo.png";
 import cardano from "./network/cardano.png";
 
 import metadata from "./utilities/metadata.png";
-import storegae from './utilities/storage.png';
-import collection from './utilities/collection.png';
+import storegae from "./utilities/storage.png";
+import collection from "./utilities/collection.png";
 
 export const founderImage = {
   son: son,
@@ -37,7 +37,7 @@ export const appImage = {
   cardano: cardano,
   metadata: metadata,
   storegae: storegae,
-  collection: collection
+  collection: collection,
 } as const;
 
 export const walletImage = {
