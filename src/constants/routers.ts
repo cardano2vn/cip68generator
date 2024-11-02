@@ -24,7 +24,7 @@ export const dashboardRoutes = {
     redirect: "/dashboard/utilities",
     children: {
       collection: {
-        redirect: "/dashboard/collection",
+        redirect: "/dashboard/utilities/collection",
       },
       storage: {
         redirect: "/dashboard/utilities/storage",

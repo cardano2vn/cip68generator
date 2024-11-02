@@ -15,7 +15,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { IPFS_GATEWAY } from "@/constants";
 import { useUploadContext } from "../_context";
 import { Media } from "@prisma/client";
-import FileDisplay from "./media-image";
+import FileDisplay from "../../../../../../components/common/file-display";
 
 export default function MediaList() {
   const { loading, listMedia, listSelected, setListSelected } =
@@ -74,7 +74,6 @@ export default function MediaList() {
                     </div>
                     <div>
                       <div className="font-bold">
-                        {" "}
                         {file.name.length > 30
                           ? file.name.slice(0, 30) + "..."
                           : file.name}

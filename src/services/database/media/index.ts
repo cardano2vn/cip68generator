@@ -4,22 +4,20 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { UnauthorizedException } from "@/utils/http/http-exceptions";
 import { Media } from "@prisma/client";
-import { isNil } from "lodash";
+import { isEmpty, isNil } from "lodash";
 import { DateRange } from "react-day-picker";
-
-interface GetMediaParams {
-  query?: string | null;
-  range?: DateRange | null;
-  page?: number;
-  limit?: number;
-}
 
 export async function getMedia({
   query = null,
   range = null,
   page = 1,
   limit = 12,
-}: GetMediaParams) {
+}: {
+  query?: string | null;
+  range?: DateRange | null;
+  page?: number;
+  limit?: number;
+}) {
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -53,7 +51,7 @@ export async function getMedia({
       OR: [],
     };
 
-    if (!isNil(query)) {
+    if (!isNil(query) && !isEmpty(query)) {
       whereConditions.OR.push({
         name: {
           contains: query,
