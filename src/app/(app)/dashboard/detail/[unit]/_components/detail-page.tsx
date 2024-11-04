@@ -257,7 +257,7 @@ export default function DetailPage() {
                     OWNER
                   </h3>
                   <Link
-                    href=""
+                    href="/#"
                     className="flex items-center gap-2 overflow-hidden"
                   >
                     <div className="w-8 h-8 overflow-hidden relative rounded-full">
