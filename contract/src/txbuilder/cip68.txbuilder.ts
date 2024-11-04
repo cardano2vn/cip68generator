@@ -121,7 +121,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
 
     const unsignedTx = this.meshTxBuilder
       // .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
-      
+
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
       .mintTxInReference(
@@ -137,8 +137,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .spendingTxInReference(
         storeUtxoRef.input.txHash,
         storeUtxoRef.input.outputIndex,
-    )
-      
+      )
+
       .txOut(walletAddress, [
         {
           unit: this.policyId + CIP68_100(stringToHex(assetName)),
@@ -199,6 +199,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .txInInlineDatumPresent()
       .txInRedeemerValue(mConStr0([]))
       .spendingTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+
       .txOut(this.storeAddress, [
         {
           unit: this.policyId + CIP68_100(stringToHex(assetName)),
