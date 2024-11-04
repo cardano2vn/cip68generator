@@ -69,9 +69,10 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
 
     const unsignedTx: string = await cip68Contract.burn({
       assetName: "CIP68 Generators",
-      txHash: "728fa7f14b3652a34dfd0f920b5739ede6bda1a88e9ffc52d74636bb41007235",
-      quantity: "-1"
-    })
+      txHash:
+        "728fa7f14b3652a34dfd0f920b5739ede6bda1a88e9ffc52d74636bb41007235",
+      quantity: "-1",
+    });
     const signedTx = await wallet.signTx(unsignedTx, true);
     const txHash = await wallet.submitTx(signedTx);
     console.log(txHash);

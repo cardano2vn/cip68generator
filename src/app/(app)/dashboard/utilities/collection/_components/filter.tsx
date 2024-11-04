@@ -4,14 +4,14 @@ import { Icons } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DatePickerWithRange } from "@/components/common/date-range-picker";
-import { useUploadContext } from "../_context";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
 import { filterDefault } from "@/constants";
 import { FilterType } from "@/types";
+import { useMetadataContext } from "../_context/metadata";
 
 export const Filter = () => {
-  const { filter, setFilter } = useUploadContext();
+  const { filter, setFilter } = useMetadataContext();
   const [temp, setTemp] = useState<FilterType>(filter);
 
   const handleSearch = () => {
@@ -29,7 +29,7 @@ export const Filter = () => {
         <Icons.search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform" />
         <Input
           type="text"
-          placeholder="Search by Name or CID"
+          placeholder="Search by Content"
           value={temp.query}
           className="w-full rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
           onChange={(e) => setTemp({ ...temp, query: e.target.value })}

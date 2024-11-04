@@ -4,10 +4,8 @@ import { Button } from "@/components/ui/button";
 import { appImage, walletImage } from "@/public/images";
 import Image from "next/image";
 import Link from "next/link";
-import { Pagination } from "swiper/modules";
 import { IoLocation } from "react-icons/io5";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { VscVerified } from "react-icons/vsc";
 import Asset from "./asset";
 
 export default function ProfilePage() {
