@@ -11,6 +11,7 @@ import {
   AssetMetadata,
   metadataToCip68,
   mConStr1,
+  deserializeAddress
 } from "@meshsdk/core";
 import { ICip68Contract } from "../interface/icip68.interface";
 import { MeshAdapter } from "../adapters/mesh.adapter";
@@ -28,25 +29,28 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
   protected mintCompileCode: string = this.readValidator(plutus, title.mint);
   protected storeCompileCode: string = this.readValidator(plutus, title.store);
 
-  protected mintScriptCbor = applyParamsToScript(this.mintCompileCode, []);
-  protected storeScriptCbor = applyParamsToScript(this.storeCompileCode, []);
+  protected storeScriptCbor = applyParamsToScript(this.storeCompileCode, ["9dcd4b00b1d25d24c07a82c02af5e955e42271a2548136df4af35b38", BigInt(1)]);
 
-  protected mintScript: PlutusScript = {
-    code: this.mintScriptCbor,
-    version: "V3",
-  };
   protected storeScript: PlutusScript = {
     code: this.storeScriptCbor,
     version: "V3",
   };
-
-  protected policyId = resolveScriptHash(this.mintScriptCbor, "V3");
-  protected storeAddress = serializePlutusScript(
+   protected storeAddress = serializePlutusScript(
     this.storeScript,
     undefined,
     APP_NETWORK,
     false,
   ).address;
+  protected storeScriptHash = deserializeAddress(this.storeAddress).scriptHash;
+  protected mintScriptCbor = applyParamsToScript(this.mintCompileCode, [
+    "9dcd4b00b1d25d24c07a82c02af5e955e42271a2548136df4af35b38", BigInt(1),this.storeScriptHash
+  ]);
+  protected mintScript: PlutusScript = {
+    code: this.mintScriptCbor,
+    version: "V3",
+  };
+  protected policyId = resolveScriptHash(this.mintScriptCbor, "V3");
+ 
 
   /**
    *
@@ -63,19 +67,24 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     quantity: string;
   }) => {
     const { utxos, walletAddress, collateral } = await this.getWalletForTx();
+
     const utxoRef: UTxO = await this.getUtxoForTx(
       MINT_REFERENCE_SCRIPT_ADDRESS,
       MINT_REFERENCE_SCRIPT_HASH,
     );
+
+    console.log(deserializeAddress(walletAddress).pubKeyHash)
     const unsignedTx = this.meshTxBuilder
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
-      .mintTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+      // .mintTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+      .mintingScript(this.mintScriptCbor)
       .mintRedeemerValue(mConStr0([]))
 
       .mintPlutusScriptV3()
       .mint("1", this.policyId, CIP68_100(stringToHex(assetName)))
-      .mintTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+      .mintingScript(this.mintScriptCbor)
+      // .mintTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
       .mintRedeemerValue(mConStr0([]))
 
       .txOut(this.storeAddress, [
@@ -85,7 +94,15 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         },
       ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
+      .txOut("addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4", [
+        {
+          unit: "lovelace",
+          quantity: "1500000",
+        },
+      ])
+      
       .changeAddress(walletAddress)
+      .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .selectUtxosFrom(utxos)
       .txInCollateral(
         collateral.input.txHash,
@@ -124,10 +141,11 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
 
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
-      .mintTxInReference(
-        mintUtxoRef.input.txHash,
-        mintUtxoRef.input.outputIndex,
-      )
+    .mintingScript(this.mintScriptCbor)
+      // .mintTxInReference(
+      //   mintUtxoRef.input.txHash,
+      //   mintUtxoRef.input.outputIndex,
+      // )
       .mintRedeemerValue(mConStr1([]))
 
       .spendingPlutusScriptV3()
@@ -154,7 +172,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         mintUtxoRef.input.outputIndex,
       )
       .mintRedeemerValue(mConStr1([]))
-
+      .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
       .txInCollateral(
@@ -207,6 +225,14 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         },
       ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
+
+      .txOut("addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4", [
+        {
+          unit: "lovelace",
+          quantity: "1000000",
+        },
+      ])
+      .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
       .txInCollateral(
