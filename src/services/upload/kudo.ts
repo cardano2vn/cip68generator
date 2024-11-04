@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { IPFS_ENDPOINT } from "@/constants";
-import mimeTypes from "@/constants/mimeTypes";
+import mimeTypes from "@/constants/mime-types";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { UnauthorizedException } from "@/utils/http/http-exceptions";
