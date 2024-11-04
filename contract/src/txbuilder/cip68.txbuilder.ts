@@ -199,6 +199,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .txInInlineDatumPresent()
       .txInRedeemerValue(mConStr0([]))
       .spendingTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
+      
       .txOut(this.storeAddress, [
         {
           unit: this.policyId + CIP68_100(stringToHex(assetName)),

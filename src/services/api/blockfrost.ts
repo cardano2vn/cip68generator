@@ -1,11 +1,11 @@
+import { BLOCKFROST_API_KEY } from "@/contract/src/constants";
 import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
-import * as dotenv from "dotenv";
-dotenv.config();
+
 
 class BlockfrostService extends BlockFrostAPI {
     constructor() {
         super({
-            projectId: process.env.BLOCKFROST_PROJECT_API_KEY_PREPROD!,
+            projectId: BLOCKFROST_API_KEY
         });
     }
 }
