@@ -28,7 +28,7 @@ export async function getMedia({
 
     const whereConditions: {
       userId: string;
-      OR: Array<
+      OR?: Array<
         | {
             name?: {
               contains: string;
@@ -48,10 +48,10 @@ export async function getMedia({
       };
     } = {
       userId: userId,
-      OR: [],
     };
 
     if (!isNil(query) && !isEmpty(query)) {
+      whereConditions.OR = whereConditions.OR || [];
       whereConditions.OR.push({
         name: {
           contains: query,
