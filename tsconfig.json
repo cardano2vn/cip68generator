@@ -32,6 +32,6 @@
     "src/types/**/*.ts",
     "next.config.mjs",
     "eslint.config.mjs"
-  ],
+, "src/lib/cardano/koios"  ],
   "exclude": ["node_modules"]
 }
