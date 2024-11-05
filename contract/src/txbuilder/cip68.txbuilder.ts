@@ -24,10 +24,17 @@ import {
   STORE_REFERENCE_SCRIPT_ADDRESS,
   APP_NETWORK,
 } from "../constants";
+import { Plutus } from "../types";
 
 export class Cip68Contract extends MeshAdapter implements ICip68Contract {
-  protected mintCompileCode: string = this.readValidator(plutus, title.mint);
-  protected storeCompileCode: string = this.readValidator(plutus, title.store);
+  protected mintCompileCode: string = this.readValidator(
+    plutus as Plutus,
+    title.mint,
+  );
+  protected storeCompileCode: string = this.readValidator(
+    plutus as Plutus,
+    title.store,
+  );
 
   protected storeScriptCbor = applyParamsToScript(this.storeCompileCode, [
     "9dcd4b00b1d25d24c07a82c02af5e955e42271a2548136df4af35b38",
