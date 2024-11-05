@@ -45,3 +45,4 @@ docs/
 
 yarn.lock
 .env.vercel
+plutus.json
