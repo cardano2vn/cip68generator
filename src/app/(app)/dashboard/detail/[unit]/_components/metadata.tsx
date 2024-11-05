@@ -14,7 +14,7 @@ export default function Metadata({ image, name, value }: Props) {
         <Image
           className="p-2 w-full h-full object-cover"
           src={appImage.logo}
-          alt=""
+          alt={image}
         />
       </section>
       <section>

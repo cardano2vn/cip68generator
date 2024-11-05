@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import classNames from "classnames/bind";
 import { paginationIcon } from "@/public/icons";
 import { Button } from "@/components/ui/button";
 
