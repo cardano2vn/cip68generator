@@ -29,7 +29,7 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: run prisma generate
-        run: npx prisma generate --watch
+        run: npm cache clean --force && npm i prisma@5.21.1 -D --force && npx prisma generate --watch
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
