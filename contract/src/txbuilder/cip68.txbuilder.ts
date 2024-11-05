@@ -189,7 +189,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       //   mintUtxoRef.input.outputIndex,
       // )
       // .mintRedeemerValue(mConStr1([]))
-      
+
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
