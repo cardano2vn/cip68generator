@@ -1,6 +1,3 @@
-use aiken/crypto.{VerificationKeyHash}
-use cardano/assets.{AssetName, PolicyId}
-
 // the redeemer using mint validator
 pub type MintRedeemer {
   Mint

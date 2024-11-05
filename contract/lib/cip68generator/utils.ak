@@ -1,5 +1,5 @@
 use aiken/collection/list
-use aiken/crypto.{ScriptHash, VerificationKeyHash}
+use aiken/crypto.{VerificationKeyHash}
 use aiken/primitive/bytearray
 use cardano/address.{Address}
 use cardano/assets.{AssetName, PolicyId, flatten, lovelace_of, without_lovelace}
@@ -38,16 +38,17 @@ pub fn token_prefix(
   let exist =
     list.find(
       flat,
-      fn((policy_id, asset_name, amount)) {
+      fn((_policy_id, asset_name, _amount)) {
         bytearray.starts_with(asset_name, prefix)
       },
     )
   when exist is {
-    Some((policy_id, asset_name, amount)) -> Some(asset_name)
+    Some((_policy_id, asset_name, _amount)) -> Some(asset_name)
     None -> None
   }
 }
 
+// check none token from asset name use only for user_token and reference_token
 pub fn check_none_token(
   user_token: Option<AssetName>,
   reference_token: Option<AssetName>,
@@ -59,6 +60,7 @@ pub fn check_none_token(
   }
 }
 
+// check address from output
 pub fn check_address(output: Output, address: Address) -> Bool {
   output.address.payment_credential == address.payment_credential
 }
@@ -77,6 +79,7 @@ pub fn check_none_output(
   }
 }
 
+// find output with lovelace on
 pub fn find_output(
   outputs: List<Output>,
   price: Int,
@@ -88,10 +91,12 @@ pub fn find_output(
   )
 }
 
-pub fn check_price_duplicate(out_sell: Output, out_royal: Output) -> Bool {
-  lovelace_of(out_sell.value) > lovelace_of(out_royal.value)
+// check price duplicate fromt author address = exchange address
+pub fn check_price_duplicate(owner: Output, exchange: Output) -> Bool {
+  lovelace_of(owner.value) > lovelace_of(exchange.value)
 }
 
+// the function ce
 pub fn check_address_duplicate(
   output_author: Output,
   output_exchange: Output,

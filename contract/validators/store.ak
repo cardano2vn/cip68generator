@@ -1,6 +1,6 @@
-use aiken/crypto.{ScriptHash, VerificationKeyHash}
+use aiken/crypto.{VerificationKeyHash}
 use cardano/address
-use cardano/assets.{flatten, without_lovelace}
+use cardano/assets.{without_lovelace}
 use cardano/transaction.{
   InlineDatum, Output, OutputReference, Transaction, find_input,
 }
@@ -28,22 +28,23 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
     let exchange_address = address.from_verification_key(exchange)
     let output_utxo_exchange =
       utils.find_output(outputs, exchange_fee, exchange_address)
+    expect InlineDatum(datum_input) = validator_output.datum
+    let meradatum_output: CIP68 = datum_output
+    expect metadatum_input: CIP68 = datum_input
+    expect author_input: ByteArray = cip68.get(metadatum_input, "author")
+    expect author_output: ByteArray = cip68.get(meradatum_output, "author")
+    let check_author = author_input == author_output
     when redeemer is {
-      Update -> {
-        expect InlineDatum(datum_input) = validator_output.datum
-        let meradatum_output: CIP68 = datum_output
-        expect metadatum_input: CIP68 = datum_input
-        expect author_input: ByteArray = cip68.get(metadatum_input, "author")
-        expect author_output: ByteArray = cip68.get(meradatum_output, "author")
-
-        let check_author = author_input == author_output
-        and {
+      Update -> and {
           utils.check_output_utxo(validator_output, extra_signatories)?,
           output_utxo_exchange != None,
           check_author,
         }
-      }
-      Remove -> True
+      Remove -> and {
+          utils.check_output_utxo(validator_output, extra_signatories)?,
+          output_utxo_exchange != None,
+          check_author,
+        }
     }
   }
 
