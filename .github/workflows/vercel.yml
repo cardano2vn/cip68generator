@@ -8,6 +8,19 @@ on:
       - preview
 
 jobs:
+  Contract:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: aiken-lang/setup-aiken@v1
+              with:
+                  version: v1.1.0
+            - run: aiken fmt --check
+              working-directory: ./contract
+            - run: aiken check -D
+              working-directory: ./contract
+            - run: aiken build
+              working-directory: ./contract
   Deploy-Preview:
     runs-on: ubuntu-latest
     steps:
