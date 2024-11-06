@@ -2,10 +2,15 @@
 
 import { uploadConfig } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
-export default function ImagePicker({
+
+export default function FilePicker({
   setFiles,
+  accept = "*/*",
+  multiple = true,
 }: {
   setFiles: (files: File[]) => void;
+  accept?: string;
+  multiple?: boolean;
 }) {
   const { toast } = useToast();
 
@@ -49,7 +54,8 @@ export default function ImagePicker({
         id="file-upload"
         type="file"
         className="hidden"
-        multiple
+        accept={accept}
+        multiple={multiple}
         onChange={handleFileUpload}
       />
     </div>

@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import ImagePicker from "../../../_components/image-picker";
+import FilePicker from "../../../../../../../components/common/file-picker";
 import { useUploadContext } from "../../_context";
 import MediaGirdtoUpload from "../../_components/media-gird-to-upload";
 export default function UploadFilePage() {
@@ -18,7 +18,7 @@ export default function UploadFilePage() {
         </p>
         <div className="mt-5">
           <div className="px-4">
-            <ImagePicker setFiles={setListFileToUpload} />
+            <FilePicker setFiles={setListFileToUpload} />
             {listFileToUpload.length > 0 && (
               <>
                 <MediaGirdtoUpload />

@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useUploadContext } from "../_context";
+import FileDisplay from "@/components/common/file-display";
 
 export default function MediaGirdtoUpload() {
   const { listFileToUpload, setListFileToUpload } = useUploadContext();
@@ -19,11 +19,10 @@ export default function MediaGirdtoUpload() {
               className="flex w-full max-w-md items-center justify-between rounded-lg bg-gray-800 p-2"
             >
               <div className="flex flex-grow items-center">
-                <Image
+                <FileDisplay
                   src={URL.createObjectURL(file)}
                   alt={file.name}
-                  width={80}
-                  height={80}
+                  type={file.type}
                   className="mr-4 h-20 w-20 rounded object-cover"
                 />
                 <span className="truncate text-lg text-white">{file.name}</span>
