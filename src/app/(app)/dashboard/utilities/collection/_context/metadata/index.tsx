@@ -39,7 +39,7 @@ export default function MetadataProvider({
   const router = useRouter();
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["getMedia", currentPage, filter],
+    queryKey: ["getMetadata", currentPage, filter],
     queryFn: () =>
       getMetadata({
         collectionId,
