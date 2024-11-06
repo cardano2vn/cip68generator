@@ -51,11 +51,11 @@ export const useWallet = create<useWalletStore>((set, get) => ({
     }
 
     if (isNil(session)) {
-      const nonce = await getNonceByAddress(address);
-      if (isNil(nonce) || nonce === "") {
-        throw new Error("Cant get nonce");
+      const { data, result, message } = await getNonceByAddress(address);
+      if (!result || isNil(data)) {
+        throw new Error(message);
       }
-      const signature = await browserWallet.signData(nonce);
+      const signature = await browserWallet.signData(data);
       if (isNil(signature)) {
         throw new Error("Cant get signature");
       }

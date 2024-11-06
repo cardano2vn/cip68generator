@@ -25,6 +25,16 @@ model User {
   @@map(name: "user")
 }
 
+model WalletNonce {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  address   String   @unique @map(name: "address")
+  nonce     String  
+
+  @@map(name: "wallet_nonce")
+}
+
 model Collection {
   id          String     @id @default(cuid())
   createdAt   DateTime   @default(now()) @map(name: "created_at")
