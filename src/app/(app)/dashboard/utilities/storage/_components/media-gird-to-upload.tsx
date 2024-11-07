@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, File } from "lucide-react";
 import { useUploadContext } from "../_context";
-import FileDisplay from "@/components/common/file-display";
+import Image from "next/image";
 
 export default function MediaGirdtoUpload() {
   const { listFileToUpload, setListFileToUpload } = useUploadContext();
@@ -12,20 +12,29 @@ export default function MediaGirdtoUpload() {
   return (
     <div className="h-full w-full space-y-4 rounded-lg p-4">
       <div className="overflow-x-auto">
-        <div className="md:grid-col-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {listFileToUpload.map((file, index) => (
             <div
               key={index}
               className="flex w-full max-w-md items-center justify-between rounded-lg bg-gray-800 p-2"
             >
               <div className="flex flex-grow items-center">
-                <FileDisplay
-                  src={URL.createObjectURL(file)}
-                  alt={file.name}
-                  type={file.type}
-                  className="mr-4 h-20 w-20 rounded object-cover"
-                />
-                <span className="truncate text-lg text-white">{file.name}</span>
+                {file.type.includes("image") ? (
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    width={80}
+                    height={80}
+                    className="mr-4 h-20 w-20 rounded object-cover"
+                  />
+                ) : (
+                  <div className="flex h-20 w-20 items-center justify-center bg-gray-800 rounded-md">
+                    <File size={48} className="text-gray-400" />
+                  </div>
+                )}
+                <span className="truncate text-lg text-white ml-4">
+                  {file.name}
+                </span>
               </div>
               <Button
                 onClick={() => handleRemove(index)}
