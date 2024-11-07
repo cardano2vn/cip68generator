@@ -69,3 +69,51 @@ export async function getAllCollection() {
     };
   }
 }
+
+export async function createCollectionWithData({
+  collectionName,
+  listMetadata,
+}: {
+  collectionName: string;
+  listMetadata: { [key: string]: string | number | boolean | null }[];
+}) {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
+
+    if (!userId) {
+      throw new UnauthorizedException();
+    }
+
+    const result = await prisma.collection.create({
+      data: {
+        name: collectionName,
+        userId: userId,
+        Metadata: {
+          create: listMetadata.map((metadata) => ({
+            content: metadata,
+            nftReference: [],
+          })),
+        },
+      },
+      include: {
+        Metadata: true,
+      },
+    });
+
+    return {
+      result: true,
+      message: "success",
+      data: result,
+    };
+  } catch (error: unknown) {
+    return {
+      data: null,
+      result: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Cant create collection with data, unknown error",
+    };
+  }
+}

@@ -86,19 +86,27 @@ export async function getMetadata({
       throw new Error("Collection not found");
     }
 
-    // Define whereConditions with OR clause for JSON filtering on multiple paths
     const whereConditions: {
       collectionId: string;
-      OR?: Array<{
-        content: {
-          path: string[];
-          string_contains: string;
-          mode: "insensitive";
-        };
-      }>;
+      OR?: Array<
+        | {
+            content: {
+              path: string[];
+              string_contains: string;
+              mode: "insensitive";
+            };
+          }
+        | {
+            content: {
+              path: string[];
+              string_contains: string;
+              mode: "insensitive";
+            };
+          }
+      >;
       createdAt?: {
-        gte: Date;
-        lte: Date;
+        gte?: Date;
+        lte?: Date;
       };
     } = {
       collectionId,
@@ -123,7 +131,7 @@ export async function getMetadata({
       ];
     }
 
-    if (!isNil(range) && range.from && range.to) {
+    if (!isNil(range)) {
       whereConditions.createdAt = {
         gte: range.from,
         lte: range.to,

@@ -16,13 +16,13 @@ export default function CSVReader() {
   return (
     <>
       <CSVReader
-        onUploadAccepted={(result: any) => {
+        onUploadAccepted={(result: any, file: File) => {
           try {
             if (!isEmpty(result.errors)) {
               throw new Error(result.errors[0][0].message);
             }
             setError(null);
-            setCsvContent(result.data);
+            setCsvContent(file.name.replace(/\.csv$/, ""), result.data);
           } catch (e) {
             setError(e instanceof Error ? e.message : "unknown error");
           }
@@ -59,7 +59,7 @@ export default function CSVReader() {
                         {...getRemoveFileProps()}
                         onClick={(event: Event) => {
                           getRemoveFileProps().onClick(event);
-                          setCsvContent(null!);
+                          setCsvContent(null!, null!);
                           setError(null);
                         }}
                         variant="destructive"

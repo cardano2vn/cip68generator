@@ -51,20 +51,20 @@ export async function getMedia({
     };
 
     if (!isNil(query) && !isEmpty(query)) {
-      whereConditions.OR = whereConditions.OR || [];
-      whereConditions.OR.push({
-        name: {
-          contains: query,
-          mode: "insensitive",
+      whereConditions.OR = [
+        {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
         },
-      });
-
-      whereConditions.OR.push({
-        url: {
-          contains: query,
-          mode: "insensitive",
+        {
+          url: {
+            contains: query,
+            mode: "insensitive",
+          },
         },
-      });
+      ];
     }
 
     if (!isNil(range)) {

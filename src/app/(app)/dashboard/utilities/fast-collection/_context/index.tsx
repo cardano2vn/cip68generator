@@ -2,6 +2,10 @@
 // import { useRouter } from "next/navigation";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import useUploadCsvStore, { UploadCsvStore } from "./store";
+import { isEmpty, isNil } from "lodash";
+import { convertObject } from "@/utils";
+import { createCollectionWithData } from "@/services/database/collection";
+import { redirect } from "next/navigation";
 
 type UploadCsvContextType = UploadCsvStore & {
   loading: boolean;
@@ -10,13 +14,23 @@ type UploadCsvContextType = UploadCsvStore & {
 
 export default function UploadCSVProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useState(false);
-  // const router = useRouter();
-  const { csvContent, setCsvContent } = useUploadCsvStore();
-
+  const { csvContent, setCsvContent, csvName } = useUploadCsvStore();
   const uploadCsv = async () => {
     setLoading(true);
+
     try {
-      console.log("Uploading CSV", csvContent);
+      if (isNil(csvContent) || isEmpty(csvContent)) {
+        throw new Error("CSV content is empty");
+      }
+      const listMetadata = convertObject(csvContent);
+      const { result, message, data } = await createCollectionWithData({
+        collectionName: csvName,
+        listMetadata: listMetadata,
+      });
+      if (!result || isNil(data)) {
+        throw new Error(message);
+      }
+      redirect(`/dashboard/collection/${data.id}`);
     } catch (error) {
       console.error("Error uploading CSV", error);
     } finally {
@@ -29,6 +43,7 @@ export default function UploadCSVProvider({ children }: PropsWithChildren) {
       value={{
         loading: loading,
         csvContent,
+        csvName,
         setCsvContent,
         uploadCsv: uploadCsv,
       }}
