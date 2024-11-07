@@ -1,12 +1,15 @@
 import { create } from "zustand";
 export type UploadCsvStore = {
   csvContent: string[][];
-  setCsvContent: (csvContent: string[][]) => void;
+  csvName: string;
+  setCsvContent: (name: string, content: string[][]) => void;
 };
 
 const useUploadCsvStore = create<UploadCsvStore>((set) => ({
   csvContent: null!,
-  setCsvContent: (csvContent: string[][]) => set({ csvContent: csvContent }),
+  csvName: null!,
+  setCsvContent: (name: string, content: string[][]) =>
+    set({ csvContent: content, csvName: name }),
 }));
 
 export default useUploadCsvStore;
