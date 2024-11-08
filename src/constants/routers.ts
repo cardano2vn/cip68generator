@@ -20,6 +20,17 @@ export const dashboardRoutes = {
   home: {
     redirect: "/dashboard",
   },
+  mint: {
+    redirect: "/dashboard/mint",
+    children: {
+      mintOne: {
+        redirect: "/dashboard/mint/one",
+      },
+      mintMultiple: {
+        redirect: "/dashboard/mint/multiple",
+      },
+    },
+  },
   utilities: {
     redirect: "/dashboard/utilities",
     children: {

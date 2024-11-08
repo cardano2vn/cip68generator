@@ -9,6 +9,17 @@ CREATE TABLE "user" (
 );
 
 -- CreateTable
+CREATE TABLE "wallet_nonce" (
+    "id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "address" TEXT NOT NULL,
+    "nonce" TEXT NOT NULL,
+
+    CONSTRAINT "wallet_nonce_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "collection" (
     "id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -48,6 +59,9 @@ CREATE TABLE "media" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_address_key" ON "user"("address");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "wallet_nonce_address_key" ON "wallet_nonce"("address");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "media_url_key" ON "media"("url");

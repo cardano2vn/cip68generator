@@ -25,12 +25,21 @@ import {
   STORE_REFERENCE_SCRIPT_ADDRESS,
   APP_NETWORK,
 } from "../constants";
+import { Plutus } from "../types";
+
 
 export class Cip68Contract extends MeshAdapter {
   protected pubKeyExchange: string =
     deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
-  protected mintCompileCode: string = this.readValidator(plutus, title.mint);
-  protected storeCompileCode: string = this.readValidator(plutus, title.store);
+  protected mintCompileCode: string = this.readValidator(
+    plutus as Plutus,
+    title.mint,
+  );
+  protected storeCompileCode: string = this.readValidator(
+    plutus as Plutus,
+    title.store,
+  );
+
 
   protected storeScriptCbor = applyParamsToScript(this.storeCompileCode, [
     this.pubKeyExchange,
@@ -196,7 +205,9 @@ export class Cip68Contract extends MeshAdapter {
       //   mintUtxoRef.input.txHash,
       //   mintUtxoRef.input.outputIndex,
       // )
+
       .mintRedeemerValue(mConStr1([]))
+
 
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)

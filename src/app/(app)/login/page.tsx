@@ -14,13 +14,14 @@ import {
   FaGoogle,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import routers from "@/constants/routers";
+import routers, { dashboardRoutes } from "@/constants/routers";
 import { useWalletContext } from "@/components/providers/wallet";
 import { WalletType } from "@/types";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { signIn } = useWalletContext();
   const handleConnectWallet = async function ({
     name,
@@ -29,6 +30,11 @@ export default function LoginPage() {
   }: WalletType) {
     await signIn(session, { name, image, api });
   };
+
+  if (status === "authenticated") {
+    redirect(dashboardRoutes.home.redirect);
+  }
+
   return (
     <main className={cn("flex h-full text-[14px]")}>
       <div className={cn("m-3 flex flex-1 flex-col rounded-xl bg-[#0d0e12]")}>

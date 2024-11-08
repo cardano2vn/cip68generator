@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -22,6 +23,16 @@ model User {
   Collection Collection[]
 
   @@map(name: "user")
+}
+
+model WalletNonce {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  address   String   @unique @map(name: "address")
+  nonce     String  
+
+  @@map(name: "wallet_nonce")
 }
 
 model Collection {
@@ -55,8 +66,8 @@ model Media {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   userId    String   @map(name: "user_id")
-  name      String   
-  type      String   
+  name      String
+  type      String
   url       String   @unique
   user      User     @relation(fields: [userId], references: [id])
 
