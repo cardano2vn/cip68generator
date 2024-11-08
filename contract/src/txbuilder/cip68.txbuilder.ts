@@ -27,7 +27,8 @@ import {
 } from "../constants";
 
 export class Cip68Contract extends MeshAdapter {
-  protected pubKeyExchange: string = deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash
+  protected pubKeyExchange: string =
+    deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
   protected mintCompileCode: string = this.readValidator(plutus, title.mint);
   protected storeCompileCode: string = this.readValidator(plutus, title.store);
 
@@ -47,7 +48,7 @@ export class Cip68Contract extends MeshAdapter {
     APP_NETWORK,
     false,
   ).address;
-  
+
   protected storeScriptHash = deserializeAddress(this.storeAddress).scriptHash;
   protected mintScriptCbor = applyParamsToScript(this.mintCompileCode, [
     this.pubKeyExchange,
@@ -107,16 +108,13 @@ export class Cip68Contract extends MeshAdapter {
           quantity: quantity,
         },
       ])
-      
-      .txOut(
-        EXCHANGE_FEE_ADDRESS,
-        [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ],
-      )
+
+      .txOut(EXCHANGE_FEE_ADDRESS, [
+        {
+          unit: "lovelace",
+          quantity: "1000000",
+        },
+      ])
 
       .changeAddress(walletAddress)
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
@@ -184,15 +182,12 @@ export class Cip68Contract extends MeshAdapter {
       //   },
       // ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
-      .txOut(
-        EXCHANGE_FEE_ADDRESS,
-        [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ],
-      )
+      .txOut(EXCHANGE_FEE_ADDRESS, [
+        {
+          unit: "lovelace",
+          quantity: "1000000",
+        },
+      ])
 
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_100(stringToHex(assetName)))
