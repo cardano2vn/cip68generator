@@ -1,17 +1,29 @@
-export default function MintOnePage() {
-  return (
-    <div className="rounded-lg bg-section p-2">
-      {/* <h1 className="text-2xl font-semibold leading-7">CIP68 Mint</h1>
-            <div className="mt-2 grid grid-cols-1 gap-4 p-4 xl:grid-cols-2">
-                <div className="h-[500px] rounded-lg bg-slate-500">
+"use client";
+import * as React from "react";
+import { useMintOneContext } from "./_context";
+import StepperNav from "./_components/stepper-nav";
+import TemplatePage from "./_components/_mint-step/template";
+import MetadataPage from "./_components/_mint-step/metadata";
+import ResultPage from "./_components/_mint-step/result";
+// import StepperFooter from "./_components/stepper-footer";
+import PreviewPage from "./_components/_mint-step/preview";
 
-                </div>
-                <div className="h-[600px] rounded-lg bg-slate-600"></div>
-            </div> */}
-      <div className="mx-auto max-w-4xl rounded-lg bg-gray-900 p-6 text-gray-300">
-        {/* Right side empty area */}
-        <div className="mt-6 h-96 rounded-lg border-2 border-dashed border-gray-700">
-          dxcfgvjhb
+export default function Page() {
+  const { stepper } = useMintOneContext();
+
+  return (
+    <div className="py-8 px-10 m-auto flex flex-col">
+      <div className="rounded-xl p-6 bg-section shadow-md flex flex-col gap-3">
+        <h1 className="text-2xl font-medium leading-7">Mint</h1>
+        <StepperNav />
+        <div className="space-y-4">
+          {stepper.switch({
+            template: () => <TemplatePage />,
+            metadata: () => <MetadataPage />,
+            preview: () => <PreviewPage />,
+            result: () => <ResultPage />,
+          })}
+          {/* <StepperFooter /> */}
         </div>
       </div>
     </div>

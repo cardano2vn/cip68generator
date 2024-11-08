@@ -6,7 +6,7 @@ import { dashboardRoutes } from "@/constants/routers";
 export default function MintPage() {
   return (
     <div className="py-8 px-10 m-auto flex flex-col">
-      <div className="rounded-xl p-6 bg-[#13161b] shadow-md flex flex-col gap-3">
+      <div className="rounded-xl p-6 bg-section shadow-md flex flex-col gap-3">
         <h1 className="text-2xl font-medium leading-7">Mint</h1>
         <div className="mt-2 grid gap-4 grid-cols-3 max-md:grid-cols-1">
           <Link
