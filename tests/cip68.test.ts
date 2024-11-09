@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { blockfrostProvider } from "@/lib/cardano";
 import { describe, test, expect, beforeEach, jest } from "@jest/globals";
 import {
   BrowserWallet,
@@ -8,6 +6,8 @@ import {
   MeshTxBuilder,
   MeshWallet,
 } from "@meshsdk/core";
+
+import { blockfrostProvider } from "@/lib/cardano";
 
 describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   let txHashTemp: string;
