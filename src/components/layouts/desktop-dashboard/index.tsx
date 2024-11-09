@@ -19,7 +19,7 @@ export default function DesktopDashboardlLayout({
       <Sidebar />
       <main
         className={cn(
-          "flex min-h-[calc(100vh_-_56px)] justify-center transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900",
+          "flex min-h-[calc(100vh_-_56px)] justify-center transition-[margin-left] duration-300 ease-in-out",
           sidebar?.isOpen === false ? "lg:ml-[73px]" : "lg:ml-[300px]",
         )}
       >

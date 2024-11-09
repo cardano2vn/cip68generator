@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Eye, Plus } from "lucide-react";
 import { useMintOneContext } from "../../_context";
 
-export default function TemplatePage() {
+export default function TemplateStep() {
   const { stepper } = useMintOneContext();
 
   return (
-    <div className="py-8 px-10 m-auto flex flex-col">
+    <div className="h-full py-8 px-10 m-auto flex flex-col">
       <div className="flex-wrap gap-3 space-y-5">
         <div className="mt-2 grid  gap-4 grid-cols-4 max-md:grid-cols-2">
           <Card
