@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import blockfrostFetcher from "@/lib/cardano/blockfrost/fetcher";
-import { KoiosFetcher } from "@/lib/cardano/koios/fetcher";
+import { blockfrostFetcher, koiosFetcher } from "@/lib/cardano";
 import { NextRequest } from "next/server";
 import { decodeFirst } from "cbor";
 
@@ -11,7 +10,6 @@ export async function GET(request: NextRequest) {
   const pageSize: string = searchParams.get("page_size") as string;
   const walletAddress = searchParams.get("wallet_address") as string;
 
-  const koiosFetcher = new KoiosFetcher();
   // const blockfrostFetcher =
   const assetsAddress =
     await koiosFetcher.fetchAssetsFromAddress(walletAddress);

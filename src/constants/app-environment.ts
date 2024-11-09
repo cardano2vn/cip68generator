@@ -1,10 +1,11 @@
-import { CardanoNetwork } from "@/types";
+import { Network } from "@meshsdk/core";
 
-const appNetwork: CardanoNetwork =
-  (process.env.BLOCKFROST_API_KEY?.toLowerCase().slice(
-    0,
-    7,
-  ) as CardanoNetwork) || "preprod";
+const BLOCKFROST_API_KEY = process.env.BLOCKFROST_API_KEY || "";
+const KOIOS_RPC_URL = process.env.KOIOS_RPC_URL || "";
+
+const appNetwork: Network =
+  (process.env.NEXT_PUBLIC_APP_NETWORK?.toLowerCase().slice(0, 7) as Network) ||
+  "preprod";
 
 const appNetworkId = appNetwork === "mainnet" ? 1 : 0;
 
@@ -16,6 +17,8 @@ const IPFS_GATEWAY = process.env.IPFS_GATEWAY || "https://ipfs.io/";
 export {
   appNetwork,
   appNetworkId,
+  BLOCKFROST_API_KEY,
+  KOIOS_RPC_URL,
   BACKEND_URL,
   CONTEXT_PATH,
   IPFS_ENDPOINT,

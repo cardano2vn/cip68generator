@@ -2,8 +2,6 @@
 import { Icons } from "@/components/common/icons";
 import { BrowserWallet } from "@meshsdk/core";
 import { StaticImageData } from "next/image";
-
-export type CardanoNetwork = "mainnet" | "testnet" | "preprod";
 declare module "next-auth" {
   interface User {
     address?: string;

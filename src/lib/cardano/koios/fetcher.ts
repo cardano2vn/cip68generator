@@ -2,10 +2,8 @@ import { parseHttpError } from "@/utils";
 import { Axios } from "axios";
 
 export class KoiosFetcher extends Axios {
-  constructor() {
-    super({
-      baseURL: process.env.KOIOS_RPC_URL!,
-    });
+  constructor(baseUrl: string) {
+    super({ baseURL: baseUrl });
   }
 
   async fetchAssetsFromAddress(address: string) {
