@@ -27,7 +27,6 @@ import {
 } from "../constants";
 import { Plutus } from "../types";
 
-
 export class Cip68Contract extends MeshAdapter {
   protected pubKeyExchange: string =
     deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
@@ -39,7 +38,6 @@ export class Cip68Contract extends MeshAdapter {
     plutus as Plutus,
     title.store,
   );
-
 
   protected storeScriptCbor = applyParamsToScript(this.storeCompileCode, [
     this.pubKeyExchange,
@@ -207,7 +205,6 @@ export class Cip68Contract extends MeshAdapter {
       // )
 
       .mintRedeemerValue(mConStr1([]))
-
 
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)

@@ -73,7 +73,7 @@ export default function ProfilePage() {
             <section className="pt-2 flex-auto">
               <div className="flex w-full">
                 <ul className="flex flex-col gap-8 w-full">
-                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl grid-rows-[auto_400px] w-full">
+                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl w-full">
                     <header className="flex items-center justify-between gap-4">
                       <h5 className="text-[20px] text-gray-200 font-semibold leading-[24px]">
                         Ownership
@@ -99,8 +99,14 @@ export default function ProfilePage() {
                       <section className="overflow-hidden h-full">
                         <Swiper
                           className="h-full"
-                          slidesPerView={4}
                           spaceBetween={30}
+                          breakpoints={{
+                            480: { slidesPerView: 1 },
+                            640: { slidesPerView: 2 },
+                            768: { slidesPerView: 3 },
+                            1024: { slidesPerView: 4 },
+                            1560: { slidesPerView: 5 },
+                          }}
                           // pagination={{
                           //   clickable: true,
                           // }}
@@ -156,7 +162,7 @@ export default function ProfilePage() {
             <section className="pt-2 flex-auto">
               <div className="flex w-full">
                 <ul className="flex flex-col gap-8 w-full">
-                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl grid-rows-[auto_400px] w-full">
+                  <li className="grid gap-5 p-6 bg-[#13161B] rounded-xl  w-full">
                     <header className="flex items-center justify-between gap-4">
                       <h5 className="text-[20px] text-gray-200 font-semibold leading-[24px]">
                         Ownership
@@ -166,8 +172,14 @@ export default function ProfilePage() {
                       <section className="overflow-hidden h-full">
                         <Swiper
                           className="h-full"
-                          slidesPerView={4}
                           spaceBetween={30}
+                          breakpoints={{
+                            480: { slidesPerView: 1 },
+                            640: { slidesPerView: 2 },
+                            768: { slidesPerView: 3 },
+                            1024: { slidesPerView: 4 },
+                            1560: { slidesPerView: 5 },
+                          }}
                           // pagination={{
                           //   clickable: true,
                           // }}
