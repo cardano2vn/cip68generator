@@ -5,7 +5,7 @@ import Link from "next/link";
 import { dashboardRoutes } from "@/constants/routers";
 export default function UtilitiesPage() {
   return (
-    <div className="py-8 px-10 m-auto flex flex-col">
+    <div className="py-8 px-10 m-auto flex flex-col max-md:px-0">
       <div className="rounded-xl p-6 bg-[#13161b] shadow-md flex-wrap gap-3 space-y-5">
         <h1 className="text-2xl font-medium leading-7">Utilities</h1>
         <div className="mt-2 grid  gap-4 grid-cols-3 max-md:grid-cols-1">

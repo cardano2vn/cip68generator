@@ -22,7 +22,6 @@ validator mint(
 ) {
   mint(redeemer: MintRedeemer, policy_id: PolicyId, transaction: Transaction) {
     let Transaction { outputs, extra_signatories, mint, .. } = transaction
-    // lấy ra 
     let mint_flatten =
       mint
         |> without_lovelace()
