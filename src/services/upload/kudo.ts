@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { IPFS_ENDPOINT } from "@/constants";
 import mimeTypes from "@/constants/mime-types";
@@ -30,19 +29,23 @@ export async function kudoUpload(formData: FormData) {
     }
     if (typeof response.data === "object") {
       const { Hash, Name } = response.data;
-      await cp(Hash, Name).then(async (result) => {
+      await cp(Hash, Name).then(async ({ data, result, message }) => {
+        if (!result) {
+          throw new Error(message);
+        }
+        const { cid, name } = data;
         return await prisma.media.upsert({
           where: {
-            url: `ipfs://${result.cid}`,
+            url: `ipfs://${cid}`,
           },
           update: {},
           create: {
             userId: userId,
-            name: result.name,
+            name: name,
             type:
-              mimeTypes[result.name.split(".").pop()?.toLowerCase() ?? ""] ||
+              mimeTypes[name.split(".").pop()?.toLowerCase() ?? ""] ||
               "unknown",
-            url: `ipfs://${result.cid}`,
+            url: `ipfs://${cid}`,
           },
         });
       });
@@ -57,13 +60,19 @@ export async function kudoUpload(formData: FormData) {
           }),
       ).then(async (result) => {
         return await prisma.media.createMany({
-          data: result.map((item) => ({
-            userId: userId,
-            name: item.name,
-            type:
-              mimeTypes[item.name.split(".").pop()?.toLowerCase()] || "unknown",
-            url: `ipfs://${item.cid}`,
-          })),
+          data: result
+            .map((item) => {
+              if (!item.result) return null;
+              return {
+                userId: userId,
+                name: item.name,
+                type:
+                  mimeTypes[item.name.split(".").pop()?.toLowerCase()] ||
+                  "unknown",
+                url: `ipfs://${item.cid}`,
+              };
+            })
+            .filter((item) => item !== null),
           skipDuplicates: true,
         });
       });
@@ -72,9 +81,9 @@ export async function kudoUpload(formData: FormData) {
       message: "success",
       result: true,
     };
-  } catch (error: any) {
+  } catch (e) {
     return {
-      message: error.message,
+      message: e instanceof Error ? e.message : "Unknown error",
       result: false,
     };
   }
@@ -93,18 +102,30 @@ async function cp(argCid: string, argName: string) {
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
-    return { cid: argCid, name: argName, status: "success" };
-  } catch (error: any) {
-    if (error.response) {
+    return {
+      data: { cid: argCid, name: argName },
+      result: true,
+      message: "success",
+    };
+  } catch (e) {
+    if (axios.isAxiosError(e) && e.response) {
       if (
-        error.response.status === 500 &&
-        error.response.data.Message.includes(
+        e.response.status === 500 &&
+        e.response.data.Message.includes(
           "directory already has entry by that name",
         )
       ) {
-        return { cid: argCid, name: argName, status: "success" };
+        return {
+          data: { cid: argCid, name: argName },
+          result: true,
+          message: "success",
+        };
       }
     }
-    return { name: argName, status: "failed" };
+    return {
+      data: { cid: argCid, name: argName },
+      result: false,
+      message: e instanceof Error ? e.message : "Unknown error",
+    };
   }
 }
