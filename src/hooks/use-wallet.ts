@@ -1,44 +1,83 @@
 import { create } from "zustand";
-import { BrowserWallet } from "@meshsdk/core";
-import { WalletType } from "@/types";
+import { BrowserWallet, Wallet } from "@meshsdk/core";
 import { Session } from "next-auth";
 import { isNil } from "lodash";
 import { getNonceByAddress } from "@/services/auth/get-nonce";
 import { signIn, signOut } from "next-auth/react";
+import { appNetworkId } from "@/constants";
 
 export interface useWalletStore {
-  wallet: WalletType;
-  browserWallet: BrowserWallet;
-  connect: (wallet: WalletType) => Promise<void>;
+  wallet: Wallet | null;
+  address: string | null;
+  browserWallet: BrowserWallet | null;
+  getBalance: () => Promise<number>;
+  connect: (wallet: Wallet) => Promise<void>;
+  signTx: (message: string) => Promise<string>;
+  submitTx: (signedTx: string) => Promise<string>;
   refresh: () => Promise<void>;
   disconnect: () => Promise<void>;
-  signIn: (session: Session | null, wallet: WalletType) => Promise<void>;
+  signIn: (session: Session | null, wallet: Wallet) => Promise<void>;
 }
 
 export const useWallet = create<useWalletStore>((set, get) => ({
-  wallet: null!,
-  browserWallet: null!,
+  wallet: null,
+  browserWallet: null,
+  address: null,
 
-  connect: async ({ name, image }: WalletType) => {
-    const browserWallet: BrowserWallet = await BrowserWallet.enable(
-      name.toLowerCase(),
-    );
-    const address = (await browserWallet.getUsedAddresses())[0];
+  getBalance: async () => {
+    const { browserWallet } = get();
+    if (!browserWallet) {
+      return 0;
+    }
     const balance = await browserWallet.getLovelace();
+    return Number(balance);
+  },
+  signTx: async (unsignedTx: string) => {
+    const { browserWallet, wallet } = get();
+    if (!browserWallet || !wallet) {
+      throw new Error("Wallet not connected");
+    }
+    const signedTx = await browserWallet.signTx(unsignedTx);
+    if (!signedTx) {
+      throw new Error("Failed to sign data");
+    }
+    return signedTx;
+  },
 
+  submitTx: async (signedTx: string) => {
+    const { browserWallet } = get();
+    if (!browserWallet) {
+      throw new Error("Wallet not connected");
+    }
+    const txHash = await browserWallet.submitTx(signedTx);
+    if (!txHash) {
+      throw new Error("Failed to submit transaction");
+    }
+    return txHash;
+  },
+
+  connect: async (wallet: Wallet) => {
+    const browserWallet: BrowserWallet = await BrowserWallet.enable(
+      wallet.name.toLowerCase(),
+    );
+    const network = await browserWallet.getNetworkId();
+    if (network !== appNetworkId) {
+      throw new Error(
+        "Invalid network,please switch to" +
+          `${appNetworkId == 0 ? " Testnet" : " Mainnet"}`,
+      );
+    }
+    const address = (await browserWallet.getUsedAddresses())[0];
+    if (!address) return;
     set({
       browserWallet: browserWallet,
-      wallet: {
-        name: name,
-        image: image,
-        balance: Number(balance),
-        address: String(address),
-      },
+      wallet: wallet,
+      address: address,
     });
   },
 
-  signIn: async (session: Session | null, wallet: WalletType) => {
-    const { name, image } = wallet;
+  signIn: async (session: Session | null, wallet: Wallet) => {
+    const { name } = wallet;
     const browserWallet: BrowserWallet = await BrowserWallet.enable(
       name.toLowerCase(),
     );
@@ -70,32 +109,34 @@ export const useWallet = create<useWalletStore>((set, get) => ({
       await signOut();
     } else {
       const address = (await browserWallet.getUsedAddresses())[0];
-      const balance = await browserWallet.getLovelace();
       set({
         browserWallet: browserWallet,
-        wallet: {
-          name: name,
-          image: image,
-          balance: Number((Number(balance) / 1_000_000).toPrecision(6)),
-          address: String(address),
-        },
+        wallet: wallet,
+        address: address,
       });
     }
   },
 
   refresh: async () => {
     const { browserWallet, wallet } = get();
+    if (isNil(browserWallet) || isNil(wallet)) {
+      throw new Error("Wallet not connected");
+    }
 
-    const balance = await browserWallet.getLovelace();
+    const network = await browserWallet.getNetworkId();
+    if (network !== appNetworkId) {
+      throw new Error(
+        "Invalid network,please switch to " +
+          `${appNetworkId == 0 ? "Testnet" : "Mainnet"}`,
+      );
+    }
     const address = (await browserWallet.getUsedAddresses())[0];
+    if (!address) return;
 
     set({
-      wallet: {
-        name: wallet.name,
-        image: wallet.image,
-        balance: Number(balance),
-        address: String(address),
-      },
+      browserWallet: browserWallet,
+      wallet: wallet,
+      address: address,
     });
   },
 

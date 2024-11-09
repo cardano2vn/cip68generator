@@ -1,4 +1,4 @@
-import { apiKey, apiUrl } from "../src/configs";
+import { apiKey, apiUrl } from "../script/configs";
 import { describe, test, expect, beforeEach, jest } from "@jest/globals";
 import {
   BlockfrostProvider,
@@ -9,7 +9,7 @@ import {
   MeshWallet,
 } from "@meshsdk/core";
 
-import { Cip68Contract } from "../src";
+import { Cip68Contract } from "../script";
 
 describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   let txHashTemp: string;

@@ -9,9 +9,20 @@ import { MdOutlineFeedback } from "react-icons/md";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useWalletContext } from "@/components/providers/wallet";
+import { useEffect, useState } from "react";
 
 export default function Account() {
-  const { wallet } = useWalletContext();
+  const { wallet, address, getBalance } = useWalletContext();
+  const [balance, setBalance] = useState<number>(0);
+
+  useEffect(() => {
+    (async () => {
+      if (wallet) {
+        const balance = await getBalance();
+        setBalance(balance);
+      }
+    })();
+  }, [wallet, getBalance]);
 
   return (
     <Popover>
@@ -25,17 +36,17 @@ export default function Account() {
             className={cn(
               "h-full w-full rounded-full bg-slate-300 object-cover p-1",
             )}
-            src={wallet.image || ""}
-            alt={`${wallet.name} icon`}
+            src={wallet?.icon || ""}
+            width={32}
+            height={32}
+            alt={`${wallet?.icon} icon`}
           />
         </div>
         <div className="">
           <h2 className="text-[12px] leading-4">
-            {wallet.address?.slice(0, 12)}...{wallet.address?.slice(-4)}
+            {address?.slice(0, 12)}...{address?.slice(-4)}
           </h2>
-          <p className={cn("text-left text-[14px] leading-4")}>
-            {wallet.balance} ₳
-          </p>
+          <p className={cn("text-left text-[14px] leading-4")}>{balance} ₳</p>
         </div>
       </PopoverTrigger>
       <PopoverContent
@@ -46,12 +57,14 @@ export default function Account() {
           <div className={cn("h-10 w-10")}>
             <Image
               className={cn("h-full w-full object-cover p-1")}
-              src={wallet.image || ""}
-              alt={`${wallet.name} icon`}
+              src={wallet?.icon || ""}
+              alt={`${wallet?.name} icon`}
+              width={32}
+              height={32}
             />
           </div>
           <div className="">
-            <h2 className={cn("text-[18px] font-medium")}>{wallet.name}</h2>
+            <h2 className={cn("text-[18px] font-medium")}>{wallet?.name}</h2>
             <div className="flex items-center gap-2">
               <p className={cn("select-none text-[12px] text-gray-500")}>
                 Base Mainnet
@@ -80,7 +93,7 @@ export default function Account() {
           <p className="whitespace-nowrap text-[13px] text-gray-400">Adress</p>
           <p className="flex items-center gap-[6px] whitespace-nowrap">
             <span className="inline-block max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-gray-200">
-              {wallet.address}
+              {address}
             </span>
             <span>
               <svg
