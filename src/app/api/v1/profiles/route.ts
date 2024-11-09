@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import blockfrostFetcher from "@/lib/cardano/blockfrost/fetcher";
 import { KoiosFetcher } from "@/lib/cardano/koios/fetcher";
 import { NextRequest } from "next/server";
