@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
-
+import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
+import { CardanoNetwork } from "@blockfrost/blockfrost-js/lib/types";
 import {
   Asset,
   BlockfrostSupportedNetworks,
@@ -95,3 +96,12 @@ export default blockfrostFetcher;
 
 if (process.env.NODE_ENV !== "production")
   globalThis.blockfrostFetcherGlobal = blockfrostFetcher;
+
+export class Blockfrost extends BlockFrostAPI {
+  constructor(projectId: string, network: CardanoNetwork) {
+    super({
+      projectId: projectId,
+      network: network,
+    });
+  }
+}

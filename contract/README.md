@@ -1,127 +1,140 @@
-use aiken/collection/list
-use aiken/crypto.{ScriptHash, VerificationKeyHash}
-use cardano/address
-use cardano/assets.{AssetName, PolicyId, without_lovelace}
-use cardano/minting
-use cardano/transaction.{Transaction}
-use cardano/tx.{verify_signature}
-use cardano/value
-use cip68generator/types.{Burn, Mint, MintRedeemer}
-use cip68generator/utils
-use types/cip68
-use validation/find
+# CIP68 Generator
 
-// validator - mint
-// parameters (exchange_address, store_validator)
-validator mint(store: ScriptHash) {
-mint(redeemer: MintRedeemer, policy_id: PolicyId, transaction: Transaction) {
-let Transaction { inputs, outputs, extra_signatories, mint, .. } =
-transaction
+CIP-68 is an open-source standard designed for creating and managing NFTs on the Cardano blockchain. It introduces advanced features for flexible and scalable token management, allowing developers to mint, burn, update, and remove NFTs with enhanced security and efficiency.
 
-    let mint_flatten =
-      mint
-        |> without_lovelace()
-        |> assets.flatten()
+## Features
 
-    when redeemer is {
-      Mint -> {
-        let first_tx_id = find.first_input_txid(inputs)
-        let first_tx_index = find.first_input_index(inputs)
+-   [x] **Mint**: Create new NFTs with customizable metadata, adhering to Cardano standards.
+-   [x] **Burn**: Permanently remove NFTs from circulation, controlling supply.
+-   [x] **Update**: Modify the metadata of existing NFTs without changing their identity.
+-   [x] **Remove**: Change metadata to retire NFTs from active use without destroying them.
 
-        let reference_token = utils.token_prefix(mint_flatten, cip68.prefix_100)
-        let user_token = utils.token_prefix(mint_flatten, cip68.prefix_222)
+We primarily use two main SDKs, Mesh and Blockfrost, to efficiently retrieve information and execute transactions on the blockchain. Additionally, Mesh provides the flexibility to use other providers beyond Blockfrost (such as Koios ...).
 
-        let check_none_token =
-          utils.check_none_token(user_token, reference_token)
+-   [x] **Blockfrost**: use [Blockfrost](https://blockfrost.io) to query data
+-   [x] **Mesh**: use [Mesh](https://meshjs.dev) join blockfrost to make transactions and work with Wallets simply
 
-        when check_none_token is {
-          False -> False
-          True -> {
-            let reference_value =
-              assets.from_asset(policy_id, reference_token, 1)
-            let store_address = address.from_script(store)
-            let output_utxo =
-              find.output_by_addr_value(outputs, store_address, reference_value)
+## Install
 
-            and {
-              first_tx_index < 256,
-              list.length(mint_flatten) >= 2,
-              minting.exact(mint_flatten, policy_id, reference_token, 1)?,
-              utils.check_output_utxo(output_utxo, extra_signatories)?,
-            }
-          }
-        }
-      }
+-   npm: `npm i @cardano2vn/cip68generator`
+-   yarn: `yarn add @cardano2vn/cip68generator`
 
-      Burn -> True
-    }
+## Create `BlockfrostProvider` and `MeshTxBuilder` to efficiently retrieve information and execute transactions.
 
-}
+```ts
+import { BlockfrostProvider, MeshTxBuilder } from '@meshsdk/core';
 
-else(\_) {
-fail
-}
-}
+const blockfrostProvider: BlockfrostProvider = new BlockfrostProvider('<Your-Api-Key>');
 
-use aiken/collection/list
-use aiken/crypto.{ScriptHash, VerificationKeyHash}
-use cardano/address
-use cardano/assets.{AssetName, PolicyId, without_lovelace}
-use cardano/minting
-use cardano/transaction.{Transaction}
-use cardano/tx.{verify_signature}
-use cardano/value
-use cip68generator/types.{Burn, Mint, MintRedeemer}
-use cip68generator/utils
-use types/cip68
-use validation/find
+const meshTxBuilder: MeshTxBuilder = new MeshTxBuilder({
+    fetcher: blockfrostProvider,
+    evaluator: blockfrostProvider,
+    submitter: blockfrostProvider,
+});
 
-// validator - mint
-// parameters (exchange_address, store_validator)
-validator mint(store: ScriptHash) {
-mint(redeemer: MintRedeemer, policy_id: PolicyId, transaction: Transaction) {
-let Transaction { inputs, outputs, extra_signatories, mint, .. } =
-transaction
+const wallet: MeshWallet = new MeshWallet({
+    networkId: 0,
+    fetcher: blockfrostProvider,
+    submitter: blockfrostProvider,
+    key: {
+        type: 'root',
+        bech32: '<Root-Private-Key>',
+    },
+});
+```
 
-    let mint_flatten =
-      mint
-        |> without_lovelace()
-        |> assets.flatten()
+## Mint: Create new NFTs with customizable metadata, adhering to Cardano standards.
 
-    when redeemer is {
-      Mint -> {
-        let first_tx_id = find.first_input_txid(inputs)
-        let first_tx_index = find.first_input_index(inputs)
+```ts
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
-        let reference_token = utils.token_prefix(mint_flatten, cip68.prefix_100)
-        let user_token = utils.token_prefix(mint_flatten, cip68.prefix_222)
+const cip68Contract: Cip68Contract = new Cip68Contract({
+    wallet: wallet,
+    fetcher: blockfrostProvider,
+    meshTxBuilder: meshTxBuilder,
+});
 
-        let check_none_token = utils.check_none_token(user_token, reference_token)
+const unsignedTx = await cip68Contract.mint({
+    assetName: 'CIP68 Generator',
+    quantity: '1',
+    metadata: {
+        name: 'CIP68 Generator',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
+        mediaType: 'image/jpg',
+        description: 'Open source dynamic assets (Token/NFT) generator (CIP68)',
+    },
+});
 
-        when reference_token is {
-          Some(reference_token) -> {
-            let reference_value =
-              assets.from_asset(policy_id, reference_token, 1)
-            let store_address = address.from_script(store)
-            let output_utxo =
-              find.output_by_addr_value(outputs, store_address, reference_value)
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
 
-            and {
-              first_tx_index < 256,
-              list.length(mint_flatten) >= 2,
-              minting.exact(mint_flatten, policy_id, reference_token, 1)?,
-              utils.check_output_utxo(output_utxo, extra_signatories)?,
-            }
-          }
-          _ -> fail @"No matching asset found for the given prefix"
-        }
-      }
-      Burn -> True
-    }
+## Burn: Permanently remove NFTs from circulation, controlling supply.
 
-}
+```ts
+import { Cip68Contract } from '@cardano2vn/cip68generator';
 
-else(\_) {
-fail
-}
-}
+const cip68Contract: Cip68Contract = new Cip68Contract({
+    wallet: wallet,
+    fetcher: blockfrostProvider,
+    meshTxBuilder: meshTxBuilder,
+});
+
+const unsignedTx: string = await cip68Contract.burn({
+    txHash: '<Tx-Hash-Template>',
+    quantity: '-1',
+    assetName: 'CIP68 Generators',
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
+
+## Update: Modify the metadata of existing NFTs without changing their identity.
+
+```ts
+import { Cip68Contract } from '@cardano2vn/cip68generator';
+
+const cip68Contract = new Cip68Contract({
+    fetcher: blockfrostProvider,
+    wallet: wallet,
+    meshTxBuilder: meshTxBuilder,
+});
+
+const unsignedTx: string = await cip68Contract.update({
+    txHash: '<Tx-Hash-Template>',
+    quantity: '1',
+    assetName: 'CIP68 Generators',
+    metadata: {
+        name: 'CIP68 Generators',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
+        mediaType: 'image/jpg',
+        description: 'Open source dynamic assets (Token/NFT) generator (CIP68)',
+    },
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```
+
+## Remove: Change metadata to retire NFTs from active use without destroying them.
+
+```ts
+import { Cip68Contract } from '@cardano2vn/cip68generator';
+
+const cip68Contract = new Cip68Contract({
+    fetcher: blockfrostProvider,
+    wallet: wallet,
+    meshTxBuilder: meshTxBuilder,
+});
+
+const unsignedTx: string = await cip68Contract.update({
+    txHash: '<Tx-Hash-Template>',
+    quantity: '1',
+    assetName: 'CIP68 Generators',
+    metadata: {
+        name: 'CIP68 Generators',
+        image: 'ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua',
+    },
+});
+const signedTx = await wallet.signTx(unsignedTx, true);
+const txHash = await wallet.submitTx(signedTx);
+```

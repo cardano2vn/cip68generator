@@ -15,6 +15,7 @@
     "build:contract": "cd ./contract && aiken build"
   },
   "dependencies": {
+    "@blockfrost/blockfrost-js": "^5.7.0",
     "@hookform/resolvers": "^3.9.1",
     "@meshsdk/core": "^1.7.13",
     "@meshsdk/react": "^1.7.13",
@@ -27,6 +28,7 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-radio-group": "^1.2.1",
+    "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-separator": "^1.1.0",
@@ -38,6 +40,7 @@
     "@stepperize/react": "^3.1.1",
     "@tanstack/react-query": "^5.59.20",
     "axios": "^1.7.7",
+    "buffer": "^6.0.3",
     "cbor": "^9.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -56,6 +59,7 @@
     "react-dom": "^19.0.0-rc-fb9a90fa48-20240614",
     "react-hook-form": "^7.53.2",
     "react-icons": "^5.3.0",
+    "react-papaparse": "^4.4.0",
     "react-simple-typewriter": "^5.0.1",
     "react-vertical-timeline-component": "^3.6.0",
     "sharp": "^0.33.5",
