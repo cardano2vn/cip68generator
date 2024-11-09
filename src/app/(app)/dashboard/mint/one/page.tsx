@@ -2,11 +2,12 @@
 import * as React from "react";
 import { useMintOneContext } from "./_context";
 import StepperNav from "./_components/stepper-nav";
-import TemplatePage from "./_components/_mint-step/template";
-import MetadataPage from "./_components/_mint-step/metadata";
-import ResultPage from "./_components/_mint-step/result";
-// import StepperFooter from "./_components/stepper-footer";
-import PreviewPage from "./_components/_mint-step/preview";
+import TemplateStep from "./_components/_mint-step/template";
+import MetadataStep from "./_components/_mint-step/metadata";
+import ResultStep from "./_components/_mint-step/result";
+import PreviewStep from "./_components/_mint-step/preview";
+import BasicStep from "./_components/_mint-step/basic";
+import TransactionStep from "./_components/_mint-step/transaction";
 
 export default function Page() {
   const { stepper } = useMintOneContext();
@@ -18,12 +19,13 @@ export default function Page() {
         <StepperNav />
         <div className="space-y-4">
           {stepper.switch({
-            template: () => <TemplatePage />,
-            metadata: () => <MetadataPage />,
-            preview: () => <PreviewPage />,
-            result: () => <ResultPage />,
+            template: () => <TemplateStep />,
+            basic: () => <BasicStep />,
+            metadata: () => <MetadataStep />,
+            preview: () => <PreviewStep />,
+            transaction: () => <TransactionStep />,
+            result: () => <ResultStep />,
           })}
-          {/* <StepperFooter /> */}
         </div>
       </div>
     </div>
