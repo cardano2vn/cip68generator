@@ -1,5 +1,12 @@
 import { AssetMetadata } from "@meshsdk/core";
+import { isEmpty } from "lodash";
 import { create } from "zustand";
+
+export type Task = {
+  name: string;
+  content: string;
+  status: "todo" | "inprogress" | "success" | "error";
+};
 
 export type MintOneStore = {
   loading: boolean;
@@ -14,31 +21,11 @@ export type MintOneStore = {
     assetName: string;
     quantity: string;
   }) => void;
-  tasks: [
-    {
-      name: "validate";
-      content: "Validate Data";
-      status: "todo" | "inprogress" | "success" | "error";
-    },
-    {
-      name: "create_transaction";
-      content: "Create Transaction";
-      status: "todo" | "inprogress" | "success" | "error";
-    },
-    {
-      name: "wait_for_confirmation";
-      content: "Wait for Confirmation";
-      status: "todo" | "inprogress" | "success" | "error";
-    },
-    {
-      name: "submit_transaction";
-      content: "Submit Transaction";
-      status: "todo" | "inprogress" | "success" | "error";
-    },
-  ];
+  tasks: Task[];
   updateTaskState: (
-    name: string,
     status: "todo" | "inprogress" | "success" | "error",
+    name?: string,
+    content?: string,
   ) => void;
   txhash: string;
   setTxHash: (txhash: string) => void;
@@ -52,40 +39,44 @@ const useMintOneStore = create<MintOneStore>((set) => ({
     quantity: "1",
   },
   txhash: "",
-  tasks: [
-    {
-      name: "validate",
-      content: "Validate Data",
-      status: "todo",
-    },
-    {
-      name: "create_transaction",
-      content: "Create Transaction",
-      status: "todo",
-    },
-    {
-      name: "wait_for_confirmation",
-      content: "Wait for Confirmation",
-      status: "todo",
-    },
-    {
-      name: "submit_transaction",
-      content: "Submit Transaction",
-      status: "todo",
-    },
-  ],
+  tasks: [],
   setTxHash: (txhash) => set({ txhash }),
   setBasicInfoToMint: (basicInfo) => set({ basicInfoToMint: basicInfo }),
   setLoading: (loading) => set({ loading }),
   setMetadataToMint: (metadata) => set({ metadataToMint: metadata }),
-  updateTaskState: (name, status) => {
+  updateTaskState: (status, name = "", content = "") => {
     set((state) => {
-      const tasks = state.tasks.map((task) => {
-        if (task.name === name) {
-          return { ...task, status };
+      const tasks = [...state.tasks];
+      if (status === "error" || isEmpty(name)) {
+        const lastTaskIndex = tasks.length - 1;
+        if (lastTaskIndex >= 0) {
+          tasks[lastTaskIndex] = { ...tasks[lastTaskIndex], status };
         }
-        return task;
-      }) as MintOneStore["tasks"];
+      } else {
+        const taskIndex = tasks.findIndex((task) => task.name === name);
+        if (taskIndex < 0) {
+          if (tasks.length !== 0) {
+            const lastTaskIndex = tasks.length - 1;
+            tasks[lastTaskIndex] = {
+              ...tasks[lastTaskIndex],
+              status: "success",
+            };
+          }
+          tasks.push({ name, content, status });
+        } else {
+          if (taskIndex > 0) {
+            tasks[taskIndex - 1] = {
+              ...tasks[taskIndex - 1],
+              status: "success",
+            };
+          }
+          if (isEmpty(content)) {
+            tasks[taskIndex] = { ...tasks[taskIndex], status };
+          } else {
+            tasks[taskIndex] = { ...tasks[taskIndex], status, content };
+          }
+        }
+      }
 
       return { tasks };
     });
