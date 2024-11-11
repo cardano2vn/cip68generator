@@ -46,6 +46,7 @@ export const createMintTransaction = async ({
       message: "Transaction created successfully",
     };
   } catch (e) {
+    console.log(e);
     return {
       result: false,
       data: null,

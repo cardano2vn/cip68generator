@@ -16,7 +16,6 @@ import {
 import { MeshAdapter } from "../adapters/mesh.adapter";
 import cbor from "cbor";
 import { readValidator, getUniqueAssetName } from "../utils";
-import { title } from "../configs";
 import { applyParamsToScript } from "@meshsdk/core-csl";
 
 export class Cip68Contract extends MeshAdapter {}
