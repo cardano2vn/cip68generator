@@ -262,15 +262,12 @@ export class Cip68Contract extends MeshAdapter {
       ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
 
-      .txOut(
-        EXCHANGE_FEE_ADDRESS,
-        [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ],
-      )
+      .txOut(EXCHANGE_FEE_ADDRESS, [
+        {
+          unit: "lovelace",
+          quantity: "1000000",
+        },
+      ])
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
@@ -322,15 +319,12 @@ export class Cip68Contract extends MeshAdapter {
       ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
 
-      .txOut(
-        EXCHANGE_FEE_ADDRESS,
-        [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ],
-      )
+      .txOut(EXCHANGE_FEE_ADDRESS, [
+        {
+          unit: "lovelace",
+          quantity: "1000000",
+        },
+      ])
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
