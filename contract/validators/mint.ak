@@ -1,5 +1,6 @@
 use aiken/collection/list
 use aiken/crypto.{ScriptHash, VerificationKeyHash}
+use aiken/primitive/bytearray
 use cardano/address
 use cardano/assets.{PolicyId, without_lovelace}
 use cardano/minting
@@ -43,14 +44,19 @@ validator mint(
           (Some(reference_token), Some(user_token)) -> {
             let reference_value =
               assets.from_asset(policy_id, reference_token, 1)
+
             // let user_value =
             //   assets.from_asset(policy_id, user_token, amount_mint_token - 1)
-            let store_address = address.from_script(store)
-            let output_utxo_store =
-              find.output_by_addr_value(outputs, store_address, reference_value)
-
             when redeemer is {
-              Mint -> and {
+              Mint -> {
+                let store_address = address.from_script(store)
+                let output_utxo_store =
+                  find.output_by_addr_value(
+                    outputs,
+                    store_address,
+                    reference_value,
+                  )
+                and {
                   amount_mint_token >= 2,
                   minting.exact(mint_flatten, policy_id, reference_token, 1)?,
                   minting.exact(
@@ -61,12 +67,12 @@ validator mint(
                   )?,
                   utils.check_output_utxo(output_utxo_store, extra_signatories)?,
                   output_utxo_exchange != None,
+                  bytearray.compare(
+                    bytearray.drop(reference_token, 4),
+                    bytearray.drop(user_token, 4),
+                  ) == Equal,
                 }
-
-              // bytearray.compare(
-              //   bytearray.drop(reference_token, 4),
-              //   bytearray.drop(user_token, 4),
-              // ) == Equal,
+              }
               Burn -> and {
                   minting.by_prefix(
                     mint_flatten,
