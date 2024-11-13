@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable no-var */
 import { Icons } from "@/components/common/icons";
 import { BrowserWallet } from "@meshsdk/core";
 import { StaticImageData } from "next/image";
-
-export type CardanoNetwork = "mainnet" | "testnet" | "preprod";
 declare module "next-auth" {
   interface User {
     address?: string;
     wallet?: string;
   }
-}
-declare global {
-  var cacheConfigs: NodeCache;
-  var cacheUser: NodeCache;
 }
 
 export type JsonValue = string | number | boolean | JsonObject | JsonArray;

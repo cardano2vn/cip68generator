@@ -4,8 +4,7 @@ import { cn } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { appImage } from "@/public/images";
-import { networks, wallets } from "@/constants";
-import Network from "@/app/(app)/login/_components/network";
+import { appNetwork, wallets } from "@/constants";
 import Wallet from "@/app/(app)/login/_components/wallet";
 import {
   FaTelegramPlane,
@@ -14,13 +13,15 @@ import {
   FaGoogle,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import routers from "@/constants/routers";
+import routers, { dashboardRoutes } from "@/constants/routers";
 import { useWalletContext } from "@/components/providers/wallet";
 import { WalletType } from "@/types";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { NetworkComponent } from "./_components/network-item";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { signIn } = useWalletContext();
   const handleConnectWallet = async function ({
     name,
@@ -29,6 +30,11 @@ export default function LoginPage() {
   }: WalletType) {
     await signIn(session, { name, image, api });
   };
+
+  if (status === "authenticated") {
+    redirect(dashboardRoutes.home.redirect);
+  }
+
   return (
     <main className={cn("flex h-full text-[14px]")}>
       <div className={cn("m-3 flex flex-1 flex-col rounded-xl bg-[#0d0e12]")}>
@@ -97,7 +103,7 @@ export default function LoginPage() {
             >
               <header className={cn("flex items-center justify-between")}>
                 <h2 className={cn("text-[20px] text-white")}>Connect Wallet</h2>
-                <h2 className={cn("text-[16px] text-white")}>Mainnet</h2>
+                <h2 className={cn("text-[16px] text-white")}>{appNetwork}</h2>
               </header>
 
               <aside className={cn("mt-5 flex max-sm:flex-col")}>
@@ -106,16 +112,11 @@ export default function LoginPage() {
                     "item-center mr-[30px] flex h-[230px] flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-[1px] border-solid border-[rgba(238,238,238,0.5)] pr-[30px] max-sm:h-[70px] max-sm:flex-row max-sm:overflow-hidden max-sm:overflow-x-auto max-sm:border-b-[1px] max-sm:border-r-0 max-sm:pb-[30px] max-sm:pr-0",
                   )}
                 >
-                  {networks.map(function (network, index: number) {
-                    return (
-                      <Network
-                        key={index}
-                        image=""
-                        name={network.name}
-                        active={network.name === "Mainnet"}
-                      />
-                    );
-                  })}
+                  {/* {networks.map(function (network, index: number) {
+                    return ( */}
+                  <NetworkComponent image="" name={appNetwork} active={true} />
+                  {/* );
+                  })} */}
                 </section>
                 <section
                   className={cn(

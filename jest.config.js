@@ -1,7 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 
 export default {
-  testTimeout: 20000,
+  testTimeout: 60000,
   testEnvironment: "node",
   transform: {
     "^.+.tsx?$": ["ts-jest", {}],
