@@ -148,7 +148,14 @@ export class Cip68Contract extends MeshAdapter {
   }) => {
     const { utxos, walletAddress, collateral } = await this.getWalletForTx();
 
-  
+    // const mintUtxoRef: UTxO = await this.getUtxoForTx(
+    //   MINT_REFERENCE_SCRIPT_ADDRESS,
+    //   MINT_REFERENCE_SCRIPT_HASH,
+    // );
+    // const storeUtxoRef: UTxO = await this.getUtxoForTx(
+    //   STORE_REFERENCE_SCRIPT_ADDRESS,
+    //   STORE_REFERENCE_SCRIPT_HASH,
+    // );
 
     const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
     // const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
@@ -159,7 +166,6 @@ export class Cip68Contract extends MeshAdapter {
       // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
       .txIn(collateral.input.txHash, collateral.input.outputIndex)
       .mintPlutusScriptV3()
-      // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
       .mintingScript(this.mintScriptCbor)
       // .mintTxInReference(

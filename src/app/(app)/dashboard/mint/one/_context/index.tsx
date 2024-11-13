@@ -1,24 +1,26 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { defineStepper } from "@stepperize/react";
-import { AssetMetadata } from "@meshsdk/core";
+import useMintOneStore, { MintOneStore } from "./store";
 const { useStepper, steps } = defineStepper(
   {
     id: "template",
     title: "Template",
   },
   {
+    id: "basic",
+    title: "Basic",
+  },
+  {
     id: "metadata",
     title: "Metadata",
   },
   { id: "preview", title: "Preview" },
+  { id: "transaction", title: "Transaction" },
   { id: "result", title: "Result" },
 );
-type MintOneContextType = {
-  loading: boolean;
-  metadataToMint: AssetMetadata | null;
-  setMetadataToMint: (metadata: AssetMetadata) => void;
+type MintOneContextType = MintOneStore & {
   stepper: ReturnType<typeof useStepper>;
   steps: typeof steps;
 };
@@ -29,17 +31,24 @@ export default function MintOneProvider({
   children: React.ReactNode;
 }) {
   const stepper = useStepper();
-
-  const [metadataToMint, setMetadataToMint] = useState<AssetMetadata | null>(
-    null,
-  );
+  const {
+    metadataToMint,
+    setMetadataToMint,
+    loading,
+    setLoading,
+    basicInfoToMint,
+    setBasicInfoToMint,
+  } = useMintOneStore();
 
   return (
     <MintOneContext.Provider
       value={{
-        loading: false,
-        metadataToMint: metadataToMint,
-        setMetadataToMint: setMetadataToMint,
+        loading,
+        setLoading,
+        metadataToMint,
+        setMetadataToMint,
+        basicInfoToMint,
+        setBasicInfoToMint,
         stepper,
         steps,
       }}

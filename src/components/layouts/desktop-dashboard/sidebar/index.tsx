@@ -23,7 +23,7 @@ export function Sidebar() {
       <SidebarToggle isOpen={sidebar?.isOpen} toggle={sidebar?.toggle} />
       <div
         className={cn(
-          "relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800",
+          "relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md ",
         )}
       >
         <Button

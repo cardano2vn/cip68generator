@@ -10,7 +10,7 @@ type Props = {
   image?: string;
 };
 
-const Network = function ({ name, active = true }: Props) {
+export const NetworkComponent = function ({ name, active = true }: Props) {
   return (
     <div
       className={cn(
@@ -33,5 +33,3 @@ const Network = function ({ name, active = true }: Props) {
     </div>
   );
 };
-
-export default Network;

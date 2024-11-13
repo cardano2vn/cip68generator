@@ -1,5 +1,6 @@
 use aiken/collection/list
 use aiken/crypto.{ScriptHash, VerificationKeyHash}
+use aiken/primitive/bytearray
 use cardano/address
 use cardano/assets.{PolicyId, without_lovelace}
 use cardano/minting

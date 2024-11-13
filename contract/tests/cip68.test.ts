@@ -74,7 +74,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     const unsignedTx: string = await cip68Contract.burn({
       assetName: "CIP68 Generators.",
       txHash:
-        "d21e11d4ab5bfddeae4dd5d95cc4479d72b60315c3b122ea776a93b956822500",
+        "1fdcf779767280d32aa488b45a49398d342470bdef5fcfe22f5c82ac06379b2b",
       quantity: "-1",
       metadata: {
         name: "CIP68 Generators 01",
@@ -102,20 +102,23 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   const unsignedTx: string = await cip68Contract.update({
   //     assetName: "CIP68 Generators.",
   //     metadata: {
-  //       name: "CIP68 Generators 01",
+  //       name: "CIP68 Generators",
   //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
   //       mediaType: "image/jpg",
   //       description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
-  //       owner:deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
+  //       owner:await wallet.getChangeAddress(),
   //       author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
   //     },
   //     txHash:
-  //       "d4a8a1d950e9c99704d59c6ad6692f060dbff7deb493ee503359ea0b0591ac99",
+  //       "a38ab56346da11896822301dbed1439db8a07ac9cc5718f08d3fb31051848d8f",
   //   });
-  //   const signedTx = await wallet.signTx(unsignedTx, true);
+  //   jest.setTimeout(20000);
+  //       const signedTx = await wallet.signTx(unsignedTx, true);
   //   const txHash = await wallet.submitTx(signedTx);
   //   console.log(txHash);
-  // jest.setTimeout(20000);
+  //   txHashTemp = txHash;
+  //   jest.setTimeout(20000);
+  //   expect(txHash.length).toBe(64);
   //   expect(txHash.length).toBe(64);
   // });
 
@@ -127,16 +130,16 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   });
 
   //   const unsignedTx: string = await cip68Contract.remove({
-  //     assetName: "CIP68 Generators 01",
+  //     assetName: "CIP68 Generators",
   //     metadata: {
-  //       name: "CIP68 Generators 01",
+  //       name: "CIP68 Generators",
   //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
   //       mediaType: "image/jpg",
   //       description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
   //       author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
   //     },
   //     txHash:
-  //       "6c76f706a64bf92c9398176b7c37e6c7d01dc16aa402e5aa354f3ed954c8da7f",
+  //       "22faa1bc73a0c94e4e1f24727545ba3a7155b3ceadc69f2fd159209f88c8eff1",
   //   });
   //   const signedTx = await wallet.signTx(unsignedTx, true);
   //   const txHash = await wallet.submitTx(signedTx);

@@ -1,11 +1,10 @@
 import axios, { AxiosInstance } from "axios";
-import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
-import { CardanoNetwork } from "@blockfrost/blockfrost-js/lib/types";
 import {
   Asset,
   BlockfrostSupportedNetworks,
   resolveRewardAddress,
 } from "@meshsdk/core";
+import { parseHttpError } from "@/utils";
 
 export class BlockfrostFetcher {
   private readonly _axiosInstance: AxiosInstance;
@@ -59,49 +58,5 @@ export class BlockfrostFetcher {
     } catch (error) {
       throw parseHttpError(error);
     }
-  }
-}
-
-export const parseHttpError = (error: unknown): string => {
-  if (axios.isAxiosError(error)) {
-    if (error.response) {
-      return JSON.stringify({
-        data: error.response.data,
-        headers: error.response.headers,
-        status: error.response.status,
-      });
-    } else if (error.request && !(error.request instanceof XMLHttpRequest)) {
-      return JSON.stringify(error.request);
-    } else {
-      return JSON.stringify({ code: error.code, message: error.message });
-    }
-  } else {
-    return JSON.stringify(error);
-  }
-};
-
-const blockfrostFetcherSingleton = () => {
-  const APIKEY = process.env.BLOCKFROST_API_KEY || "";
-  return new BlockfrostFetcher(APIKEY);
-};
-
-declare const globalThis: {
-  blockfrostFetcherGlobal: ReturnType<typeof blockfrostFetcherSingleton>;
-} & typeof global;
-
-const blockfrostFetcher =
-  globalThis.blockfrostFetcherGlobal ?? blockfrostFetcherSingleton();
-
-export default blockfrostFetcher;
-
-if (process.env.NODE_ENV !== "production")
-  globalThis.blockfrostFetcherGlobal = blockfrostFetcher;
-
-export class Blockfrost extends BlockFrostAPI {
-  constructor(projectId: string, network: CardanoNetwork) {
-    super({
-      projectId: projectId,
-      network: network,
-    });
   }
 }
