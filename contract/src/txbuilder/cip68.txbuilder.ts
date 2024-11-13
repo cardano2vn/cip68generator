@@ -157,8 +157,10 @@ export class Cip68Contract extends MeshAdapter {
     //   STORE_REFERENCE_SCRIPT_HASH,
     // );
 
-    // const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
+    const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
     // const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
+    // console.log(userUtxo.output);
+    console.log(storeUtxo.output);
 
     const unsignedTx = this.meshTxBuilder
       // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
@@ -172,11 +174,11 @@ export class Cip68Contract extends MeshAdapter {
       // )
       .mintRedeemerValue(mConStr1([]))
 
-      // .spendingPlutusScriptV3()
-      // .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
-      // .txInInlineDatumPresent()
-      // .txInRedeemerValue(mConStr1([]))
-      // .txInScript(this.storeScriptCbor)
+      .spendingPlutusScriptV3()
+      .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
+      .txInInlineDatumPresent()
+      .txInRedeemerValue(mConStr1([]))
+      .txInScript(this.storeScriptCbor)
       // .spendingTxInReference(
       //   storeUtxoRef.input.txHash,
       //   storeUtxoRef.input.outputIndex,
@@ -184,8 +186,8 @@ export class Cip68Contract extends MeshAdapter {
 
       // .txOut(walletAddress, [
       //   {
-      //     unit: this.policyId + CIP68_100(stringToHex(assetName)),
-      //     quantity: "1",
+      //     unit: "lovelave",
+      //     quantity: storeUtxo.output.amount[0].quantity,
       //   },
       // ])
       .txOutInlineDatumValue(metadataToCip68(metadata))
@@ -233,10 +235,10 @@ export class Cip68Contract extends MeshAdapter {
     //   STORE_REFERENCE_SCRIPT_ADDRESS,
     //   STORE_REFERENCE_SCRIPT_HASH,
     // );
-    // const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
+    const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
     const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
-    // if (!userUtxo) throw new Error("User UTXO not found");
-    // if (!storeUtxo) throw new Error("Store UTXO not found");
+    if (!userUtxo) throw new Error("User UTXO not found");
+    if (!storeUtxo) throw new Error("Store UTXO not found");
     const unsignedTx = this.meshTxBuilder
       // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
       // .txOut(this.storeAddress, [
@@ -262,7 +264,7 @@ export class Cip68Contract extends MeshAdapter {
       .txOutInlineDatumValue(metadataToCip68(metadata))
 
       .txOut(
-        EXCHANGE_FEE_ADDRESS,
+        "addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4",
         [
           {
             unit: "lovelace",
@@ -293,10 +295,10 @@ export class Cip68Contract extends MeshAdapter {
     txHash: string;
   }) => {
     const { utxos, walletAddress, collateral } = await this.getWalletForTx();
-    // const utxoRef: UTxO = await this.getUtxoForTx(
-    //   STORE_REFERENCE_SCRIPT_ADDRESS,
-    //   STORE_REFERENCE_SCRIPT_HASH,
-    // );
+    const utxoRef: UTxO = await this.getUtxoForTx(
+      STORE_REFERENCE_SCRIPT_ADDRESS,
+      STORE_REFERENCE_SCRIPT_HASH,
+    );
     const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
     const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
     if (!userUtxo) throw new Error("User UTXO not found");
@@ -322,7 +324,7 @@ export class Cip68Contract extends MeshAdapter {
       .txOutInlineDatumValue(metadataToCip68(metadata))
 
       .txOut(
-        EXCHANGE_FEE_ADDRESS,
+        "addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4",
         [
           {
             unit: "lovelace",

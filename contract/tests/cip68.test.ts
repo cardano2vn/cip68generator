@@ -46,7 +46,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   });
 
   //   const unsignedTx: string = await cip68Contract.mint({
-  //     assetName: "CIP68 Generators",
+  //     assetName: "CIP68 Generators.",
   //     metadata: {
   //       name: "CIP68 Generators",
   //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
@@ -72,9 +72,9 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     });
 
     const unsignedTx: string = await cip68Contract.burn({
-      assetName: "CIP68 Generators",
+      assetName: "CIP68 Generators.",
       txHash:
-        "3849bb91c42a228253ebf22e57d21890dee65f3d0d90788858ff8ccab16b7d04",
+        "1fdcf779767280d32aa488b45a49398d342470bdef5fcfe22f5c82ac06379b2b",
       quantity: "-1",
       metadata: {
         name: "CIP68 Generators 01",
@@ -100,7 +100,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   });
 
   //   const unsignedTx: string = await cip68Contract.update({
-  //     assetName: "CIP68 Generators",
+  //     assetName: "CIP68 Generators.",
   //     metadata: {
   //       name: "CIP68 Generators",
   //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
@@ -110,12 +110,15 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //       author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
   //     },
   //     txHash:
-  //       "14fcde7bfcdabfea964fdb5e2fedfcc2587a9a80443afce08ca388ca911c82d5",
+  //       "a38ab56346da11896822301dbed1439db8a07ac9cc5718f08d3fb31051848d8f",
   //   });
-  //   const signedTx = await wallet.signTx(unsignedTx, true);
+  //   jest.setTimeout(20000);
+  //       const signedTx = await wallet.signTx(unsignedTx, true);
   //   const txHash = await wallet.submitTx(signedTx);
   //   console.log(txHash);
-  // jest.setTimeout(20000);
+  //   txHashTemp = txHash;
+  //   jest.setTimeout(20000);
+  //   expect(txHash.length).toBe(64);
   //   expect(txHash.length).toBe(64);
   // });
 
