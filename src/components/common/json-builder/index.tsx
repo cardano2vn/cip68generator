@@ -60,6 +60,7 @@ function JsonField({
               if (typeof value === "number") newValue = Number(e.target.value);
               updateField(currentPath, newValue);
             }}
+            placeholder="null"
             className="w-1/3 bg-section"
           />
         );
@@ -220,8 +221,18 @@ export default function JsonBuilder() {
       <Tabs defaultValue="basic" className="flex-grow overflow-y-auto">
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg p-2 mb-4">
           <TabsList>
-            <TabsTrigger value="basic">Basic</TabsTrigger>
-            <TabsTrigger value="advanced">Advanced</TabsTrigger>
+            <TabsTrigger
+              value="basic"
+              className="data-[state=active]:bg-green-800 data-[state=active]:text-white p-2"
+            >
+              Basic
+            </TabsTrigger>
+            <TabsTrigger
+              value="advanced"
+              className="data-[state=active]:bg-green-800 data-[state=active]:text-white p-2"
+            >
+              Advanced
+            </TabsTrigger>
           </TabsList>
 
           <Select

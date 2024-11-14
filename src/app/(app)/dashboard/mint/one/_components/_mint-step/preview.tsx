@@ -8,7 +8,8 @@ import { useMintOneContext } from "../../_context";
 import Property from "../property";
 import { isEmpty, isNull } from "lodash";
 export default function PreviewStep() {
-  const { stepper, metadataToMint, basicInfoToMint } = useMintOneContext();
+  const { stepper, metadataToMint, basicInfoToMint, startMinting } =
+    useMintOneContext();
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
       <div className="rounded-md border border-dashed p-4">
@@ -140,7 +141,7 @@ export default function PreviewStep() {
         >
           Back
         </Button>
-        <Button onClick={() => stepper.next()}>Next</Button>
+        <Button onClick={startMinting}>Next</Button>
       </div>
     </div>
   );
