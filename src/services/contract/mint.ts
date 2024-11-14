@@ -1,8 +1,13 @@
 "use server";
 import { appNetworkId } from "@/constants";
-import { Cip68Contract } from "../../../contract";
+import { Cip68Contract } from "@/contract";
 import { blockfrostProvider } from "@/lib/cardano";
-import { AssetMetadata, MeshTxBuilder, MeshWallet } from "@meshsdk/core";
+import {
+  AssetMetadata,
+  deserializeAddress,
+  MeshTxBuilder,
+  MeshWallet,
+} from "@meshsdk/core";
 import { isNil } from "lodash";
 
 export const createMintTransaction = async ({
@@ -38,8 +43,15 @@ export const createMintTransaction = async ({
       wallet: wallet,
       meshTxBuilder: txBuilder,
     });
-
-    const tx = await cip68Contract.mint(mintInput);
+    const input = {
+      assetName: mintInput.assetName,
+      metadata: {
+        ...mintInput.metadata,
+        author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
+      },
+      quantity: mintInput.quantity,
+    };
+    const tx = await cip68Contract.mint(input);
     return {
       result: true,
       data: tx,

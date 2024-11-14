@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { appImage } from "@/public/images";
 import { appNetwork, wallets } from "@/constants";
-import Wallet from "@/app/(app)/login/_components/wallet";
 import {
   FaTelegramPlane,
   FaMailBulk,
@@ -15,20 +14,21 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import routers, { dashboardRoutes } from "@/constants/routers";
 import { useWalletContext } from "@/components/providers/wallet";
-import { WalletType } from "@/types";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { NetworkComponent } from "./_components/network-item";
+import Wallet from "./_components/wallet";
 
 export default function LoginPage() {
   const { data: session, status } = useSession();
   const { signIn } = useWalletContext();
-  const handleConnectWallet = async function ({
-    name,
-    image,
-    api,
-  }: WalletType) {
-    await signIn(session, { name, image, api });
+  const handleConnectWallet = async function ({ name }: { name: string }) {
+    await signIn(session, {
+      name,
+      icon: "",
+      id: "",
+      version: "",
+    });
   };
 
   if (status === "authenticated") {
