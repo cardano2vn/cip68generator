@@ -50,7 +50,7 @@ export default function UtilitiesPage() {
             href={dashboardRoutes.utilities.children.fastCollection.redirect}
             className="rounded-lg shadow-none transition-shadow duration-300 hover:shadow-md hover:shadow-slate-800"
           >
-            <Card className="rounded-lg">
+            <Card className="h-full">
               <AspectRatio ratio={5 / 3} className="bg-muted">
                 <Images.collection className="h-full w-full rounded-t-lg object-cover" />
               </AspectRatio>
@@ -64,7 +64,7 @@ export default function UtilitiesPage() {
               </div>
             </Card>
           </Link>
-          <Card className="rounded-lg">
+          {/* <Card className="rounded-lg">
             <AspectRatio ratio={5 / 3} className="bg-muted">
               <Images.marketplace className="h-full w-full rounded-t-lg object-cover" />
             </AspectRatio>
@@ -76,9 +76,9 @@ export default function UtilitiesPage() {
                 Create collection to marketplace
               </div>
             </div>
-          </Card>
+          </Card> */}
 
-          <Card className="h-full">
+          {/* <Card className="h-full">
             <AspectRatio
               ratio={5 / 3}
               className="bg-muted flex items-center justify-center opacity-70 border-dashed"
@@ -100,7 +100,7 @@ export default function UtilitiesPage() {
                 Comming Soon
               </div>
             </div>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>
