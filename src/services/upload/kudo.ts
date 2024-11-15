@@ -63,13 +63,13 @@ export async function kudoUpload(formData: FormData) {
           data: result
             .map((item) => {
               if (!item.result) return null;
+              const { cid, name } = item.data;
               return {
                 userId: userId,
-                name: item.name,
+                name: name,
                 type:
-                  mimeTypes[item.name.split(".").pop()?.toLowerCase()] ||
-                  "unknown",
-                url: `ipfs://${item.cid}`,
+                  mimeTypes[name.split(".").pop()?.toLowerCase()] || "unknown",
+                url: `ipfs://${cid}`,
               };
             })
             .filter((item) => item !== null),

@@ -1,9 +1,4 @@
-import {
-  BlockfrostProvider,
-  stringToBSArray,
-  stringToHex,
-  UTxO,
-} from "@meshsdk/core";
+import { BlockfrostProvider, UTxO } from "@meshsdk/core";
 import crypto from "crypto";
 import plutus from "../../plutus.json";
 
