@@ -58,7 +58,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     txHashTemp = txHash;
     blockfrostProvider.onTxConfirmed(txHash, () => {
       expect(txHash.length).toBe(64);
-    })
+    });
   });
 
   // test("Burn", async function () {
