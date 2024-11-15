@@ -33,7 +33,7 @@ export async function converMetadata(
       }
       return data;
     };
-    return convertToJSON(decoded);
+    return convertToJSON(decoded.value[0]);
   } catch (error) {
     console.error("Error decoding CBOR data:", error);
     throw new Error("Failed to parse hex data to JSON.");

@@ -15,14 +15,14 @@ export default function MintPage() {
           >
             <Card className="h-full">
               <AspectRatio ratio={5 / 3} className="bg-muted">
-                <Images.metadata className="h-full w-full rounded-t-lg object-cover" />
+                <Images.mintOne className="h-full w-full rounded-t-lg object-cover" />
               </AspectRatio>
               <div className="flex flex-col items-center justify-start gap-3 self-stretch px-4 py-2">
                 <div className="font-semibol self-stretch text-center text-base">
-                  Metadata Builder
+                  Mint Your Asset (Token/NFT) Only
                 </div>
                 <div className="font- self-stretch text-center text-sm text-secondary">
-                  Have images but need JSON? We got you covered!
+                  Have images and metadata? Easily mint your NFT on Cardano!
                 </div>
               </div>
             </Card>
@@ -33,14 +33,15 @@ export default function MintPage() {
           >
             <Card className="h-full">
               <AspectRatio ratio={5 / 3} className="bg-muted">
-                <Images.metadata className="h-full w-full rounded-t-lg object-cover" />
+                <Images.mintMultiple className="h-full w-full rounded-t-lg object-cover" />
               </AspectRatio>
               <div className="flex flex-col items-center justify-start gap-3 self-stretch px-4 py-2">
                 <div className="font-semibol self-stretch text-center text-base">
-                  Metadata Builder
+                  Mint Multiple Your Asset (Token/NFT)
                 </div>
                 <div className="font- self-stretch text-center text-sm text-secondary">
-                  Have images but need JSON? We got you covered!
+                  Ready to mint multiple NFTs at once? Upload your images and
+                  metadata to mint in bulk!
                 </div>
               </div>
             </Card>
