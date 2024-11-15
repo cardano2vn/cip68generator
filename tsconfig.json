@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
-      "@/contract/*": ["./contract/*"]
+      "@/contract": ["./contract/index.ts"]
     }
   },
   "include": [

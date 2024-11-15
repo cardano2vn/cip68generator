@@ -1,10 +1,11 @@
 "use client";
 
-import { wallets } from "@/constants";
+// import { wallets } from "@/constants";
 import { useWallet, useWalletStore } from "@/hooks/use-wallet";
-import { isNil } from "lodash";
+import { isEmpty, isNil } from "lodash";
 import { signOut, useSession } from "next-auth/react";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
+import { useWalletList } from "@meshsdk/react";
 
 const WalletContext = createContext<useWalletStore>(null!);
 
@@ -24,18 +25,30 @@ export default function WalletProvider({ children }: PropsWithChildren) {
     disconnect,
     refresh,
     browserWallet,
+    address,
+    getBalance,
+    signTx,
+    submitTx,
   }: useWalletStore = useWallet();
   const { data: session } = useSession();
+  const wallets = useWalletList();
 
   useEffect(() => {
     (async () => {
+      if (isEmpty(wallets)) {
+        return;
+      }
       if (isNil(session)) {
         disconnect();
         return;
       }
       if (isNil(wallet)) {
         const walletConnect = session?.user
-          ? wallets.find((w) => w.name === session.user?.wallet)
+          ? wallets.find(
+              (w) =>
+                w.name.toLocaleLowerCase() ===
+                session.user?.wallet?.toLocaleLowerCase(),
+            )
           : null;
         if (!walletConnect) {
           await signOut();
@@ -46,7 +59,7 @@ export default function WalletProvider({ children }: PropsWithChildren) {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [wallets]);
 
   return (
     <WalletContext.Provider
@@ -57,6 +70,10 @@ export default function WalletProvider({ children }: PropsWithChildren) {
         refresh,
         wallet,
         browserWallet,
+        address,
+        getBalance,
+        signTx,
+        submitTx,
       }}
     >
       {children}

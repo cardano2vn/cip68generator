@@ -16,16 +16,16 @@ import {
 
 import { MeshAdapter } from "../adapters/mesh.adapter";
 import plutus from "../../plutus.json";
-import { title } from "../configs";
 import {
   EXCHANGE_FEE_ADDRESS,
   MINT_REFERENCE_SCRIPT_HASH,
   STORE_REFERENCE_SCRIPT_HASH,
   MINT_REFERENCE_SCRIPT_ADDRESS,
   STORE_REFERENCE_SCRIPT_ADDRESS,
-  APP_NETWORK,
+  title,
 } from "../constants";
 import { Plutus } from "../types";
+import { appNetworkId } from "@/constants";
 
 export class Cip68Contract extends MeshAdapter {
   protected pubKeyExchange: string =
@@ -52,7 +52,7 @@ export class Cip68Contract extends MeshAdapter {
   protected storeAddress = serializePlutusScript(
     this.storeScript,
     undefined,
-    APP_NETWORK,
+    appNetworkId,
     false,
   ).address;
 

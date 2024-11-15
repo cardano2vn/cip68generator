@@ -1,4 +1,5 @@
-import { apiKey, apiUrl } from "../src/configs";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { blockfrostProvider } from "@/lib/cardano";
 import { describe, test, expect, beforeEach, jest } from "@jest/globals";
 import {
   BlockfrostProvider,
@@ -8,18 +9,13 @@ import {
   MeshTxBuilder,
   MeshWallet,
 } from "@meshsdk/core";
-
-import { Cip68Contract } from "../src";
+import { Cip68Contract } from "../script";
 
 describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   let txHashTemp: string;
   let meshTxBuilder: MeshTxBuilder;
-  let wallet: BrowserWallet | MeshWallet;
-  let blockfrostProvider: BlockfrostProvider | KoiosProvider;
+  let wallet: MeshWallet;
   beforeEach(async function () {
-    blockfrostProvider = new BlockfrostProvider(
-      "preprodHXZNMTECARQ3jlUE0RvCBT2qOK6JRtQf",
-    );
     wallet = new MeshWallet({
       networkId: 0,
       fetcher: blockfrostProvider,
