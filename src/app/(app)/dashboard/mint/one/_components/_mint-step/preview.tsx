@@ -7,6 +7,12 @@ import { IoMdPhotos } from "react-icons/io";
 import { useMintOneContext } from "../../_context";
 import Property from "../property";
 import { isEmpty, isNull } from "lodash";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 export default function PreviewStep() {
   const { stepper, metadataToMint, basicInfoToMint, startMinting } =
     useMintOneContext();
@@ -44,16 +50,32 @@ export default function PreviewStep() {
                 <div className="grid grid-cols-3 gap-y-5 gap-x-2">
                   {Object.entries(metadataToMint).map(
                     ([name, value], index) => (
-                      <Property
-                        key={index}
-                        image=""
-                        name={name}
-                        value={
-                          isNull(value) || isEmpty(value)
-                            ? "null"
-                            : JSON.stringify(value).replace(/^"|"$/g, "")
-                        }
-                      />
+                      <TooltipProvider key={index}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Property
+                              image=""
+                              name={name}
+                              value={
+                                isNull(value) || isEmpty(value)
+                                  ? "null"
+                                  : JSON.stringify(value)
+                                      .replace(/^"|"$/g, "")
+                                      .slice(0, 10) +
+                                    (JSON.stringify(value).replace(/^"|"$/g, "")
+                                      .length > 10
+                                      ? "..."
+                                      : "")
+                              }
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {isNull(value) || isEmpty(value)
+                              ? "null"
+                              : `${value}`}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     ),
                   )}
                 </div>

@@ -79,7 +79,7 @@ export default function BasicStep() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="h-full py-8 px-10 m-auto flex flex-col">
+        <div className="py-8 px-10 m-auto flex flex-col">
           <div className="rounded-md border border-dashed">
             <div className="space-y-8">
               <div className="relative flex-col items-center justify-center">
@@ -90,8 +90,8 @@ export default function BasicStep() {
                         Basic Information
                       </h1>
                     </div>
-                    <div className="h-full space-y-6">
-                      <div className="h-[29rem] border-none p-0 outline-none gap-2">
+                    <div className="space-y-6">
+                      <div className="border-none p-0 outline-none gap-2">
                         <FormField
                           control={form.control}
                           name="assetName"

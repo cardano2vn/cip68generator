@@ -239,6 +239,14 @@ export default function JsonBuilder() {
             value={template}
             onValueChange={(newValue) => {
               switch (newValue) {
+                case "Minimal":
+                  setTemplate("Minimal");
+                  setJsonContent({
+                    name: "Asset Name",
+                    description: "Asset Description",
+                    image: "ipfs://QmZ4t3...",
+                  });
+                  break;
                 case "Fungible":
                   setTemplate("Fungible");
                   setJsonContent({
@@ -343,11 +351,12 @@ export default function JsonBuilder() {
               <SelectValue placeholder="Select Asset Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Fungible">Fungible Asset Metadata</SelectItem>
+              <SelectItem value="Minimal">Minimal Asset Metadata</SelectItem>
               <SelectItem value="Audio">Audio Asset Metadata</SelectItem>
               <SelectItem value="Image">Image Asset Metadata</SelectItem>
               <SelectItem value="Smart">Smart Asset Metadata</SelectItem>
               <SelectItem value="Video">Video Asset Metadata</SelectItem>
+              <SelectItem value="Fungible">Fungible Asset Metadata</SelectItem>
             </SelectContent>
           </Select>
         </div>
