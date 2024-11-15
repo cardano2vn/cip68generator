@@ -23,6 +23,9 @@ import cardano from "./network/cardano.png";
 import metadata from "./utilities/metadata.png";
 import storegae from "./utilities/storage.png";
 import collection from "./utilities/collection.png";
+import marketplace from "./utilities/marketplace.png";
+import mintOne from "./utilities/mint-one.png";
+import mintMultiple from "./utilities/mint-multiple.png";
 
 export const founderImage = {
   son: son,
@@ -38,6 +41,9 @@ export const appImage = {
   metadata: metadata,
   storegae: storegae,
   collection: collection,
+  marketplace: marketplace,
+  mintOne: mintOne,
+  mintMultiple: mintMultiple,
 } as const;
 
 export const walletImage = {

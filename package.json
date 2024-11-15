@@ -11,7 +11,7 @@
     "lint": "next lint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,json}' --config ./.prettierrc",
     "prepare": "husky",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "build:contract": "cd ./contract && aiken build"
   },
   "dependencies": {

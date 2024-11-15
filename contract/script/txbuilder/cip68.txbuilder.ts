@@ -26,8 +26,9 @@ import {
 } from "../constants";
 import { Plutus } from "../types";
 import { appNetworkId } from "@/constants";
+import { ICip68Contract } from "../interfaces/icip68.interface";
 
-export class Cip68Contract extends MeshAdapter {
+export class Cip68Contract extends MeshAdapter implements ICip68Contract {
   protected pubKeyExchange: string =
     deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
   protected mintCompileCode: string = this.readValidator(
@@ -281,69 +282,6 @@ export class Cip68Contract extends MeshAdapter {
         collateral.output.amount,
         collateral.output.address,
       );
-
-    return unsignedTx.complete();
-  };
-
-  remove = async ({
-    assetName,
-    metadata,
-    txHash,
-  }: {
-    assetName: string;
-    metadata: AssetMetadata;
-    txHash: string;
-  }) => {
-    const { utxos, walletAddress, collateral } = await this.getWalletForTx();
-    const utxoRef: UTxO = await this.getUtxoForTx(
-      STORE_REFERENCE_SCRIPT_ADDRESS,
-      STORE_REFERENCE_SCRIPT_HASH,
-    );
-    const userUtxo = await this.getUtxoForTx(walletAddress, txHash);
-    const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
-    if (!userUtxo) throw new Error("User UTXO not found");
-    if (!storeUtxo) throw new Error("Store UTXO not found");
-
-    console.log(storeUtxo.output);
-    const unsignedTx = this.meshTxBuilder
-      .txIn(collateral.input.txHash, collateral.input.outputIndex)
-
-      .spendingPlutusScriptV3()
-      .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
-      .txInInlineDatumPresent()
-      .txInScript(this.storeScriptCbor)
-      .txInRedeemerValue(mConStr1([]))
-      // .spendingTxInReference(utxoRef.input.txHash, utxoRef.input.outputIndex)
-
-      .txOut(walletAddress, [
-        {
-          unit: this.policyId + CIP68_100(stringToHex(assetName)),
-          quantity: "1",
-        },
-      ])
-      .txOutInlineDatumValue(metadataToCip68(metadata))
-
-      .txOut(
-        "addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4",
-        [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ],
-      )
-      .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
-      .changeAddress(walletAddress)
-      .selectUtxosFrom(utxos)
-      .txInCollateral(
-        collateral.input.txHash,
-        collateral.input.outputIndex,
-        collateral.output.amount,
-        collateral.output.address,
-      );
-
-    // unsignedTx.removeDuplicateInputs();
-    // unsignedTx.addUtxosFromSelection();
 
     return unsignedTx.complete();
   };
