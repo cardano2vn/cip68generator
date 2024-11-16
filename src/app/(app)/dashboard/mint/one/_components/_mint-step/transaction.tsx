@@ -58,7 +58,6 @@ export default function TransactionStep() {
         >
           Back
         </Button>
-        {/* <Button onClick={() => stepper.next()}>Next</Button> */}
       </div>
     </div>
   );
