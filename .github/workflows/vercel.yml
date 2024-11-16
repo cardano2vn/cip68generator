@@ -16,7 +16,7 @@ jobs:
       - name: Setup Aiken
         uses: aiken-lang/setup-aiken@v1
         with:
-          version: v1.1.0
+          version: v1.1.6
       - name: Build Blueprint
         run: |
           aiken fmt --check
