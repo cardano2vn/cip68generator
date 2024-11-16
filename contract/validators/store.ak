@@ -1,20 +1,19 @@
 use aiken/crypto.{VerificationKeyHash}
-use cardano/address
-use cardano/assets.{without_lovelace}
-use cardano/transaction.{
-  InlineDatum, Output, OutputReference, Transaction, find_input,
-}
-use cip68generator/types.{Remove, StoreRedeemer, Update}
-use cip68generator/utils
+// use cardano/address
+// use cardano/assets.{without_lovelace}
+use cardano/transaction.{OutputReference, Transaction}
+use cip68generator/types.{StoreRedeemer}
+// use cip68generator/utils
 use types/cip68.{CIP68}
-use validation/find.{output_by_addr_value}
 
-validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
+// use validation/find.{output_by_addr_value}
+
+validator store(_exchange: VerificationKeyHash, _exchange_fee: Int) {
   spend(
-    datum: Option<CIP68>,
-    redeemer: StoreRedeemer,
-    output_reference: OutputReference,
-    transaction: Transaction,
+    _datum: Option<CIP68>,
+    _redeemer: StoreRedeemer,
+    _output_reference: OutputReference,
+    _transaction: Transaction,
   ) {
     True
     // expect Some(datum_output) = datum

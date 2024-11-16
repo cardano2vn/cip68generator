@@ -1,14 +1,14 @@
-use aiken/collection/list
+// use cip68generator/utils
+// use types/cip68
+// use validation/find
 use aiken/crypto.{ScriptHash, VerificationKeyHash}
-use aiken/primitive/bytearray
-use cardano/address
-use cardano/assets.{PolicyId, without_lovelace}
-use cardano/minting
+// use aiken/collection/list
+// use aiken/primitive/bytearray
+// use cardano/address
+use cardano/assets.{PolicyId}
 use cardano/transaction.{Transaction}
-use cip68generator/types.{Burn, Mint, MintRedeemer}
-use cip68generator/utils
-use types/cip68
-use validation/find
+// use cardano/minting
+use cip68generator/types.{MintRedeemer}
 
 // Validator: Mint
 // Description: Valodator use mint and burn assets dynamic assets (Token/NFT) generator (CIP68) 
@@ -17,11 +17,11 @@ use validation/find
 // Mint Redeemer
 // sign_by_author: 
 validator mint(
-  exchange: VerificationKeyHash,
-  exchange_fee: Int,
-  store: ScriptHash,
+  _exchange: VerificationKeyHash,
+  _exchange_fee: Int,
+  _store: ScriptHash,
 ) {
-  mint(redeemer: MintRedeemer, policy_id: PolicyId, transaction: Transaction) {
+  mint(_redeemer: MintRedeemer, _policy_id: PolicyId, _transaction: Transaction) {
     True
     // let Transaction { outputs, extra_signatories, mint, .. } = transaction
     // let mint_flatten =
