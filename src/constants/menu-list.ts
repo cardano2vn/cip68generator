@@ -20,8 +20,8 @@ export const mainMenu: NavItem[] = [
     disabled: false,
   },
   {
-    title: "Marketplace",
-    href: "/dashboard/marketplace",
+    title: "Documentation",
+    href: "#",
     icon: "store",
     disabled: true,
   },

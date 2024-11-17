@@ -18,10 +18,8 @@ import { MeshAdapter } from "../adapters/mesh.adapter";
 import plutus from "../../plutus.json";
 import {
   EXCHANGE_FEE_ADDRESS,
-  MINT_REFERENCE_SCRIPT_HASH,
-  STORE_REFERENCE_SCRIPT_HASH,
-  MINT_REFERENCE_SCRIPT_ADDRESS,
-  STORE_REFERENCE_SCRIPT_ADDRESS,
+  REFERENCE_SCRIPT_HASH,
+  REFERENCE_SCRIPT_ADDRESS,
   title,
 } from "../constants";
 import { Plutus } from "../types";
@@ -289,7 +287,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
   /**
    * @description Create reference script for mint transaction
    */
-  createReferenceScriptMint = async () => {
+  createReferenceScript = async () => {
     const { walletAddress, utxos, collateral } = await this.getWalletForTx();
 
     const unsignedTx = await this.meshTxBuilder
@@ -299,39 +297,14 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         collateral.output.amount,
         collateral.output.address,
       )
-      .txOut(MINT_REFERENCE_SCRIPT_ADDRESS, [
+      .txOut(REFERENCE_SCRIPT_ADDRESS, [
         {
           unit: "lovelace",
-          quantity: "5000000",
+          quantity: "15000000",
         },
       ])
 
       .txOutReferenceScript(this.mintScriptCbor, "V3")
-      .txOutInlineDatumValue("")
-      .changeAddress(walletAddress)
-      .selectUtxosFrom(utxos)
-      .txInCollateral(
-        collateral.input.txHash,
-        collateral.input.outputIndex,
-        collateral.output.amount,
-        collateral.output.address,
-      );
-
-    return unsignedTx.complete();
-  };
-
-  createReferenceScriptStore = async () => {
-    const { walletAddress, utxos, collateral } = await this.getWalletForTx();
-    const unsignedTx = await this.meshTxBuilder
-      .txIn(collateral.input.txHash, collateral.input.outputIndex)
-      .txOut(STORE_REFERENCE_SCRIPT_ADDRESS, [
-        {
-          unit: "lovelace",
-          quantity: "7000000",
-        },
-      ])
-
-      .txOutReferenceScript(this.storeScriptCbor, "V3")
       .txOutInlineDatumValue("")
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)

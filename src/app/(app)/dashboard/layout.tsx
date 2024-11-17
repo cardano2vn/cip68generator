@@ -12,9 +12,15 @@ export default function DashboardLayout({
 }: Readonly<PropsWithChildren>) {
   const isMobile: boolean = useWindowSize();
 
-  const Layout = useMemo(() => {
-    return isMobile ? MobileDashboardLayout : DesktopDashboardLayout;
+  const layout = useMemo(() => {
+    return isMobile ? (
+      <MobileDashboardLayout>{children}</MobileDashboardLayout>
+    ) : (
+      <DesktopDashboardLayout>{children}</DesktopDashboardLayout>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
+
   const session = useSession();
 
   if (session.status === "loading") {
@@ -24,6 +30,5 @@ export default function DashboardLayout({
   if (session.status === "unauthenticated") {
     redirect("/login");
   }
-
-  return <Layout>{children}</Layout>;
+  return layout;
 }

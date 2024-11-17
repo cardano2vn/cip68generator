@@ -7,13 +7,56 @@ import Link from "next/link";
 import { IoMdPhotos } from "react-icons/io";
 import Metadata from "./_components/metadata";
 import Pagination from "./_components/pagination";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 export default function DetailPage() {
+  const transactions = [
+    {
+      txHash: "600d06204bde...af2ce50",
+      datetime: "25 Sep, 2024 10:46",
+      action: "Mint",
+      fees: "₳ 0.22",
+      owner: "600d06204bde...af2ce50",
+      status: "Complete",
+    },
+    {
+      txHash: "600d06204bde...af2ce50",
+      datetime: "25 Sep, 2024 10:46",
+      action: "Mint",
+      fees: "₳ 0.22",
+      owner: "600d06204bde...af2ce50",
+      status: "Complete",
+    },
+    {
+      txHash: "600d06204bde...af2ce50",
+      datetime: "25 Sep, 2024 10:46",
+      action: "Mint",
+      fees: "₳ 0.22",
+      owner: "600d06204bde...af2ce50",
+      status: "Complete",
+    },
+    {
+      txHash: "600d06204bde...af2ce50",
+      datetime: "25 Sep, 2024 10:46",
+      action: "Mint",
+      fees: "₳ 0.22",
+      owner: "600d06204bde...af2ce50",
+      status: "Complete",
+    },
+    // Add more transactions here if needed
+  ];
   return (
-    <main className="flex-1 overflow-x-hidden overflow-y-auto">
+    <div className="flex-1 overflow-x-hidden overflow-y-auto">
       <div className="py-8 px-10 m-auto flex flex-col gap-6">
         <div className="w-full flex flex-wrap gap-5">
-          <section className="flex-1 flex gap-8 flex-col">
-            <section className="relative w-full h-[400px] bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
+          <div className="flex-1 flex gap-8 flex-col">
+            <div className="relative w-full h-[400px] bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
               <Image
                 className="w-full h-full object-cover rounded-lg"
                 src={appImage.collection}
@@ -30,9 +73,9 @@ export default function DetailPage() {
                   <IoMdPhotos className=" text-white" />
                 </Button>
               </div>
-            </section>
+            </div>
             {/* metadata-begin */}
-            <section className="bg-[#13161b] p-5 border-none rounded-lg flex flex-col gap-8">
+            <div className="bg-[#13161b] p-5 border-none rounded-lg flex flex-col gap-8">
               <header className="flex items-center pb-4 justify-between gap-2 border-b-[1px] border-solid border-gray-500">
                 <h2 className="text-white text-[18px] font-semibold leading-[24px]">
                   Metadata
@@ -46,7 +89,7 @@ export default function DetailPage() {
                   ></path>
                 </svg>
               </header>
-              <section className="flex flex-col gap-8">
+              <div className="flex flex-col gap-8">
                 <aside className="grid grid-cols-3 gap-y-5 gap-x-2">
                   <Metadata name="name" value="CIP68 Generator" image="" />
                   <Metadata
@@ -69,11 +112,11 @@ export default function DetailPage() {
                   <Metadata name="version" value="1.0.0" image="" />
                   <Metadata name="version" value="1.0.0" image="" />
                 </aside>
-              </section>
-            </section>
+              </div>
+            </div>
             {/* metadata-end */}
             {/* history-begin */}
-            <section className="bg-[#13161b] p-5 border-none rounded-lg flex flex-col gap-8">
+            <div className="bg-[#13161b] p-5 border-none rounded-lg flex flex-col gap-8">
               <header className="flex items-center pb-4 justify-between gap-2 border-b-[1px] border-solid border-gray-500">
                 <h2 className="text-white text-[18px] font-semibold leading-[24px]">
                   History
@@ -87,128 +130,56 @@ export default function DetailPage() {
                   ></path>
                 </svg>
               </header>
-              <section className="flex flex-col gap-8">
+              <div className="flex flex-col gap-8">
                 <aside className="bg-[#1c1f25] rounded-lg py-8 px-5">
-                  <table className="w-full" style={{ tableLayout: "auto" }}>
-                    <thead>
-                      <th className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium">
-                        TxHash / Datetime
-                      </th>
-                      <th className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium">
-                        Action / Fees
-                      </th>
-                      <th className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium">
-                        Owner / Status
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-[#0d0e12]">
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            25 Sep, 2024 10:46
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            Mint
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            ₳ 0.22
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            Complete
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="">
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            25 Sep, 2024 10:46
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            Mint
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            ₳ 0.22
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            Complete
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="">
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            25 Sep, 2024 10:46
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            Mint
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            ₳ 0.22
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            Complete
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="">
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            25 Sep, 2024 10:46
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            Mint
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            ₳ 0.22
-                          </p>
-                        </td>
-                        <td className="h-14 py-5 px-4 text-center">
-                          <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                            600d06204bde...af2ce50
-                          </h3>
-                          <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                            Complete
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-
+                  <Table className="w-full">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
+                          TxHash / Datetime
+                        </TableHead>
+                        <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
+                          Action / Fees
+                        </TableHead>
+                        <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
+                          Owner / Status
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {transactions.map((transaction, index) => (
+                        <TableRow
+                          key={index}
+                          className={index % 2 === 0 ? "bg-[#0d0e12]" : ""}
+                        >
+                          <TableCell className="h-14 py-5 px-4 text-center">
+                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                              {transaction.txHash}
+                            </h3>
+                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                              {transaction.datetime}
+                            </p>
+                          </TableCell>
+                          <TableCell className="h-14 py-5 px-4 text-center">
+                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                              {transaction.action}
+                            </h3>
+                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                              {transaction.fees}
+                            </p>
+                          </TableCell>
+                          <TableCell className="h-14 py-5 px-4 text-center">
+                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                              {transaction.owner}
+                            </h3>
+                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                              {transaction.status}
+                            </p>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                   {/* pagination-begin */}
                   <Pagination
                     page={1}
@@ -218,12 +189,12 @@ export default function DetailPage() {
                   />
                   {/* pagination-end */}
                 </aside>
-              </section>
-            </section>
+              </div>
+            </div>
             {/* history-end */}
-          </section>
+          </div>
           {/* left-begin */}
-          <section className="w-[30.41666667%] sticky top-20  max-w-full">
+          <div className="w-[30.41666667%] sticky top-20  max-w-full">
             <aside className=" p-5  bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
               <div className="w-full  h-[200px] bg-[#1c1f2b] overflow-hidden rounded-lg border-[1px] border-solid border-[#282c34] mb-6">
                 <Image
@@ -234,24 +205,24 @@ export default function DetailPage() {
               </div>
               {/* assetname-begin */}
               <div className="flex items-center justify-between mb-3">
-                <section className="flex items-center flex-1 overflow-hidden gap-[10px]">
+                <div className="flex items-center flex-1 overflow-hidden gap-[10px]">
                   <div className=" flex items-center justify-center w-8 h-8 rounded-full border-[1px] border-solid border-gray-400">
                     <span className="text-[16px] leading-6 font-medium">1</span>
                   </div>
                   <h1 className="w-full flex overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
                     Asset Name
                   </h1>
-                </section>
+                </div>
               </div>
               {/* assetname-end */}
               {/* policy-begin */}
-              <section className="flex items-center gap-2 relative rounded-md py-[2px] px-2 bg-[#282c34] w-fit my-[10px] mx-0">
+              <div className="flex items-center gap-2 relative rounded-md py-[2px] px-2 bg-[#282c34] w-fit my-[10px] mx-0">
                 <MdPolicy className="text-base" />
                 <span className="text-base">4da0c...107822cf</span>
-              </section>
+              </div>
               {/* policy-end */}
               {/* owner-begin */}
-              <section className="my-4 mx-0 flex items-center w-full min-w-0 box-border">
+              <div className="my-4 mx-0 flex items-center w-full min-w-0 box-border">
                 <div className="grid gap flex-1">
                   <h3 className="uppercase space-x-3 text-gray-400 text-[10px] leading-[16px] font-semibold">
                     OWNER
@@ -277,7 +248,7 @@ export default function DetailPage() {
                     </div>
                   </Link>
                 </div>
-              </section>
+              </div>
               {/* owner-end */}
               {/* burn-begin */}
               <Button className="w-full bg-[#282c34] text-white text-[14px] rounded-md leading-5 px-4 flex items-center justify-center gap-2">
@@ -286,10 +257,10 @@ export default function DetailPage() {
               </Button>
               {/* burn-end */}
             </aside>
-          </section>
+          </div>
           {/* left-end */}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

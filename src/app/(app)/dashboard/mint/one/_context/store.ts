@@ -49,8 +49,15 @@ const useMintOneStore = create<MintOneStore>((set) => ({
       const tasks = [...state.tasks];
       if (status === "error" || isEmpty(name)) {
         const lastTaskIndex = tasks.length - 1;
+        const newContent = isEmpty(content)
+          ? tasks[lastTaskIndex].content
+          : tasks[lastTaskIndex].content + ` : ${content}`;
         if (lastTaskIndex >= 0) {
-          tasks[lastTaskIndex] = { ...tasks[lastTaskIndex], status };
+          tasks[lastTaskIndex] = {
+            ...tasks[lastTaskIndex],
+            status,
+            content: newContent,
+          };
         }
       } else {
         const taskIndex = tasks.findIndex((task) => task.name === name);
