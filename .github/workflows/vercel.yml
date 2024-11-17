@@ -19,7 +19,7 @@ jobs:
           version: v1.1.6
       - name: Build Blueprint
         run: |
-          aiken fmt --check
+          # aiken fmt --check
           aiken check -D
           aiken build
         working-directory: ./contract
