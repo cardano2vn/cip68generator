@@ -15,7 +15,6 @@ export default function Page() {
   return (
     <div className="py-8 px-10 m-auto flex flex-col">
       <div className="rounded-xl p-6 bg-section shadow-md flex flex-col gap-3">
-        <h1 className="text-2xl font-medium leading-7">Mint</h1>
         <StepperNav />
         <div className="space-y-4">
           {stepper.switch({

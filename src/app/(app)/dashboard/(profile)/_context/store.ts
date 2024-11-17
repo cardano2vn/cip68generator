@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { Asset } from "@meshsdk/core";
+import { AssetDetails } from "@/types";
 
 export type ProfileStore = {
-  listNft: Asset[];
+  listNft: AssetDetails[];
 };
 
 const useProfileStore = create<ProfileStore>(() => ({
