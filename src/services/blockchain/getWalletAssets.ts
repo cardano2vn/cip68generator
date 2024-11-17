@@ -16,6 +16,7 @@ export async function getWalletAssets({
   try {
     const assetsAddress =
       await koiosFetcher.fetchAssetsFromAddress(walletAddress);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const totalPage = Math.ceil(assetsAddress.length / Number(pageSize));
     const assetsSlice = [...assetsAddress].slice(
       (Number(page) - 1) * Number(pageSize),
