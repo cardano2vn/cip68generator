@@ -16,6 +16,11 @@ export default function MetadataStep() {
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
       <div className="rounded-md border border-dashed">
+        <div className="flex flex-col space-y-2 text-left p-8">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Metadata Build
+          </h1>
+        </div>
         <JsonBuilder />
       </div>
       <div className="flex justify-end gap-4 mt-6">

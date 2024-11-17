@@ -53,3 +53,17 @@ export interface NavItem {
   disabled: boolean;
   icon?: keyof typeof Icons;
 }
+
+export type AssetDetails = {
+  asset: string;
+  policy_id: string;
+  asset_name: string;
+  fingerprint: string;
+  quantity: string;
+  initial_mint_tx_hash: string;
+  mint_or_burn_count: number;
+  onchain_metadata: null | Record<string, unknown>;
+  onchain_metadata_standard: null | string;
+  onchain_metadata_extra: null | Record<string, unknown>;
+  metadata: null | Record<string, unknown>;
+};
