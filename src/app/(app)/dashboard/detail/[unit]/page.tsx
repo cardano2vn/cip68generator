@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { appImage } from "@/public/images";
 import Image from "next/image";
@@ -23,12 +24,14 @@ import {
 import { Tooltip } from "@radix-ui/react-tooltip";
 import Property from "./_components/property";
 import { hexToString } from "@meshsdk/core";
-import UpdateButton from "./_components/update-button";
 import { useUpdateContext } from "./_context";
-import { FaBurn } from "react-icons/fa";
+import { FaBurn, FaUps } from "react-icons/fa";
+import { redirect } from "next/navigation";
 export default function DetailPage() {
-  const { unit, assetData: data } = useUpdateContext();
+  const { unit, assetData: data, setMetadataToUpdate } = useUpdateContext();
+
   if (isNil(data)) return "no data";
+
   const transactions = [
     {
       txHash: "600d06204bde...af2ce50",
@@ -64,6 +67,10 @@ export default function DetailPage() {
     },
     // Add more transactions here if needed
   ];
+  const handleUpdate = () => {
+    setMetadataToUpdate(data.onchain_metadata);
+    redirect(`/dashboard/detail/${unit}/update`);
+  };
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto">
       <div className="py-8 px-10 m-auto flex flex-col gap-6">
@@ -82,7 +89,7 @@ export default function DetailPage() {
                         )
                       : "")
                   }
-                  alt={data.asset_name}
+                  alt={"image"}
                   type={
                     typeof data.onchain_metadata?.type === "string"
                       ? data.onchain_metadata.type
@@ -254,7 +261,7 @@ export default function DetailPage() {
                     </span>
                   </div>
                   <h1 className="w-full flex overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
-                    {hexToString(data.asset_name)}
+                    {hexToString(data.asset_name || "")}
                   </h1>
                 </div>
               </div>
@@ -263,7 +270,7 @@ export default function DetailPage() {
               <div className="flex items-center gap-2 relative rounded-md py-[2px] px-2 bg-[#282c34] w-fit my-[10px] mx-0">
                 <MdPolicy className="text-base" />
                 <span className="text-base">
-                  {data.fingerprint.slice(0, 20)}
+                  {data?.fingerprint?.slice(0, 20)}
                 </span>
               </div>
               {/* policy-end */}
@@ -298,7 +305,13 @@ export default function DetailPage() {
               {/* owner-end */}
               {/* burn-begin */}
               <div className="flex items-center gap-x-4">
-                <UpdateButton unit={unit} />
+                <Button
+                  onClick={handleUpdate}
+                  className="w-full flex items-center gap-x-2 bg-blue-500 hover:bg-blue-800"
+                >
+                  <FaUps />
+                  <span>Update Metadata</span>
+                </Button>
 
                 <Button className="w-full flex items-center gap-x-2">
                   <FaBurn />

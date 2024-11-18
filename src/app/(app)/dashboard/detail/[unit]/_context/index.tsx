@@ -6,7 +6,6 @@ import useUpdateStore, { UpdateStore } from "./store";
 import { toast } from "@/hooks/use-toast";
 import { useWalletContext } from "@/components/providers/wallet";
 import { isNil } from "lodash";
-import { AssetMetadata } from "@meshsdk/core";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
 import { AssetDetails } from "@/types";
@@ -21,7 +20,7 @@ const { useStepper, steps } = defineStepper(
 type UpdateContextType = UpdateStore & {
   unit: string;
   assetData: AssetDetails;
-  defaultMetadata: AssetMetadata;
+  // defaultMetadata: AssetMetadata;
   stepper: ReturnType<typeof useStepper>;
   steps: typeof steps;
   startUpdateTing: () => void;
@@ -127,7 +126,7 @@ export default function UpdateProvider({
       value={{
         unit,
         assetData: assetData?.data || ({} as AssetDetails),
-        defaultMetadata: assetData?.data?.onchain_metadata || {},
+        // defaultMetadata: assetData?.data?.onchain_metadata || {},
         loading: isLoading,
         setLoading,
         metadataToUpdate,

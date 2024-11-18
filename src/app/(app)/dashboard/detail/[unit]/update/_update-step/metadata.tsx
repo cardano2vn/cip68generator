@@ -5,7 +5,7 @@ import { isEmpty, isNil } from "lodash";
 import { useUpdateContext } from "../../_context";
 
 export default function MetadataStep() {
-  const { stepper, setMetadataToUpdate, defaultMetadata } = useUpdateContext();
+  const { stepper, setMetadataToUpdate } = useUpdateContext();
   const { jsonContent } = useJsonBuilderStore();
   const handleNext = () => {
     if (!isNil(jsonContent) || !isEmpty(jsonContent)) {
@@ -21,7 +21,7 @@ export default function MetadataStep() {
             Metadata Build
           </h1>
         </div>
-        <JsonBuilder defaultJson={defaultMetadata} />
+        <JsonBuilder />
       </div>
       <div className="flex justify-end gap-4 mt-6">
         <Button
