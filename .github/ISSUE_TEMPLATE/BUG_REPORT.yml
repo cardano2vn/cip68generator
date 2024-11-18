@@ -54,3 +54,22 @@ body:
     validations:
       required: false
 
+
+
+
+  - type: input
+    id: adapter-version
+    attributes:
+      label: 'your email'
+      placeholder: 'e.g. XHR/HTTP'
+  - type: input
+    id: browser
+    attributes:
+      label: 'Browser'
+      placeholder: 'e.g. Chrome, Safari'
+  - type: input
+    id: browser-version
+    attributes:
+      label: 'Browser Version'
+      placeholder: 'e.g. 42'
+ 
