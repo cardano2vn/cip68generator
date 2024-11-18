@@ -25,7 +25,7 @@ import {
   title,
 } from "../constants";
 import { Plutus } from "../types";
-import { appNetworkId } from "@/constants";
+import { appNetwork, appNetworkId } from "@/constants";
 import { ICip68Contract } from "../interfaces/icip68.interface";
 
 export class Cip68Contract extends MeshAdapter implements ICip68Contract {
@@ -132,7 +132,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         collateral.input.outputIndex,
         collateral.output.amount,
         collateral.output.address,
-      );
+      )
+      .setNetwork(appNetwork);
     return unsignedTx.complete();
   };
 
