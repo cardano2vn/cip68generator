@@ -2,46 +2,59 @@
 
 import { createContext, useContext } from "react";
 import { defineStepper } from "@stepperize/react";
-import useMintOneStore, { MintOneStore } from "./store";
+import useUpdateStore, { UpdateStore } from "./store";
 import { toast } from "@/hooks/use-toast";
-import { createMintTransaction } from "@/services/contract/mint";
 import { useWalletContext } from "@/components/providers/wallet";
 import { isNil } from "lodash";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
+import { AssetDetails } from "@/types";
+
 const { useStepper, steps } = defineStepper(
-  { id: "template", title: "Template" },
-  { id: "basic", title: "Basic" },
   { id: "metadata", title: "Metadata" },
   { id: "preview", title: "Preview" },
   { id: "transaction", title: "Transaction" },
   { id: "result", title: "Result" },
 );
-type MintOneContextType = MintOneStore & {
+
+type UpdateContextType = UpdateStore & {
+  unit: string;
+  assetData: AssetDetails;
+  // defaultMetadata: AssetMetadata;
   stepper: ReturnType<typeof useStepper>;
   steps: typeof steps;
-  startMinting: () => void;
+  startUpdateTing: () => void;
 };
 
-export default function MintOneProvider({
+export default function UpdateProvider({
+  unit,
   children,
 }: {
+  unit: string;
   children: React.ReactNode;
 }) {
   const { signTx, address, submitTx } = useWalletContext();
   const stepper = useStepper();
   const {
-    metadataToMint,
-    setMetadataToMint,
+    metadataToUpdate,
+    setMetadataToUpdate,
     loading,
     setLoading,
-    basicInfoToMint,
-    setBasicInfoToMint,
+    basicInfoToUpdate,
+    setBasicInfoToUpdate,
     tasks,
     updateTaskState,
     txhash,
     setTxHash,
-  } = useMintOneStore();
+  } = useUpdateStore();
 
-  const startMinting = async () => {
+  const { data: assetData, isLoading } = useQuery({
+    queryKey: ["fetchSpecificAsset", unit],
+    queryFn: () => fetchSpecificAsset(unit),
+    enabled: !isNil(unit),
+  });
+
+  const startUpdateTing = async () => {
     stepper.goTo("transaction");
     try {
       updateTaskState("inprogress", "validate", "Validating Data");
@@ -53,43 +66,43 @@ export default function MintOneProvider({
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const input = {
-        assetName: basicInfoToMint.assetName,
-        quantity: basicInfoToMint.quantity,
-        metadata: metadataToMint,
+        assetName: basicInfoToUpdate.assetName,
+        quantity: basicInfoToUpdate.quantity,
+        metadata: metadataToUpdate,
       };
       updateTaskState(
         "inprogress",
         "create_transaction",
         "Creating Transaction",
       );
-      const {
-        data: tx,
-        message,
-        result,
-      } = await createMintTransaction({
-        address: address,
-        mintInput: {
-          assetName: input.assetName,
-          metadata: input.metadata,
-          quantity: input.quantity,
-        },
-      });
-      if (!result || isNil(tx)) {
-        throw new Error(message);
-      }
+      // const {
+      //   data: tx,
+      //   message,
+      //   result,
+      // } = await createMintTransaction({
+      //   address: address,
+      //   mintInput: {
+      //     assetName: input.assetName,
+      //     metadata: input.metadata,
+      //     quantity: input.quantity,
+      //   },
+      // });
+      // if (!result || isNil(tx)) {
+      //   throw new Error(message);
+      // }
       // await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // wait for confirmation
       updateTaskState("inprogress", "sign_transaction", "Waiting for  sign Tx");
-      const signedTx = await signTx(tx);
+      // const signedTx = await signTx(tx);
       updateTaskState(
         "inprogress",
         "submit_transaction",
         "Submitting Transaction",
       );
       // // submit transaction
-      const txHash = await submitTx(signedTx);
-      setTxHash(txHash);
+      // const txHash = await submitTx(signedTx);
+      setTxHash("123");
       updateTaskState("success");
       // show result
       stepper.goTo("result");
@@ -109,17 +122,20 @@ export default function MintOneProvider({
   };
 
   return (
-    <MintOneContext.Provider
+    <UpdateContext.Provider
       value={{
-        loading,
+        unit,
+        assetData: assetData?.data || ({} as AssetDetails),
+        // defaultMetadata: assetData?.data?.onchain_metadata || {},
+        loading: isLoading,
         setLoading,
-        metadataToMint,
-        setMetadataToMint,
-        basicInfoToMint,
-        setBasicInfoToMint,
+        metadataToUpdate,
+        setMetadataToUpdate,
+        basicInfoToUpdate,
+        setBasicInfoToUpdate,
         tasks,
         updateTaskState,
-        startMinting,
+        startUpdateTing,
         txhash,
         setTxHash,
         stepper,
@@ -127,15 +143,15 @@ export default function MintOneProvider({
       }}
     >
       {children}
-    </MintOneContext.Provider>
+    </UpdateContext.Provider>
   );
 }
 
-const MintOneContext = createContext<MintOneContextType>(null!);
-export const useMintOneContext = function () {
-  const context = useContext(MintOneContext);
+const UpdateContext = createContext<UpdateContextType>(null!);
+export const useUpdateContext = function () {
+  const context = useContext(UpdateContext);
   if (!context) {
-    throw new Error("useMintOneContext must be used within a MintOneProvider");
+    throw new Error("useUpdateContext must be used within a UpdateProvider");
   }
   return context;
 };

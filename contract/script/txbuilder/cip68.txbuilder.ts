@@ -346,3 +346,17 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     return unsignedTx.complete();
   };
 }
+export const nftPoicyId = (() => {
+  const validator = plutus.validators.find(function (validator) {
+    return validator.title === title.mint;
+  });
+
+  if (!validator) {
+    throw new Error(`${title} validator not found.`);
+  }
+
+  return resolveScriptHash(
+    applyParamsToScript(validator.compiledCode, []),
+    "V3",
+  );
+})();
