@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useUpdateContext } from "../_context";
+import { useUpdateContext } from "../../_context";
 import Property from "../../_components/property";
 export default function PreviewStep() {
   const { stepper, metadataToUpdate, basicInfoToUpdate, startUpdateTing } =

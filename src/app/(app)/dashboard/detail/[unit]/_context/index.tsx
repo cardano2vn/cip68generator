@@ -6,9 +6,10 @@ import useUpdateStore, { UpdateStore } from "./store";
 import { toast } from "@/hooks/use-toast";
 import { useWalletContext } from "@/components/providers/wallet";
 import { isNil } from "lodash";
-import { Asset, AssetMetadata } from "@meshsdk/core";
+import { AssetMetadata } from "@meshsdk/core";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
+import { AssetDetails } from "@/types";
 
 const { useStepper, steps } = defineStepper(
   { id: "metadata", title: "Metadata" },
@@ -19,6 +20,7 @@ const { useStepper, steps } = defineStepper(
 
 type UpdateContextType = UpdateStore & {
   unit: string;
+  assetData: AssetDetails;
   defaultMetadata: AssetMetadata;
   stepper: ReturnType<typeof useStepper>;
   steps: typeof steps;
@@ -47,7 +49,7 @@ export default function UpdateProvider({
     setTxHash,
   } = useUpdateStore();
 
-  const { data, isLoading } = useQuery({
+  const { data: assetData, isLoading } = useQuery({
     queryKey: ["fetchSpecificAsset", unit],
     queryFn: () => fetchSpecificAsset(unit),
     enabled: !isNil(unit),
@@ -124,7 +126,8 @@ export default function UpdateProvider({
     <UpdateContext.Provider
       value={{
         unit,
-        defaultMetadata: data?.data?.onchain_metadata || {},
+        assetData: assetData?.data || ({} as AssetDetails),
+        defaultMetadata: assetData?.data?.onchain_metadata || {},
         loading: isLoading,
         setLoading,
         metadataToUpdate,

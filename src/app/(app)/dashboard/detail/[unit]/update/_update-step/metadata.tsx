@@ -2,7 +2,7 @@ import JsonBuilder from "@/components/common/json-builder";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { Button } from "@/components/ui/button";
 import { isEmpty, isNil } from "lodash";
-import { useUpdateContext } from "../_context";
+import { useUpdateContext } from "../../_context";
 
 export default function MetadataStep() {
   const { stepper, setMetadataToUpdate, defaultMetadata } = useUpdateContext();

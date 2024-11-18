@@ -3,7 +3,7 @@
 import React from "react";
 import { CheckCircle, CircleX, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useUpdateContext } from "../_context";
+import { useUpdateContext } from "../../_context";
 
 export default function TransactionStep() {
   const { stepper, tasks } = useUpdateContext();

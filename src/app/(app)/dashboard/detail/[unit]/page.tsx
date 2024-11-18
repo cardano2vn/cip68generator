@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/button";
 import { appImage } from "@/public/images";
 import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
-import { FaBurn, FaUps } from "react-icons/fa";
-import Link from "next/link";
 import Pagination from "./_components/pagination";
 import {
   Table,
@@ -13,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
 import { isEmpty, isNil } from "lodash";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import FileDisplay from "@/components/common/file-display";
@@ -27,14 +24,11 @@ import { Tooltip } from "@radix-ui/react-tooltip";
 import Property from "./_components/property";
 import { hexToString } from "@meshsdk/core";
 import UpdateButton from "./_components/update-button";
-export default async function DetailPage({
-  params,
-}: {
-  params: Promise<{ unit: string }>;
-}) {
-  const unit = (await params).unit;
-  const { data, message } = await fetchSpecificAsset(unit);
-  if (isNil(data)) return message;
+import { useUpdateContext } from "./_context";
+import { FaBurn } from "react-icons/fa";
+export default function DetailPage() {
+  const { unit, assetData: data } = useUpdateContext();
+  if (isNil(data)) return "no data";
   const transactions = [
     {
       txHash: "600d06204bde...af2ce50",

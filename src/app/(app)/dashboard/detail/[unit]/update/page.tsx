@@ -4,7 +4,7 @@ import MetadataStep from "./_update-step/metadata";
 import PreviewStep from "./_update-step/preview";
 import TransactionStep from "./_update-step/transaction";
 import ResultStep from "./_update-step/result";
-import { useUpdateContext } from "./_context";
+import { useUpdateContext } from "../_context";
 import StepperNav from "./_component/stepper-nav";
 
 export default function Page() {
