@@ -1,6 +1,6 @@
 name = "cardano2vn/cip68generator"
 version = "0.0.0"
-compiler = "v1.1.6"
+compiler = "v1.1.0"
 plutus = "v3"
 license = "Apache-2.0"
 description = "Aiken contracts for project 'cardano2vn/cip68generator'"
