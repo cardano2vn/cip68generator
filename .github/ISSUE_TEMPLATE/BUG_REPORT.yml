@@ -13,7 +13,7 @@ body:
         - Ensure it isn't already fixed in the latest version.
   - type: markdown
     attributes:
-      value: '⚠️👆 **Feel free to these instructions before submitting the issue&** 👆⚠️'
+      value: '⚠️👆 **Feel free to these instructions before submitting the issue** 👆⚠️'
   - type: textarea
     id: description
     attributes:
