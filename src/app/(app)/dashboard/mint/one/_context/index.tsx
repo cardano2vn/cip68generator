@@ -50,7 +50,7 @@ export default function MintOneProvider({
         throw new Error("Wallet not connected");
       }
       // check assetName is unique
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const input = {
         assetName: basicInfoToMint.assetName,
@@ -81,15 +81,15 @@ export default function MintOneProvider({
 
       // wait for confirmation
       updateTaskState("inprogress", "sign_transaction", "Waiting for  sign Tx");
-      const signedTx = await signTx(tx);
+      // const signedTx = await signTx(tx);
       updateTaskState(
         "inprogress",
         "submit_transaction",
         "Submitting Transaction",
       );
-      // submit transaction
-      const txHash = await submitTx(signedTx);
-      setTxHash(txHash);
+      // // submit transaction
+      // const txHash = await submitTx(signedTx);
+      // setTxHash(txHash);
       updateTaskState("success");
       // show result
       stepper.goTo("result");

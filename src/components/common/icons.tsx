@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  ArrowRight,
-  CircuitBoard,
   Globe,
-  House,
-  ImagePlus,
   LayoutGrid,
   LucideIcon,
   LucideProps,
@@ -20,13 +15,12 @@ import { IconType } from "react-icons";
 import { FaYoutube } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { FaToolbox } from "react-icons/fa6";
-import { SiCoinmarketcap } from "react-icons/si";
 export type Icon = LucideIcon | IconType;
 
 export const Icons = {
   arrowRight: ({ ...props }: LucideProps) => {
     return (
-      <svg viewBox="0 0 24 24" width="20" height="20">
+      <svg viewBox="0 0 24 24" width="20" height="20" {...props}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -39,13 +33,13 @@ export const Icons = {
   house: TiHome,
   imagePlus: IoIosCreate,
   circuitBoard: FaToolbox,
-  menuIcon: SiCoinmarketcap,
-  store: SiCoinmarketcap,
-  globe: SiCoinmarketcap,
-  send: SiCoinmarketcap,
-  squareMenu: SiCoinmarketcap,
-  layoutGrid: SiCoinmarketcap,
-  search: SiCoinmarketcap,
+  menuIcon: MenuIcon,
+  store: Store,
+  globe: Globe,
+  send: Send,
+  squareMenu: SquareMenu,
+  layoutGrid: LayoutGrid,
+  search: Search,
   calendar: Calendar,
   ideaScale: ({ ...props }: LucideProps) => (
     <svg

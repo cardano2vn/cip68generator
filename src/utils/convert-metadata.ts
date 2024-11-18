@@ -11,6 +11,7 @@ import cbor from "cbor";
  */
 export async function converMetadata(
   datum: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   key?: string,
 ): Promise<unknown> {
   try {

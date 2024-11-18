@@ -41,25 +41,17 @@ export function MenuList() {
                         asChild
                         disabled={disabled}
                       >
-                        <Link href={href}>
+                        <Link href={href} className="flex items-center">
                           <span
                             className={cn(
-                              "h-6 w-6",
-                              isOpen === false ? "" : "mr-4",
+                              "flex h-10 w-10 items-center justify-center",
                             )}
                           >
-                            <Icon className={`h-6 w-6 flex-none`} />
+                            <Icon className="h-6 w-6" />
                           </span>
-                          <span
-                            className={cn(
-                              "max-w-[200px] truncate",
-                              isOpen === false
-                                ? "-translate-x-96 opacity-0"
-                                : "translate-x-0 opacity-100",
-                            )}
-                          >
-                            {title}
-                          </span>
+                          {isOpen === true && (
+                            <span className="flex-grow">{title}</span>
+                          )}
                         </Link>
                       </Button>
                     </TooltipTrigger>
