@@ -9,7 +9,6 @@ import { MdPolicy } from "react-icons/md";
 import { VscVerified } from "react-icons/vsc";
 
 export default function AssetCard({ data }: { data: AssetDetails }) {
-  console.log(data.onchain_metadata?.image);
   return (
     <Link href={`/dashboard/detail/${data.policy_id + data.asset_name}`}>
       <Card className="h-full">

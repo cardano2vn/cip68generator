@@ -1,4 +1,4 @@
-import AssetDetailsProvider from "./_context";
+import UpdateProvider from "./_context";
 
 export default async function Layout({
   params,
@@ -8,5 +8,5 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const unit = (await params).unit;
-  return <AssetDetailsProvider unit={unit}>{children}</AssetDetailsProvider>;
+  return <UpdateProvider unit={unit}>{children}</UpdateProvider>;
 }

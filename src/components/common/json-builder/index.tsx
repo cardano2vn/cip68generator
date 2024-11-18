@@ -187,12 +187,16 @@ function JsonField({
   );
 }
 
-export default function JsonBuilder() {
+export default function JsonBuilder({
+  defaultJson = {},
+}: {
+  defaultJson?: { [key: string]: JsonValue };
+}) {
   const { jsonContent, setJsonContent, addField, updateField, removeField } =
     useJsonBuilderStore();
   const [template, setTemplate] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>(
-    JSON.stringify(jsonContent, null, 2),
+    JSON.stringify(defaultJson, null, 2),
   );
   const [err, setErr] = useState("");
 
