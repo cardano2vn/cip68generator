@@ -81,15 +81,15 @@ export default function MintOneProvider({
 
       // wait for confirmation
       updateTaskState("inprogress", "sign_transaction", "Waiting for  sign Tx");
-      // const signedTx = await signTx(tx);
+      const signedTx = await signTx(tx);
       updateTaskState(
         "inprogress",
         "submit_transaction",
         "Submitting Transaction",
       );
       // // submit transaction
-      // const txHash = await submitTx(signedTx);
-      // setTxHash(txHash);
+      const txHash = await submitTx(signedTx);
+      setTxHash(txHash);
       updateTaskState("success");
       // show result
       stepper.goTo("result");

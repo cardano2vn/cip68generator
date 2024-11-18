@@ -9,9 +9,9 @@ import { MdPolicy } from "react-icons/md";
 import { VscVerified } from "react-icons/vsc";
 
 export default function AssetCard({ data }: { data: AssetDetails }) {
-  console.log(data);
+  console.log(data.onchain_metadata?.image);
   return (
-    <Link href={"/dashboard/detail/123456789abcdxyx"}>
+    <Link href={`/dashboard/detail/${data.policy_id + data.asset_name}`}>
       <Card className="h-full">
         <AspectRatio ratio={4 / 3} className="bg-muted">
           <FileDisplay

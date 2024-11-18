@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { appImage } from "@/public/images";
 import Image from "next/image";
@@ -15,7 +16,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAssetDetailsContext } from "./_context";
 export default function DetailPage() {
+  const { unit } = useAssetDetailsContext();
+  console.log(unit);
   const transactions = [
     {
       txHash: "600d06204bde...af2ce50",
