@@ -58,18 +58,14 @@ body:
 
 
   - type: input
-    id: adapter-version
+    id: email
     attributes:
       label: 'your email'
-      placeholder: 'e.g. XHR/HTTP'
+      placeholder: 'e.g. nguyenvannam@gmail.com'
   - type: input
-    id: browser
+    id: address
     attributes:
-      label: 'Browser'
-      placeholder: 'e.g. Chrome, Safari'
-  - type: input
-    id: browser-version
-    attributes:
-      label: 'Browser Version'
-      placeholder: 'e.g. 42'
+      label: 'your wallet address'
+      placeholder: 'e.g. addr'
+ 
  
