@@ -1,7 +1,7 @@
 name: '🐛 Bug Report'
 description: Report a reproducible bug.
 labels: ['possible bug']
-placeholder: 'BUG_MMDDYYY_Description'
+
 body:
   - type: markdown
     attributes:
