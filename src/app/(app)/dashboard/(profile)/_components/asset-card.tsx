@@ -10,7 +10,7 @@ import { VscVerified } from "react-icons/vsc";
 
 export default function AssetCard({ data }: { data: AssetDetails }) {
   return (
-    <Link href={`/dashboard/detail/${data.policy_id + data.asset_name}`}>
+    <Link href={`/dashboard/${data.policy_id + data.asset_name}`}>
       <Card className="h-full">
         <AspectRatio ratio={4 / 3} className="bg-muted">
           <FileDisplay

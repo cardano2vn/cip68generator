@@ -2,13 +2,13 @@
 
 import { createContext, useContext } from "react";
 import { defineStepper } from "@stepperize/react";
-import useUpdateStore, { UpdateStore } from "./store";
 import { toast } from "@/hooks/use-toast";
 import { useWalletContext } from "@/components/providers/wallet";
 import { isNil } from "lodash";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
 import { AssetDetails } from "@/types";
+import useUpdateStore, { UpdateStore } from "./store";
 
 const { useStepper, steps } = defineStepper(
   { id: "metadata", title: "Metadata" },

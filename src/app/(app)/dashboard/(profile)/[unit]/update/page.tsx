@@ -1,11 +1,13 @@
 "use client";
 import * as React from "react";
-import MetadataStep from "./_update-step/metadata";
-import PreviewStep from "./_update-step/preview";
-import TransactionStep from "./_update-step/transaction";
-import ResultStep from "./_update-step/result";
-import { useUpdateContext } from "../_context";
-import StepperNav from "./_component/stepper-nav";
+import StepperNav from "../../_components/stepper-nav";
+import { useUpdateContext } from "../../_context/unit";
+import {
+  MetadataStep,
+  PreviewStep,
+  ResultStep,
+  TransactionStep,
+} from "../../_components/_update-step";
 
 export default function Page() {
   const { stepper } = useUpdateContext();

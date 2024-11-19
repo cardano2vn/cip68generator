@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { appImage } from "@/public/images";
 import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
-import Pagination from "./_components/pagination";
+import Pagination from "../_components/pagination";
 import {
   Table,
   TableBody,
@@ -22,9 +22,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
-import Property from "./_components/property";
+import Property from "../_components/property";
 import { hexToString } from "@meshsdk/core";
-import { useUpdateContext } from "./_context";
+import { useUpdateContext } from "../_context/unit";
 import { FaBurn, FaUps } from "react-icons/fa";
 import { redirect } from "next/navigation";
 export default function DetailPage() {

@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { ProfileStore } from "./store";
 import { useQuery } from "@tanstack/react-query";
 // import { getAssetsByAddress } from "@/services/blockchain/getAssets";
 import { useWalletContext } from "@/components/providers/wallet";
 import { getWalletAssets } from "@/services/blockchain/getWalletAssets";
+import { ProfileStore } from "./store";
 
 type ProfileContextType = ProfileStore & {
   loading: boolean;
