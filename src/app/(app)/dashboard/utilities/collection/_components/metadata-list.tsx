@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreVertical } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { useMetadataContext } from "../_context/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 import FileDisplay from "@/components/common/file-display";
 import { AssetMetadata } from "@meshsdk/core";
 import { isEmpty, isNil } from "lodash";

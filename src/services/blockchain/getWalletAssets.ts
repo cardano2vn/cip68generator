@@ -1,45 +1,44 @@
 "use server";
+import { nftPoicyId } from "@/contract";
 import { blockfrostFetcher, koiosFetcher } from "@/lib/cardano";
-
-type JSONObject = { [key: string]: string | JSONObject | JSONArray };
-type JSONArray = (string | JSONObject | JSONArray)[];
+import { AssetDetails, AssetType } from "@/types";
 
 export async function getWalletAssets({
-  page,
-  pageSize,
   walletAddress,
+  page = 1,
+  limit = 12,
 }: {
-  page: number;
-  pageSize: number;
   walletAddress: string;
+  page?: number;
+  limit?: number;
 }) {
   try {
-    const assetsAddress =
+    const assetsAddress: AssetType[] =
       await koiosFetcher.fetchAssetsFromAddress(walletAddress);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const totalPage = Math.ceil(assetsAddress.length / Number(pageSize));
-    const assetsSlice = [...assetsAddress].slice(
-      (Number(page) - 1) * Number(pageSize),
-      Number(page) * Number(pageSize),
+    assetsAddress.filter((asset) => asset.policy_id != nftPoicyId);
+    const total = assetsAddress.length;
+    const assetsSlice: AssetType[] = assetsAddress.slice(
+      (page - 1) * limit,
+      page * limit,
     );
 
-    const assets = await Promise.all(
+    const assets: AssetDetails[] = await Promise.all(
       assetsSlice.map(async (assetsSlice) => {
         const assetSpec = await blockfrostFetcher.fetchSpecificAsset(
           assetsSlice.policy_id + assetsSlice.asset_name,
         );
-        return assetSpec;
+        return assetSpec as AssetDetails;
       }),
     );
     return {
-      result: true,
       data: assets,
-      message: "success",
+      totalItem: total,
+      totalPage: Math.ceil(total / limit),
+      currentPage: page,
     };
   } catch (e) {
     return {
-      result: false,
-      data: null,
+      data: [],
       message: e instanceof Error ? e.message : "Unknown error",
     };
   }

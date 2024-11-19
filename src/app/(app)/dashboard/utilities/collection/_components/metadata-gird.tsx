@@ -1,5 +1,5 @@
 import { isEmpty, isNil } from "lodash";
-import { useMetadataContext } from "../_context/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 import MetadataCard from "./metadata-card";
 
 export default function MetadataGird() {

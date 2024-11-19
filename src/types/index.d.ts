@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Icons } from "@/components/common/icons";
-import { BrowserWallet } from "@meshsdk/core";
+import { AssetMetadata, BrowserWallet } from "@meshsdk/core";
 import { StaticImageData } from "next/image";
 declare module "next-auth" {
   interface User {
@@ -54,6 +54,15 @@ export interface NavItem {
   icon?: keyof typeof Icons;
 }
 
+export type AssetType = {
+  address: string;
+  policy_id: string;
+  asset_name: string;
+  fingerprint: string;
+  decimals: number;
+  quantity: string;
+};
+
 export type AssetDetails = {
   asset: string;
   policy_id: string;
@@ -62,8 +71,13 @@ export type AssetDetails = {
   quantity: string;
   initial_mint_tx_hash: string;
   mint_or_burn_count: number;
-  onchain_metadata: null | Record<string, unknown>;
-  onchain_metadata_standard: null | string;
-  onchain_metadata_extra: null | Record<string, unknown>;
-  metadata: null | Record<string, unknown>;
+  onchain_metadata: AssetMetadata;
+  onchain_metadata_standard: AssetMetadata;
+  onchain_metadata_extra: AssetMetadata;
+  metadata: AssetMetadata;
+};
+export type Task = {
+  name: string;
+  content: string;
+  status: "todo" | "inprogress" | "success" | "error";
 };

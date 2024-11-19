@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { ProfileStore } from "./store";
 import { useQuery } from "@tanstack/react-query";
 // import { getAssetsByAddress } from "@/services/blockchain/getAssets";
 import { useWalletContext } from "@/components/providers/wallet";
 import { getWalletAssets } from "@/services/blockchain/getWalletAssets";
+import { ProfileStore } from "./store";
 
 type ProfileContextType = ProfileStore & {
   loading: boolean;
@@ -20,9 +20,9 @@ export default function ProfileProvider({ children }: PropsWithChildren) {
     queryKey: ["getAssetsByAddress"],
     queryFn: () =>
       getWalletAssets({
-        page: 1,
-        pageSize: 4,
         walletAddress: address!,
+        page: 1,
+        limit: 10,
       }),
     enabled: !!address,
     staleTime: 1000 * 60 * 5,

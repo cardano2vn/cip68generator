@@ -4,8 +4,6 @@ import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
 import Link from "next/link";
 import { IoMdPhotos } from "react-icons/io";
-import { useMintOneContext } from "../../_context";
-import Property from "../property";
 import { isEmpty, isNull } from "lodash";
 import {
   Tooltip,
@@ -13,9 +11,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Property from "../property";
+import { useUnitContext } from "@/contexts/unit";
 export default function PreviewStep() {
-  const { stepper, metadataToMint, basicInfoToMint, startMinting } =
-    useMintOneContext();
+  const { updateStepper, metadataToUpdate, basicInfoToUpdate, startUpdating } =
+    useUnitContext();
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
       <div className="rounded-md border border-dashed p-4">
@@ -48,7 +48,7 @@ export default function PreviewStep() {
               </div>
               <div className="flex flex-col gap-8">
                 <div className="grid grid-cols-3 gap-y-5 gap-x-2">
-                  {Object.entries(metadataToMint).map(
+                  {Object.entries(metadataToUpdate).map(
                     ([name, value], index) => (
                       <TooltipProvider key={index}>
                         <Tooltip>
@@ -101,11 +101,11 @@ export default function PreviewStep() {
                 <div className="flex items-center flex-1 overflow-hidden gap-[10px]">
                   <div className=" flex items-center justify-center w-8 h-8 rounded-full border-[1px] border-solid border-gray-400">
                     <span className="text-[16px] leading-6 font-medium">
-                      {basicInfoToMint.quantity}
+                      {basicInfoToUpdate.quantity}
                     </span>
                   </div>
                   <h1 className="w-full flex overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
-                    {basicInfoToMint.assetName}
+                    {basicInfoToUpdate.assetName}
                   </h1>
                 </div>
               </div>
@@ -158,12 +158,12 @@ export default function PreviewStep() {
       <div className="flex justify-end gap-4 mt-6">
         <Button
           variant="secondary"
-          onClick={stepper.prev}
-          disabled={stepper.isFirst}
+          onClick={updateStepper.prev}
+          disabled={updateStepper.isFirst}
         >
           Back
         </Button>
-        <Button onClick={startMinting}>Next</Button>
+        <Button onClick={startUpdating}>Next</Button>
       </div>
     </div>
   );

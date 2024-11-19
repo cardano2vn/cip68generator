@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Trash2, File } from "lucide-react";
-import { useUploadContext } from "../_context";
+import { useUploadContext } from "@/contexts/storage";
 import Image from "next/image";
 
 export default function MediaGirdtoUpload() {

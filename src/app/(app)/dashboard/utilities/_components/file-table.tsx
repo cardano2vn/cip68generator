@@ -18,7 +18,7 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { IPFS_GATEWAY } from "@/constants";
-import { useUploadContext } from "../storage/_context";
+import { useUploadContext } from "@/contexts/storage";
 
 export default function TableData() {
   const { loading, listMedia } = useUploadContext();

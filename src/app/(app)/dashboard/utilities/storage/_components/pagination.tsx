@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useUploadContext } from "../_context";
+import { useUploadContext } from "@/contexts/storage";
 
 export default function Pagination() {
   const { totalPages, currentPage, setCurrentPage } = useUploadContext();

@@ -1,12 +1,8 @@
-import { Button } from "@/components/ui/button";
+"use client";
 import { appImage } from "@/public/images";
 import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
-import { FaBurn } from "react-icons/fa";
-import Link from "next/link";
-import { IoMdPhotos } from "react-icons/io";
-import Metadata from "./_components/metadata";
-import Pagination from "./_components/pagination";
+import Pagination from "../_components/pagination";
 import {
   Table,
   TableBody,
@@ -15,7 +11,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { isEmpty, isNil } from "lodash";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import FileDisplay from "@/components/common/file-display";
+import { IPFS_GATEWAY } from "@/constants";
+import {
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Tooltip } from "@radix-ui/react-tooltip";
+import Property from "../_components/property";
+import { hexToString } from "@meshsdk/core";
+import { useUnitContext } from "@/contexts/unit";
+import UpdateButton from "../_components/update-button";
+import BurnButton from "../_components/burn-button";
 export default function DetailPage() {
+  const { assetDetails, handleBurn, handleUpdate } = useUnitContext();
+  if (isNil(assetDetails)) return "no data";
+  const { onchain_metadata: metadata, fingerprint } = assetDetails;
+
   const transactions = [
     {
       txHash: "600d06204bde...af2ce50",
@@ -51,18 +66,25 @@ export default function DetailPage() {
     },
     // Add more transactions here if needed
   ];
+
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto">
       <div className="py-8 px-10 m-auto flex flex-col gap-6">
         <div className="w-full flex flex-wrap gap-5">
           <div className="flex-1 flex gap-8 flex-col">
-            <div className="relative w-full h-[400px] bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
-              <Image
-                className="w-full h-full object-cover rounded-lg"
-                src={appImage.collection}
-                alt=""
-              />
-              <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+            <div className="relative w-full h-full bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
+              <AspectRatio ratio={4 / 3} className="bg-muted">
+                <FileDisplay
+                  src={
+                    IPFS_GATEWAY +
+                      metadata?.image.replace("ipfs://", "ipfs/") || ""
+                  }
+                  alt={"image"}
+                  type={metadata?.type || "image/png"}
+                  className="h-full w-full rounded-lg border object-cover"
+                />
+              </AspectRatio>
+              {/* <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
                 <Button className="w-8 h-8 rounded-lg text-[15px bg-[#282c34] flex items-center justify-center">
                   <IoMdPhotos className=" text-white" />
                 </Button>
@@ -72,7 +94,7 @@ export default function DetailPage() {
                 <Button className="w-8 h-8 rounded-lg text-[15px bg-[#282c34] flex items-center justify-center">
                   <IoMdPhotos className=" text-white" />
                 </Button>
-              </div>
+              </div> */}
             </div>
             {/* metadata-begin */}
             <div className="bg-[#13161b] p-5 border-none rounded-lg flex flex-col gap-8">
@@ -90,28 +112,41 @@ export default function DetailPage() {
                 </svg>
               </header>
               <div className="flex flex-col gap-8">
-                <aside className="grid grid-cols-3 gap-y-5 gap-x-2">
-                  <Metadata name="name" value="CIP68 Generator" image="" />
-                  <Metadata
-                    name="image"
-                    value="ipfs://qmrzicpreutwckm6aotukjerfcud213dpwpq6byuzmjaua"
-                    image=""
-                  />
-                  <Metadata
-                    name="description"
-                    value="Open source dynamic assets (Token/NFT) generator (CIP68)"
-                    image=""
-                  />
-
-                  <Metadata
-                    name="owner"
-                    value="addr_test1qzjzr7f3yj3k4jky7schc55qjclaw6fhc3zfnrarma9l3579hwurrx9w7uhz99zdc3fmmzwel6hac404zyywjl5jhnls09rtm6"
-                    image=""
-                  />
-                  <Metadata name="version" value="1.0.0" image="" />
-                  <Metadata name="version" value="1.0.0" image="" />
-                  <Metadata name="version" value="1.0.0" image="" />
-                </aside>
+                <div className="grid grid-cols-3 gap-y-5 gap-x-2">
+                  {assetDetails.onchain_metadata &&
+                    Object.entries(assetDetails.onchain_metadata).map(
+                      ([name, value], index) => (
+                        <TooltipProvider key={index}>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Property
+                                image=""
+                                name={name}
+                                value={
+                                  isNil(value) || isEmpty(value)
+                                    ? "null"
+                                    : JSON.stringify(value)
+                                        .replace(/^"|"$/g, "")
+                                        .slice(0, 10) +
+                                      (JSON.stringify(value).replace(
+                                        /^"|"$/g,
+                                        "",
+                                      ).length > 10
+                                        ? "..."
+                                        : "")
+                                }
+                              />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {isNil(value) || isEmpty(value)
+                                ? "null"
+                                : `${value}`}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      ),
+                    )}
+                </div>
               </div>
             </div>
             {/* metadata-end */}
@@ -131,7 +166,7 @@ export default function DetailPage() {
                 </svg>
               </header>
               <div className="flex flex-col gap-8">
-                <aside className="bg-[#1c1f25] rounded-lg py-8 px-5">
+                <div className="bg-[#1c1f25] rounded-lg py-8 px-5">
                   <Table className="w-full">
                     <TableHeader>
                       <TableRow>
@@ -188,14 +223,14 @@ export default function DetailPage() {
                     totalPages={3}
                   />
                   {/* pagination-end */}
-                </aside>
+                </div>
               </div>
             </div>
             {/* history-end */}
           </div>
           {/* left-begin */}
           <div className="w-[30.41666667%] sticky top-20  max-w-full">
-            <aside className=" p-5  bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
+            <div className=" p-5  bg-[#1c1f2b] rounded-lg border-[1px] border-solid border-[#282c34]">
               <div className="w-full  h-[200px] bg-[#1c1f2b] overflow-hidden rounded-lg border-[1px] border-solid border-[#282c34] mb-6">
                 <Image
                   src={appImage.collection}
@@ -207,10 +242,12 @@ export default function DetailPage() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center flex-1 overflow-hidden gap-[10px]">
                   <div className=" flex items-center justify-center w-8 h-8 rounded-full border-[1px] border-solid border-gray-400">
-                    <span className="text-[16px] leading-6 font-medium">1</span>
+                    <span className="text-[16px] leading-6 font-medium">
+                      {assetDetails.quantity}
+                    </span>
                   </div>
                   <h1 className="w-full flex overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
-                    Asset Name
+                    {hexToString(assetDetails.asset_name || "")}
                   </h1>
                 </div>
               </div>
@@ -218,11 +255,11 @@ export default function DetailPage() {
               {/* policy-begin */}
               <div className="flex items-center gap-2 relative rounded-md py-[2px] px-2 bg-[#282c34] w-fit my-[10px] mx-0">
                 <MdPolicy className="text-base" />
-                <span className="text-base">4da0c...107822cf</span>
+                <span className="text-base">{fingerprint?.slice(0, 20)}</span>
               </div>
               {/* policy-end */}
               {/* owner-begin */}
-              <div className="my-4 mx-0 flex items-center w-full min-w-0 box-border">
+              {/* <div className="my-4 mx-0 flex items-center w-full min-w-0 box-border">
                 <div className="grid gap flex-1">
                   <h3 className="uppercase space-x-3 text-gray-400 text-[10px] leading-[16px] font-semibold">
                     OWNER
@@ -240,7 +277,7 @@ export default function DetailPage() {
                     </div>
                     <div className="grid items-center">
                       <h2 className="whitespace-nowrap overflow-hidden text-ellipsis text-white text-[16px] leading-6">
-                        Nguyen Duy Khanh
+                        {}
                       </h2>
                       <p className="whitespace-nowrap font-normal text-[14px] leading-[20px] overflow-hidden text-ellipsis text-gray-600">
                         (0x8b1d...f213)
@@ -248,15 +285,16 @@ export default function DetailPage() {
                     </div>
                   </Link>
                 </div>
-              </div>
+              </div> */}
               {/* owner-end */}
               {/* burn-begin */}
-              <Button className="w-full bg-[#282c34] text-white text-[14px] rounded-md leading-5 px-4 flex items-center justify-center gap-2">
-                <FaBurn />
-                <span>Make Burn</span>
-              </Button>
+              <div className="flex items-center gap-x-4">
+                <UpdateButton onClick={handleUpdate} />
+                <BurnButton handleBurn={handleBurn} />
+              </div>
+
               {/* burn-end */}
-            </aside>
+            </div>
           </div>
           {/* left-end */}
         </div>

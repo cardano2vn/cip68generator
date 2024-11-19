@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import FileCard from "../storage/_components/file-card";
-import { useUploadContext } from "../storage/_context";
+import { useUploadContext } from "@/contexts/storage";
 
 export default function ListFileCard() {
   const { listMedia } = useUploadContext();
