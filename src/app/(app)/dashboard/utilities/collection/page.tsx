@@ -1,7 +1,7 @@
 "use client";
 import FolderCard from "../_components/folder-card";
 import { CreateCollectionButton } from "./_components/create-collection-button";
-import { useCollectionContext } from "./_context/collection";
+import { useCollectionContext } from "@/contexts/collection";
 export default function CollectionPage() {
   const { listCollection } = useCollectionContext();
   return (

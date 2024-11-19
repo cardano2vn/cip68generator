@@ -3,7 +3,7 @@ import JsonBuilder from "@/components/common/json-builder";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { Button } from "@/components/ui/button";
 import { isEmpty, isNil } from "lodash";
-import { useMetadataContext } from "../../_context/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 
 export default function MetadataStep() {
   const { createMetadata } = useMetadataContext();

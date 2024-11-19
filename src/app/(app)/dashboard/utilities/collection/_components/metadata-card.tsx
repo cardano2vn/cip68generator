@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Metadata } from "@prisma/client";
 // import { IPFS_GATEWAY } from "@/constants";
-import { useMetadataContext } from "../_context/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 // import FileDisplay from "@/components/common/file-display";
 import { AssetMetadata } from "@meshsdk/core";
 import Image from "next/image";

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMetadataContext } from "../_context/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 
 export default function Pagination() {
   const { totalPages, currentPage, setCurrentPage } = useMetadataContext();
