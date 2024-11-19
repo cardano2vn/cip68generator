@@ -6,8 +6,8 @@ services:
       - stack.env
     volumes:
       - cip68:/data/postgres
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "5432:5432"
     networks:
       - cip68
     restart: unless-stopped
