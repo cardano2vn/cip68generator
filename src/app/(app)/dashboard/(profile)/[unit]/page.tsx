@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { appImage } from "@/public/images";
 import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
@@ -24,13 +23,11 @@ import {
 import { Tooltip } from "@radix-ui/react-tooltip";
 import Property from "../_components/property";
 import { hexToString } from "@meshsdk/core";
-import { FaBurn, FaUps } from "react-icons/fa";
-import { redirect } from "next/navigation";
 import { useUnitContext } from "@/contexts/unit";
-import { useJsonBuilderStore } from "@/components/common/json-builder/store";
+import UpdateButton from "../_components/update-button";
+import BurnButton from "../_components/burn-button";
 export default function DetailPage() {
-  const { unit, assetDetails } = useUnitContext();
-  const { setJsonContent } = useJsonBuilderStore();
+  const { assetDetails, handleBurn, handleUpdate } = useUnitContext();
   if (isNil(assetDetails)) return "no data";
   const { onchain_metadata: metadata, fingerprint } = assetDetails;
 
@@ -70,12 +67,6 @@ export default function DetailPage() {
     // Add more transactions here if needed
   ];
 
-  const handleUpdate = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // const { author_pk, ...metadataToUpdate } = metadata;
-    // setJsonContent(metadataToUpdate);
-    redirect(`/dashboard/${unit}/update`);
-  };
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto">
       <div className="py-8 px-10 m-auto flex flex-col gap-6">
@@ -298,18 +289,8 @@ export default function DetailPage() {
               {/* owner-end */}
               {/* burn-begin */}
               <div className="flex items-center gap-x-4">
-                <Button
-                  onClick={handleUpdate}
-                  className="w-full flex items-center gap-x-2 bg-blue-500 hover:bg-blue-800"
-                >
-                  <FaUps />
-                  <span>Update Metadata</span>
-                </Button>
-
-                <Button className="w-full flex items-center gap-x-2">
-                  <FaBurn />
-                  <span>Make Burn</span>
-                </Button>
+                <UpdateButton onClick={handleUpdate} />
+                <BurnButton handleBurn={handleBurn} />
               </div>
 
               {/* burn-end */}

@@ -11,7 +11,7 @@ import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
 import { AssetDetails } from "@/types";
 import useUnitStore, { UnitStore } from "./store";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
-import { metadata } from "@/app/layout";
+import { redirect } from "next/navigation";
 
 const { useStepper, steps } = defineStepper(
   { id: "metadata", title: "Metadata" },
@@ -25,7 +25,10 @@ type UnitContextType = UnitStore & {
   assetDetails: AssetDetails;
   updateStepper: ReturnType<typeof useStepper>;
   updateSteps: typeof steps;
+  handleUpdate: () => void;
+  handleBurn: () => void;
   startUpdating: () => void;
+  startBurning: () => void;
 };
 
 export default function UnitProvider({
@@ -73,6 +76,14 @@ export default function UnitProvider({
       setJsonContent(metadata);
     }
   }, [assetData]);
+
+  const handleUpdate = () => {
+    redirect(`/dashboard/${unit}/update`);
+  };
+
+  const handleBurn = () => {
+    redirect(`/dashboard/${unit}/burn`);
+  };
 
   const startUpdating = async () => {
     stepper.goTo("transaction");
@@ -160,6 +171,9 @@ export default function UnitProvider({
         setTxHash,
         updateStepper: stepper,
         updateSteps: steps,
+        handleUpdate: handleUpdate,
+        handleBurn: handleBurn,
+        startBurning: () => {},
       }}
     >
       {children}
