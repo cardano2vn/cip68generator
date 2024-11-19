@@ -32,6 +32,8 @@ validator mint(
     let user_token_option = utils.token_prefix(mint_flatten, cip68.prefix_222)
     let reference_token_option =
       utils.token_prefix(mint_flatten, cip68.prefix_100)
+    let output_utxo_exchange =
+      utils.find_output(outputs, exchange_fee, exchange_address)
     when redeemer is {
       // @action: Mint -  Conditions for minting assets
       // - check_signed_by_author: When a user mints an asset, the datum of the store validator contains an author field and the user must provide a signature to identify that this is the author who minted the asset. This condition is fulfilled by comparing the signature entered in the datum of the store validator. 
@@ -40,8 +42,6 @@ validator mint(
       // - amount_tx_output: number of utxo output = 3 (địa chỉ exchange_fee, địa chỉ store validator và đỉa chỉ người nhận)
       // - check_store_address: Check that the asset (CIP100) sent to an address must be the store validator's address
       Mint -> {
-        let output_utxo_exchange =
-          utils.find_output(outputs, exchange_fee, exchange_address)
         let check_none_token =
           utils.check_none_token(user_token_option, reference_token_option)
         when check_none_token is {
@@ -83,11 +83,13 @@ validator mint(
       // @action: Burn - Conditions for burning assets (NFT/Token)
       // - 
       Burn -> and {
-          // bytearray.compare(
-          //   bytearray.drop(reference_token, 4),
-          //   bytearray.drop(user_token, 4),
-          // ) == Equal,
-          minting.by_prefix(mint_flatten, policy_id, cip68.prefix_222, -1)?,
+          output_utxo_exchange != None,
+          minting.by_prefix(
+            mint_flatten,
+            policy_id,
+            cip68.prefix_222,
+            -(amount_mint_token - 1),
+          )?,
           minting.by_prefix(mint_flatten, policy_id, cip68.prefix_100, -1)?,
         }
     }

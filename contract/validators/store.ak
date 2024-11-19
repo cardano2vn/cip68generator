@@ -4,6 +4,7 @@ use cardano/assets.{without_lovelace}
 use cardano/transaction.{
   InlineDatum, Output, OutputReference, Transaction, find_input,
 }
+use cardano/tx
 use cip68generator/types.{Remove, StoreRedeemer, Update}
 use cip68generator/utils
 use types/cip68.{CIP68}
@@ -26,13 +27,13 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
     let exchange_address = address.from_verification_key(exchange)
     let output_utxo_exchange =
       utils.find_output(outputs, exchange_fee, exchange_address)
+    expect Some(input) = find_input(inputs, output_reference)
+    let script_address = input.output.address
+    let reference_token =
+      input.output.value
+        |> without_lovelace()
     when redeemer is {
       Update -> {
-        expect Some(input) = find_input(inputs, output_reference)
-        let script_address = input.output.address
-        let reference_token =
-          input.output.value
-            |> without_lovelace()
         let validator_output =
           output_by_addr_value(outputs, script_address, reference_token)
         expect InlineDatum(datum_input) = validator_output.datum
@@ -47,10 +48,16 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
           check_author,
         }
       }
-      Remove -> and {
-          True,
-          True,
+      Remove -> {
+        expect InlineDatum(datum_input) = input.output.datum
+        expect metadatum_input: CIP68 = datum_input
+        expect author_input: ByteArray = cip68.get(metadatum_input, "author")
+        // let validating_output = output_by_value(outputs, reference_token)
+        and {
+          tx.verify_signature(extra_signatories, author_input),
+          output_utxo_exchange != None,
         }
+      }
     }
   }
 

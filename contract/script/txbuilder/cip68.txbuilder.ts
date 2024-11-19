@@ -165,15 +165,10 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     console.log(storeUtxo.output);
 
     const unsignedTx = this.meshTxBuilder
-      // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
-      // .txIn(collateral.input.txHash, collateral.input.outputIndex)
+      
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
       .mintingScript(this.mintScriptCbor)
-      // .mintTxInReference(
-      //   mintUtxoRef.input.txHash,
-      //   mintUtxoRef.input.outputIndex,
-      // )
       .mintRedeemerValue(mConStr1([]))
 
       .spendingPlutusScriptV3()
@@ -181,18 +176,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .txInInlineDatumPresent()
       .txInRedeemerValue(mConStr1([]))
       .txInScript(this.storeScriptCbor)
-      // .spendingTxInReference(
-      //   storeUtxoRef.input.txHash,
-      //   storeUtxoRef.input.outputIndex,
-      // )
 
-      // .txOut(walletAddress, [
-      //   {
-      //     unit: "lovelave",
-      //     quantity: storeUtxo.output.amount[0].quantity,
-      //   },
-      // ])
-      .txOutInlineDatumValue(metadataToCip68(metadata))
+      // .txOutInlineDatumValue(metadataToCip68(metadata))
       .txOut(EXCHANGE_FEE_ADDRESS, [
         {
           unit: "lovelace",
@@ -203,12 +188,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_100(stringToHex(assetName)))
       .mintingScript(this.mintScriptCbor)
-      // .mintTxInReference(
-      //   mintUtxoRef.input.txHash,
-      //   mintUtxoRef.input.outputIndex,
-      // )
-
       .mintRedeemerValue(mConStr1([]))
+
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
@@ -266,7 +247,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       .txOutInlineDatumValue(metadataToCip68(metadata))
 
       .txOut(
-        "addr_test1qzwu6jcqk8f96fxq02pvq2h4a927ggn35f2gzdklfte4kwx0sd5zdvsat2chsyyjxkjxcg6uz2y46avd46mzqdgdy3dsckqxs4",
+        EXCHANGE_FEE_ADDRESS,
         [
           {
             unit: "lovelace",

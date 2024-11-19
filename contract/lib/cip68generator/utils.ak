@@ -108,3 +108,13 @@ pub fn check_address_duplicate(
 pub fn check_amount(output: Output, price: Int) -> Bool {
   lovelace_of(output.value) >= price
 }
+
+// Check the output utxo containing the reference nft
+pub fn check_output_utxo_reference_token(output: Output) -> Bool {
+  let output_value =
+    output.value
+      |> without_lovelace()
+      |> flatten()
+  // Check no other token is present in the utxo containing reference nft
+  list.length(output_value) == 1
+}
