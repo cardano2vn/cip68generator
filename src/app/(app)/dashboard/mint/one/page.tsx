@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useMintOneContext } from "@/contexts/mint-one";
-import StepperNav from "./_components/stepper-nav";
+import StepperNav from "../_components/stepper-nav";
 import {
   BasicStep,
   MetadataStep,
@@ -9,7 +9,7 @@ import {
   ResultStep,
   TemplateStep,
   TransactionStep,
-} from "./_components/mint-step";
+} from "../_components/mint-step";
 
 export default function Page() {
   const { stepper } = useMintOneContext();
