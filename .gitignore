@@ -45,3 +45,4 @@ docs/
 
 plutus.json
 yarn.lock
+stack.env
