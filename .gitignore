@@ -43,6 +43,5 @@ artifacts/
 build/
 docs/
 
-plutus.json
 yarn.lock
 stack.env
