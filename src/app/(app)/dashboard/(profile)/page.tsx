@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import AssetCard from "./_components/asset-card";
-import { useProfileContext } from "./_context/profile";
+import { useProfileContext } from "../../../../contexts/profile";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Filter, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";

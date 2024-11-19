@@ -1,4 +1,4 @@
-import MetadataProvider from "../_context/metadata";
+import MetadataProvider from "../../../../../../contexts/metadata";
 
 export default async function Layout({
   params,

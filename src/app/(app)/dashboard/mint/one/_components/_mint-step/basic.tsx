@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { useMintOneContext } from "../../_context";
+import { useMintOneContext } from "../../../../../../../contexts/mint-one";
 import { toast } from "@/hooks/use-toast";
 
 const nftFormSchema = z.object({

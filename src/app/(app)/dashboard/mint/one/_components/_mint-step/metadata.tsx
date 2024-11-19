@@ -1,5 +1,5 @@
 import JsonBuilder from "@/components/common/json-builder";
-import { useMintOneContext } from "../../_context";
+import { useMintOneContext } from "../../../../../../../contexts/mint-one";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { Button } from "@/components/ui/button";
 import { isEmpty, isNil } from "lodash";

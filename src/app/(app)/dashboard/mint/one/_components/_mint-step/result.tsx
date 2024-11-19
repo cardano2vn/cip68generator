@@ -1,4 +1,4 @@
-import { useMintOneContext } from "../../_context";
+import { useMintOneContext } from "../../../../../../../contexts/mint-one";
 import Link from "next/link";
 import { appNetwork } from "@/constants";
 

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { useMetadataContext } from "../_context/metadata";
+import { useMetadataContext } from "../../../../../../contexts/metadata";
 import MetadataList from "../_components/metadata-list";
 import MetadataGird from "../_components/metadata-gird";
 import Pagination from "../_components/pagination";

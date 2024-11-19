@@ -5,7 +5,7 @@ import React from "react";
 import { useCSVReader } from "react-papaparse";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { useUploadCsvContext } from "../_context";
+import { useUploadCsvContext } from "../../../../../../contexts/fast-collection";
 import FileDisplay from "@/components/common/file-display";
 import { isEmpty, isNil } from "lodash";
 

@@ -24,7 +24,7 @@ import {
 import { Tooltip } from "@radix-ui/react-tooltip";
 import Property from "../_components/property";
 import { hexToString } from "@meshsdk/core";
-import { useUpdateContext } from "../_context/unit";
+import { useUpdateContext } from "../../../../../contexts/unit";
 import { FaBurn, FaUps } from "react-icons/fa";
 import { redirect } from "next/navigation";
 export default function DetailPage() {

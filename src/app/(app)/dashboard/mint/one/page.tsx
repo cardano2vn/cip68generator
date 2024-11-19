@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useMintOneContext } from "./_context";
+import { useMintOneContext } from "../../../../../contexts/mint-one";
 import StepperNav from "./_components/stepper-nav";
 import TemplateStep from "./_components/_mint-step/template";
 import MetadataStep from "./_components/_mint-step/metadata";

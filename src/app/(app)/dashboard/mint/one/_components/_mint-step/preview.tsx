@@ -4,7 +4,7 @@ import Image from "next/image";
 import { MdPolicy } from "react-icons/md";
 import Link from "next/link";
 import { IoMdPhotos } from "react-icons/io";
-import { useMintOneContext } from "../../_context";
+import { useMintOneContext } from "../../../../../../../contexts/mint-one";
 import Property from "../property";
 import { isEmpty, isNull } from "lodash";
 import {

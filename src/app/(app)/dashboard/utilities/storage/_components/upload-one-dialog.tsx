@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 // import ImagePicker from "../../_components/image-picker";
-import { useUploadContext } from "../_context";
+import { useUploadContext } from "../../../../../../contexts/storage";
 
 export function UploadOneDialog() {
   const { uploadOneDialogOpen, setUploadOneDialogOpen } = useUploadContext();
