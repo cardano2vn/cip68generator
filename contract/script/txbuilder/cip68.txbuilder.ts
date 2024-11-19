@@ -166,7 +166,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
 
     const unsignedTx = this.meshTxBuilder
       // .txIn(userUtxo.input.txHash, userUtxo.input.outputIndex)
-      .txIn(collateral.input.txHash, collateral.input.outputIndex)
+      // .txIn(collateral.input.txHash, collateral.input.outputIndex)
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
       .mintingScript(this.mintScriptCbor)
@@ -209,7 +209,6 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       // )
 
       .mintRedeemerValue(mConStr1([]))
-
       .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
@@ -218,7 +217,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         collateral.input.outputIndex,
         collateral.output.amount,
         collateral.output.address,
-      );
+    )
+      .setNetwork(appNetwork);
 
     return unsignedTx.complete();
   };
@@ -282,7 +282,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         collateral.input.outputIndex,
         collateral.output.amount,
         collateral.output.address,
-      );
+      ).setNetwork(appNetwork);
 
     return unsignedTx.complete();
   };
