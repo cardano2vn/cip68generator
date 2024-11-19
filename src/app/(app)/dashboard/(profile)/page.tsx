@@ -12,7 +12,7 @@ export default function ProfilePage() {
   return (
     <div className="py-8 px-10 m-auto flex flex-col">
       <div className="rounded-xl p-6 bg-section shadow-md flex flex-col gap-3">
-        {/* <Tabs defaultValue="my-nfts" className="w-full">
+        <Tabs defaultValue="my-nfts" className="w-full">
           <TabsList className="mb-4">
             <TabsTrigger value="my-nfts">My NFTs (5)</TabsTrigger>
             <TabsTrigger value="listings">Listings (1)</TabsTrigger>
@@ -21,9 +21,8 @@ export default function ProfilePage() {
             <TabsTrigger value="offers">Offers</TabsTrigger>
             <TabsTrigger value="creations">Creations (1)</TabsTrigger>
           </TabsList>
-        </Tabs> */}
-
-        {/* <div className="flex items-center gap-4 mb-6">
+        </Tabs>
+        <div className="flex items-center gap-4 mb-6">
           <Button variant="outline" size="icon" className="shrink-0">
             <Filter className="h-4 w-4" />
             <span className="sr-only">Filters</span>
@@ -36,8 +35,8 @@ export default function ProfilePage() {
             Bulk list
           </Button>
           <Button className="shrink-0">Create Collection</Button>
-        </div> */}
-
+        </div>{" "}
+        *
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
           {listNft.map((data, index) => (
             <AssetCard data={data} key={index} />
