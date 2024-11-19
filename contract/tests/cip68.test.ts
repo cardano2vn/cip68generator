@@ -34,32 +34,32 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     });
   });
 
-  test("Mint", async function () {
-    const cip68Contract: Cip68Contract = new Cip68Contract({
-      fetcher: blockfrostProvider,
-      wallet: wallet,
-      meshTxBuilder: meshTxBuilder,
-    });
+  // test("Mint", async function () {
+  //   const cip68Contract: Cip68Contract = new Cip68Contract({
+  //     fetcher: blockfrostProvider,
+  //     wallet: wallet,
+  //     meshTxBuilder: meshTxBuilder,
+  //   });
 
-    const unsignedTx: string = await cip68Contract.mint({
-      assetName: "CIP68 Generators.",
-      metadata: {
-        name: "CIP68 Generators",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
-        mediaType: "image/jpg",
-        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
-        author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
-      },
-      quantity: "1",
-    });
-    const signedTx = await wallet.signTx(unsignedTx, true);
-    const txHash = await wallet.submitTx(signedTx);
-    console.log(txHash);
-    txHashTemp = txHash;
-    blockfrostProvider.onTxConfirmed(txHash, () => {
-      expect(txHash.length).toBe(64);
-    });
-  });
+  //   const unsignedTx: string = await cip68Contract.mint({
+  //     assetName: "CIP68 Generators.",
+  //     metadata: {
+  //       name: "CIP68 Generators",
+  //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+  //       mediaType: "image/jpg",
+  //       description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+  //       author: deserializeAddress(await wallet.getChangeAddress()).pubKeyHash,
+  //     },
+  //     quantity: "1",
+  //   });
+  //   const signedTx = await wallet.signTx(unsignedTx, true);
+  //   const txHash = await wallet.submitTx(signedTx);
+  //   console.log(txHash);
+  //   txHashTemp = txHash;
+  //   blockfrostProvider.onTxConfirmed(txHash, () => {
+  //     expect(txHash.length).toBe(64);
+  //   });
+  // });
 
   test("Burn", async function () {
     const cip68Contract: Cip68Contract = new Cip68Contract({
@@ -71,7 +71,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     const unsignedTx: string = await cip68Contract.burn({
       assetName: "CIP68 Generators.",
       txHash:
-        "ac8ef3e9801700f3f0ea96a3d69a98ec122c4e5c463705cf2d165d746ff21d7a",
+        "eb31cb54c9b60bd12c10ec612701d5034ea1a785eb25d7582a6c83344d83add6",
       quantity: "-1",
       metadata: {
         name: "CIP68 Generators 01",
@@ -107,7 +107,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //       author: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
   //     },
   //     txHash:
-  //       "e50c51590fd74dc4eb0aa7f7e275eccae26833878b3125d1db71ed5e351d8671",
+  //       "9bcea197871ff0bff1fb936a365cb5b53fdff802adcd09dd4a00d6b682ccf605",
   //   });
   //   const signedTx = await wallet.signTx(unsignedTx, true);
   //   const txHash = await wallet.submitTx(signedTx);

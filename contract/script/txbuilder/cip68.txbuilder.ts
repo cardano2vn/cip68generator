@@ -7,7 +7,6 @@ import {
   stringToHex,
   mConStr0,
   CIP68_100,
-  UTxO,
   AssetMetadata,
   metadataToCip68,
   mConStr1,
@@ -89,6 +88,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     //   MINT_REFERENCE_SCRIPT_ADDRESS,
     //   MINT_REFERENCE_SCRIPT_HASH,
     // );
+    
     const unsignedTx = this.meshTxBuilder
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
