@@ -1,7 +1,7 @@
 import { Network } from "@meshsdk/core";
 
 const BLOCKFROST_API_KEY = process.env.BLOCKFROST_API_KEY || "";
-const KOIOS_RPC_URL = process.env.KOIOS_RPC_URL || "";
+const KOIOS_TOKEN = process.env.KOIOS_TOKEN || "";
 
 const appNetwork: Network =
   (process.env.NEXT_PUBLIC_APP_NETWORK?.toLowerCase().slice(0, 7) as Network) ||
@@ -15,7 +15,7 @@ export {
   appNetwork,
   appNetworkId,
   BLOCKFROST_API_KEY,
-  KOIOS_RPC_URL,
+  KOIOS_TOKEN,
   IPFS_ENDPOINT,
   IPFS_GATEWAY,
 };

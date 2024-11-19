@@ -1,4 +1,4 @@
-import { BLOCKFROST_API_KEY, KOIOS_RPC_URL } from "@/constants";
+import { BLOCKFROST_API_KEY, KOIOS_TOKEN } from "@/constants";
 import { BlockfrostFetcher } from "./blockfrost/fetcher";
 import { BlockfrostProvider } from "@meshsdk/core";
 import { KoiosFetcher } from "./koios/fetcher";
@@ -10,7 +10,7 @@ const blockfrostProviderSingleton = () => {
   return new BlockfrostProvider(BLOCKFROST_API_KEY);
 };
 const koiosFetcherSingleton = () => {
-  return new KoiosFetcher(KOIOS_RPC_URL);
+  return new KoiosFetcher(KOIOS_TOKEN);
 };
 
 declare const globalThis: {
