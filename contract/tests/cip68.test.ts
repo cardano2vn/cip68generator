@@ -109,13 +109,10 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
       txHash:
         "20ed0f7af1af7e94d13d45b9aa0727f27435a10e9c0b5cb6fc85e4c8b27f4898",
     });
-    jest.setTimeout(20000);
-        const signedTx = await wallet.signTx(unsignedTx, true);
+    const signedTx = await wallet.signTx(unsignedTx, true);
     const txHash = await wallet.submitTx(signedTx);
     console.log(txHash);
     txHashTemp = txHash;
-    jest.setTimeout(20000);
-    expect(txHash.length).toBe(64);
     expect(txHash.length).toBe(64);
   });
 

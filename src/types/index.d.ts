@@ -54,6 +54,15 @@ export interface NavItem {
   icon?: keyof typeof Icons;
 }
 
+export type AssetType = {
+  address: string;
+  policy_id: string;
+  asset_name: string;
+  fingerprint: string;
+  decimals: number;
+  quantity: string;
+};
+
 export type AssetDetails = {
   asset: string;
   policy_id: string;

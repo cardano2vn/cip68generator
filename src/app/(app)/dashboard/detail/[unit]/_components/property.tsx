@@ -7,7 +7,7 @@ type Props = {
   value: string;
 };
 
-export default function Metadata({ image, name, value }: Props) {
+export default function Property({ image, name, value }: Props) {
   return (
     <div className="flex items-center gap-2 p-2 bg-[#030711] rounded-lg">
       <section className="min-h-10 min-w-10 h-10 w-10 bg-[#28243C] rounded-lg  flex items-center justify-center">

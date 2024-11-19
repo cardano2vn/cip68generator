@@ -20,9 +20,9 @@ export default function ProfileProvider({ children }: PropsWithChildren) {
     queryKey: ["getAssetsByAddress"],
     queryFn: () =>
       getWalletAssets({
-        page: 1,
-        pageSize: 4,
         walletAddress: address!,
+        page: 1,
+        limit: 10,
       }),
     enabled: !!address,
     staleTime: 1000 * 60 * 5,
