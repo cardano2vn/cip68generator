@@ -13,9 +13,15 @@ import useUnitStore, { UnitStore } from "./store";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { redirect } from "next/navigation";
 
-const { useStepper, steps } = defineStepper(
+const { useStepper: useUpdateStepper, steps: updateSteps } = defineStepper(
   { id: "metadata", title: "Metadata" },
   { id: "preview", title: "Preview" },
+  { id: "transaction", title: "Transaction" },
+  { id: "result", title: "Result" },
+);
+
+const { useStepper: useBurnStepper, steps: burnSteps } = defineStepper(
+  { id: "alert", title: "Alert" },
   { id: "transaction", title: "Transaction" },
   { id: "result", title: "Result" },
 );
@@ -23,8 +29,10 @@ const { useStepper, steps } = defineStepper(
 type UnitContextType = UnitStore & {
   unit: string;
   assetDetails: AssetDetails;
-  updateStepper: ReturnType<typeof useStepper>;
-  updateSteps: typeof steps;
+  updateStepper: ReturnType<typeof useUpdateStepper>;
+  updateSteps: typeof updateSteps;
+  burnStepper: ReturnType<typeof useBurnStepper>;
+  burnSteps: typeof burnSteps;
   handleUpdate: () => void;
   handleBurn: () => void;
   startUpdating: () => void;
@@ -41,7 +49,8 @@ export default function UnitProvider({
   const { signTx, address, submitTx } = useWalletContext();
   const { jsonContent, setJsonContent } = useJsonBuilderStore();
 
-  const stepper = useStepper();
+  const updateStepper = useUpdateStepper();
+  const burnStepper = useBurnStepper();
   const {
     metadataToUpdate,
     setMetadataToUpdate,
@@ -86,7 +95,7 @@ export default function UnitProvider({
   };
 
   const startUpdating = async () => {
-    stepper.goTo("transaction");
+    updateStepper.goTo("transaction");
     try {
       updateTaskState("inprogress", "validate", "Validating Data");
 
@@ -137,7 +146,74 @@ export default function UnitProvider({
       setTxHash("123");
       updateTaskState("success");
       // show result
-      stepper.goTo("result");
+      updateStepper.goTo("result");
+      // create transaction
+    } catch (e) {
+      updateTaskState(
+        "error",
+        "",
+        e instanceof Error ? e.message : "unknown error",
+      );
+      toast({
+        title: "Error",
+        description: e instanceof Error ? e.message : "unknown error",
+        variant: "destructive",
+      });
+    }
+  };
+  const startBurning = async () => {
+    burnStepper.goTo("transaction");
+    try {
+      updateTaskState("inprogress", "validate", "Validating Data");
+
+      if (isNil(address)) {
+        throw new Error("Wallet not connected");
+      }
+      // check assetName is unique
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const input = {
+        assetName: basicInfoToUpdate.assetName,
+        quantity: basicInfoToUpdate.quantity,
+        metadata: metadataToUpdate,
+      };
+
+      updateTaskState(
+        "inprogress",
+        "create_transaction",
+        "Creating Transaction",
+      );
+      // const {
+      //   data: tx,
+      //   message,
+      //   result,
+      // } = await createMintTransaction({
+      //   address: address,
+      //   mintInput: {
+      //     assetName: input.assetName,
+      //     metadata: input.metadata,
+      //     quantity: input.quantity,
+      //   },
+      // });
+      // if (!result || isNil(tx)) {
+      //   throw new Error(message);
+      // }
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // wait for confirmation
+      updateTaskState("inprogress", "sign_transaction", "Waiting for  sign Tx");
+      // const signedTx = await signTx(tx);
+      updateTaskState(
+        "inprogress",
+        "submit_transaction",
+        "Submitting Transaction",
+      );
+      // // submit transaction
+      // const txHash = await submitTx(signedTx);
+      setTxHash("123");
+      updateTaskState("success");
+      // show result
+      burnStepper.goTo("result");
       // create transaction
     } catch (e) {
       updateTaskState(
@@ -166,14 +242,16 @@ export default function UnitProvider({
         setBasicInfoToUpdate,
         tasks,
         updateTaskState,
-        startUpdating,
         txhash,
         setTxHash,
-        updateStepper: stepper,
-        updateSteps: steps,
-        handleUpdate: handleUpdate,
-        handleBurn: handleBurn,
-        startBurning: () => {},
+        updateStepper,
+        updateSteps,
+        burnStepper,
+        burnSteps,
+        handleUpdate,
+        handleBurn,
+        startUpdating,
+        startBurning,
       }}
     >
       {children}

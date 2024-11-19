@@ -1,25 +1,23 @@
 "use client";
 import * as React from "react";
-import StepperNav from "../../_components/update-step/stepper-nav";
+import { useUnitContext } from "@/contexts/unit";
 import {
-  MetadataStep,
-  PreviewStep,
+  AlertStep,
   ResultStep,
   TransactionStep,
-} from "../../_components/update-step";
-import { useUnitContext } from "@/contexts/unit";
+} from "../../_components/bun-steps";
+// import StepperNav from "../../_components/bun-steps/stepper-nav";
 
 export default function Page() {
-  const { updateStepper } = useUnitContext();
+  const { burnStepper } = useUnitContext();
 
   return (
     <div className="py-8 px-10 m-auto flex flex-col">
       <div className="rounded-xl p-6 bg-section shadow-md flex flex-col gap-3">
-        <StepperNav />
+        {/* <StepperNav /> */}
         <div className="space-y-4">
-          {updateStepper.switch({
-            metadata: () => <MetadataStep />,
-            preview: () => <PreviewStep />,
+          {burnStepper.switch({
+            alert: () => <AlertStep />,
             transaction: () => <TransactionStep />,
             result: () => <ResultStep />,
           })}
