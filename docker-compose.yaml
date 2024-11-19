@@ -1,0 +1,33 @@
+services:
+  postgres:
+    container_name: cip68_postgres
+    image: postgres:latest
+    env_file:
+      - stack.env
+    volumes:
+      - cip68:/data/postgres
+    # ports:
+    #   - "5432:5432"
+    networks:
+      - cip68
+    restart: unless-stopped
+
+  cip68_webapp:
+    container_name: cip68_webapp
+    env_file:
+      - ./stack.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3785:3000"
+    depends_on:
+      - postgres
+    networks:
+      - cip68
+    restart: always
+networks:
+  cip68:
+    driver: bridge
+volumes:
+  cip68:
