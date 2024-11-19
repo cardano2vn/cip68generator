@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { appNetwork } from "@/constants";
-import { useUpdateContext } from "@/contexts/unit";
+import { useUnitContext } from "@/contexts/unit";
 export default function ResultStep() {
-  const { txhash } = useUpdateContext();
+  const { txhash } = useUnitContext();
 
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">

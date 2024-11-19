@@ -11,11 +11,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useUpdateContext } from "@/contexts/unit";
 import Property from "../property";
+import { useUnitContext } from "@/contexts/unit";
 export default function PreviewStep() {
-  const { stepper, metadataToUpdate, basicInfoToUpdate, startUpdateTing } =
-    useUpdateContext();
+  const { updateStepper, metadataToUpdate, basicInfoToUpdate, startUpdating } =
+    useUnitContext();
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
       <div className="rounded-md border border-dashed p-4">
@@ -158,12 +158,12 @@ export default function PreviewStep() {
       <div className="flex justify-end gap-4 mt-6">
         <Button
           variant="secondary"
-          onClick={stepper.prev}
-          disabled={stepper.isFirst}
+          onClick={updateStepper.prev}
+          disabled={updateStepper.isFirst}
         >
           Back
         </Button>
-        <Button onClick={startUpdateTing}>Next</Button>
+        <Button onClick={startUpdating}>Next</Button>
       </div>
     </div>
   );

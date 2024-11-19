@@ -1,14 +1,9 @@
+import { Task } from "@/types";
 import { AssetMetadata } from "@meshsdk/core";
 import { isEmpty } from "lodash";
 import { create } from "zustand";
 
-export type Task = {
-  name: string;
-  content: string;
-  status: "todo" | "inprogress" | "success" | "error";
-};
-
-export type UpdateStore = {
+export type UnitStore = {
   loading: boolean;
   setLoading: (loading: boolean) => void;
   metadataToUpdate: AssetMetadata | null;
@@ -17,7 +12,7 @@ export type UpdateStore = {
     assetName: string;
     quantity: string;
   };
-  setBasicInfoToUpdate: (basicInfo: {
+  setBasicInfoToUpdate: (basicnfo: {
     assetName: string;
     quantity: string;
   }) => void;
@@ -31,7 +26,7 @@ export type UpdateStore = {
   setTxHash: (txhash: string) => void;
 };
 
-const useUpdateStore = create<UpdateStore>((set) => ({
+const useUnitStore = create<UnitStore>((set) => ({
   loading: false,
   metadataToUpdate: null,
   basicInfoToUpdate: {
@@ -86,4 +81,4 @@ const useUpdateStore = create<UpdateStore>((set) => ({
   },
 }));
 
-export default useUpdateStore;
+export default useUnitStore;

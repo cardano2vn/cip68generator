@@ -1,16 +1,16 @@
 import JsonBuilder from "@/components/common/json-builder";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { Button } from "@/components/ui/button";
+import { useUnitContext } from "@/contexts/unit";
 import { isEmpty, isNil } from "lodash";
-import { useUpdateContext } from "@/contexts/unit";
 
 export default function MetadataStep() {
-  const { stepper, setMetadataToUpdate } = useUpdateContext();
+  const { updateStepper, setMetadataToUpdate } = useUnitContext();
   const { jsonContent } = useJsonBuilderStore();
   const handleNext = () => {
     if (!isNil(jsonContent) || !isEmpty(jsonContent)) {
       setMetadataToUpdate(jsonContent);
-      stepper.next();
+      updateStepper.next();
     }
   };
   return (
@@ -26,8 +26,8 @@ export default function MetadataStep() {
       <div className="flex justify-end gap-4 mt-6">
         <Button
           variant="secondary"
-          onClick={stepper.prev}
-          disabled={stepper.isFirst}
+          onClick={updateStepper.prev}
+          disabled={updateStepper.isFirst}
         >
           Back
         </Button>

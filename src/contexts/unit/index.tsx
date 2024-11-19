@@ -1,14 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { defineStepper } from "@stepperize/react";
 import { toast } from "@/hooks/use-toast";
 import { useWalletContext } from "@/components/providers/wallet";
-import { isNil } from "lodash";
+import { isEmpty, isNil } from "lodash";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
 import { AssetDetails } from "@/types";
-import useUpdateStore, { UpdateStore } from "./store";
+import useUnitStore, { UnitStore } from "./store";
+import { useJsonBuilderStore } from "@/components/common/json-builder/store";
+import { metadata } from "@/app/layout";
 
 const { useStepper, steps } = defineStepper(
   { id: "metadata", title: "Metadata" },
@@ -17,16 +20,15 @@ const { useStepper, steps } = defineStepper(
   { id: "result", title: "Result" },
 );
 
-type UpdateContextType = UpdateStore & {
+type UnitContextType = UnitStore & {
   unit: string;
-  assetData: AssetDetails;
-  // defaultMetadata: AssetMetadata;
-  stepper: ReturnType<typeof useStepper>;
-  steps: typeof steps;
-  startUpdateTing: () => void;
+  assetDetails: AssetDetails;
+  updateStepper: ReturnType<typeof useStepper>;
+  updateSteps: typeof steps;
+  startUpdating: () => void;
 };
 
-export default function UpdateProvider({
+export default function UnitProvider({
   unit,
   children,
 }: {
@@ -34,6 +36,8 @@ export default function UpdateProvider({
   children: React.ReactNode;
 }) {
   const { signTx, address, submitTx } = useWalletContext();
+  const { jsonContent, setJsonContent } = useJsonBuilderStore();
+
   const stepper = useStepper();
   const {
     metadataToUpdate,
@@ -46,7 +50,7 @@ export default function UpdateProvider({
     updateTaskState,
     txhash,
     setTxHash,
-  } = useUpdateStore();
+  } = useUnitStore();
 
   const { data: assetData, isLoading } = useQuery({
     queryKey: ["fetchSpecificAsset", unit],
@@ -54,7 +58,23 @@ export default function UpdateProvider({
     enabled: !isNil(unit),
   });
 
-  const startUpdateTing = async () => {
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (isNil(jsonContent) || isEmpty(jsonContent)) {
+      if (!isNil(metadataToUpdate) || !isEmpty(metadataToUpdate)) {
+        setJsonContent(metadataToUpdate);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { author_pk, ...metadata } =
+        assetData?.data?.onchain_metadata || {};
+      setJsonContent(metadata);
+    }
+  }, [assetData]);
+
+  const startUpdating = async () => {
     stepper.goTo("transaction");
     try {
       updateTaskState("inprogress", "validate", "Validating Data");
@@ -70,6 +90,7 @@ export default function UpdateProvider({
         quantity: basicInfoToUpdate.quantity,
         metadata: metadataToUpdate,
       };
+
       updateTaskState(
         "inprogress",
         "create_transaction",
@@ -122,12 +143,11 @@ export default function UpdateProvider({
   };
 
   return (
-    <UpdateContext.Provider
+    <UnitContext.Provider
       value={{
         unit,
-        assetData: assetData?.data || ({} as AssetDetails),
-        // defaultMetadata: assetData?.data?.onchain_metadata || {},
-        loading: isLoading,
+        assetDetails: assetData?.data || ({} as AssetDetails),
+        loading: loading,
         setLoading,
         metadataToUpdate,
         setMetadataToUpdate,
@@ -135,23 +155,23 @@ export default function UpdateProvider({
         setBasicInfoToUpdate,
         tasks,
         updateTaskState,
-        startUpdateTing,
+        startUpdating,
         txhash,
         setTxHash,
-        stepper,
-        steps,
+        updateStepper: stepper,
+        updateSteps: steps,
       }}
     >
       {children}
-    </UpdateContext.Provider>
+    </UnitContext.Provider>
   );
 }
 
-const UpdateContext = createContext<UpdateContextType>(null!);
-export const useUpdateContext = function () {
-  const context = useContext(UpdateContext);
+const UnitContext = createContext<UnitContextType>(null!);
+export const useUnitContext = function () {
+  const context = useContext(UnitContext);
   if (!context) {
-    throw new Error("useUpdateContext must be used within a UpdateProvider");
+    throw new Error("useUnitContext must be used within a UnitProvider");
   }
   return context;
 };

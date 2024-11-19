@@ -3,10 +3,10 @@
 import React from "react";
 import { CheckCircle, CircleX, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useUpdateContext } from "@/contexts/unit";
+import { useUnitContext } from "@/contexts/unit";
 
 export default function TransactionStep() {
-  const { stepper, tasks } = useUpdateContext();
+  const { updateStepper, tasks } = useUnitContext();
 
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
@@ -53,8 +53,8 @@ export default function TransactionStep() {
       <div className="flex justify-end gap-4 mt-6">
         <Button
           variant="secondary"
-          onClick={stepper.prev}
-          disabled={stepper.isFirst}
+          onClick={updateStepper.prev}
+          disabled={updateStepper.isFirst}
         >
           Back
         </Button>

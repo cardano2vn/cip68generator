@@ -24,13 +24,15 @@ import {
 import { Tooltip } from "@radix-ui/react-tooltip";
 import Property from "../_components/property";
 import { hexToString } from "@meshsdk/core";
-import { useUpdateContext } from "@/contexts/unit";
 import { FaBurn, FaUps } from "react-icons/fa";
 import { redirect } from "next/navigation";
+import { useUnitContext } from "@/contexts/unit";
+import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 export default function DetailPage() {
-  const { unit, assetData: data, setMetadataToUpdate } = useUpdateContext();
-
-  if (isNil(data)) return "no data";
+  const { unit, assetDetails } = useUnitContext();
+  const { setJsonContent } = useJsonBuilderStore();
+  if (isNil(assetDetails)) return "no data";
+  const { onchain_metadata: metadata, fingerprint } = assetDetails;
 
   const transactions = [
     {
@@ -67,9 +69,12 @@ export default function DetailPage() {
     },
     // Add more transactions here if needed
   ];
+
   const handleUpdate = () => {
-    setMetadataToUpdate(data.onchain_metadata);
-    redirect(`/dashboard/detail/${unit}/update`);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const { author_pk, ...metadataToUpdate } = metadata;
+    // setJsonContent(metadataToUpdate);
+    redirect(`/dashboard/${unit}/update`);
   };
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto">
@@ -81,20 +86,10 @@ export default function DetailPage() {
                 <FileDisplay
                   src={
                     IPFS_GATEWAY +
-                    (data.onchain_metadata &&
-                    typeof data.onchain_metadata.image === "string"
-                      ? (data.onchain_metadata.image as string).replace(
-                          "ipfs://",
-                          "ipfs/",
-                        )
-                      : "")
+                      metadata?.image.replace("ipfs://", "ipfs/") || ""
                   }
                   alt={"image"}
-                  type={
-                    typeof data.onchain_metadata?.type === "string"
-                      ? data.onchain_metadata.type
-                      : "image/png"
-                  }
+                  type={metadata?.type || "image/png"}
                   className="h-full w-full rounded-lg border object-cover"
                 />
               </AspectRatio>
@@ -127,8 +122,8 @@ export default function DetailPage() {
               </header>
               <div className="flex flex-col gap-8">
                 <div className="grid grid-cols-3 gap-y-5 gap-x-2">
-                  {data.onchain_metadata &&
-                    Object.entries(data.onchain_metadata).map(
+                  {assetDetails.onchain_metadata &&
+                    Object.entries(assetDetails.onchain_metadata).map(
                       ([name, value], index) => (
                         <TooltipProvider key={index}>
                           <Tooltip>
@@ -257,11 +252,11 @@ export default function DetailPage() {
                 <div className="flex items-center flex-1 overflow-hidden gap-[10px]">
                   <div className=" flex items-center justify-center w-8 h-8 rounded-full border-[1px] border-solid border-gray-400">
                     <span className="text-[16px] leading-6 font-medium">
-                      {data.quantity}
+                      {assetDetails.quantity}
                     </span>
                   </div>
                   <h1 className="w-full flex overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
-                    {hexToString(data.asset_name || "")}
+                    {hexToString(assetDetails.asset_name || "")}
                   </h1>
                 </div>
               </div>
@@ -269,9 +264,7 @@ export default function DetailPage() {
               {/* policy-begin */}
               <div className="flex items-center gap-2 relative rounded-md py-[2px] px-2 bg-[#282c34] w-fit my-[10px] mx-0">
                 <MdPolicy className="text-base" />
-                <span className="text-base">
-                  {data?.fingerprint?.slice(0, 20)}
-                </span>
+                <span className="text-base">{fingerprint?.slice(0, 20)}</span>
               </div>
               {/* policy-end */}
               {/* owner-begin */}
