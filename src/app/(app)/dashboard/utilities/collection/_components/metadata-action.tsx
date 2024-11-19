@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useMetadataContext } from "../../../../../../contexts/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 
 export default function MetadataAction() {
   const {

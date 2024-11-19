@@ -1,7 +1,7 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils";
-import { useUpdateContext } from "../../../../../contexts/unit";
+import { useUpdateContext } from "@/contexts/unit";
 
 export default function StepperNav() {
   const { stepper, steps } = useUpdateContext();

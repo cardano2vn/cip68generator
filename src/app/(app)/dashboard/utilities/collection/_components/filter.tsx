@@ -8,7 +8,7 @@ import { DateRange } from "react-day-picker";
 import { useState } from "react";
 import { filterDefault } from "@/constants";
 import { FilterType } from "@/types";
-import { useMetadataContext } from "../../../../../../contexts/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 
 export const Filter = () => {
   const { filter, setFilter } = useMetadataContext();

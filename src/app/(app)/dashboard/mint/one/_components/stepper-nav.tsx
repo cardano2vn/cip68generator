@@ -1,5 +1,5 @@
 import React from "react";
-import { useMintOneContext } from "../../../../../../contexts/mint-one";
+import { useMintOneContext } from "@/contexts/mint-one";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils";
 

@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Media } from "@prisma/client";
 import { IPFS_GATEWAY } from "@/constants";
-import { useUploadContext } from "../../../../../../contexts/storage";
+import { useUploadContext } from "@/contexts/storage";
 import FileDisplay from "../../../../../../components/common/file-display";
 
 export default function FileCard({ file }: { file: Media }) {

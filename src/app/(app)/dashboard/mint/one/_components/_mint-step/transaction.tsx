@@ -3,7 +3,7 @@
 import React from "react";
 import { CheckCircle, CircleX, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useMintOneContext } from "../../../../../../../contexts/mint-one";
+import { useMintOneContext } from "@/contexts/mint-one";
 
 export default function TransactionStep() {
   const { stepper, tasks } = useMintOneContext();

@@ -14,9 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { useMetadataContext } from "../../../../../../contexts/metadata";
+import { useMetadataContext } from "@/contexts/metadata";
 import { JsonValue } from "@/types";
-import { useJsonStore } from "../../../../../../contexts/metadata/json-builder-store";
+import { useJsonStore } from "@/contexts/metadata/json-builder-store";
 
 function JsonField({
   parentType,

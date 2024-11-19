@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { appNetwork } from "@/constants";
-import { useUpdateContext } from "../../../../../../contexts/unit";
+import { useUpdateContext } from "@/contexts/unit";
 export default function ResultStep() {
   const { txhash } = useUpdateContext();
 

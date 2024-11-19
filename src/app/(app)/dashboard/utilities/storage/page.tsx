@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/utils";
 import { dashboardRoutes } from "@/constants/routers";
-import { useUploadContext } from "../../../../../contexts/storage";
+import { useUploadContext } from "@/contexts/storage";
 import { UploadOneDialog } from "./_components/upload-one-dialog";
 import MediaGird from "./_components/media-gird";
 import MediaList from "./_components/media-list";

@@ -4,7 +4,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, Plus } from "lucide-react";
-import { useMintOneContext } from "../../../../../../../contexts/mint-one";
+import { useMintOneContext } from "@/contexts/mint-one";
 
 export default function TemplateStep() {
   const { stepper } = useMintOneContext();

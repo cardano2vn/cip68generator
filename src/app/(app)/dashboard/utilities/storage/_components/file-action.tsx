@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useUploadContext } from "../../../../../../contexts/storage";
+import { useUploadContext } from "@/contexts/storage";
 import {
   AlertDialog,
   AlertDialogAction,

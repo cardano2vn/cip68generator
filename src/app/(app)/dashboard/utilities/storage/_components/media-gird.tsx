@@ -1,5 +1,5 @@
 import FileCard from "./file-card";
-import { useUploadContext } from "../../../../../../contexts/storage";
+import { useUploadContext } from "@/contexts/storage";
 
 export default function MediaGird() {
   const { loading, listMedia } = useUploadContext();

@@ -1,4 +1,4 @@
-import UpdateProvider from "../../../../../contexts/unit";
+import UpdateProvider from "@/contexts/unit";
 
 export default async function Layout({
   params,

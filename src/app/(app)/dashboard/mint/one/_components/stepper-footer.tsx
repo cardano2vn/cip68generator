@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useMintOneContext } from "../../../../../../contexts/mint-one";
+import { useMintOneContext } from "@/contexts/mint-one";
 
 export default function StepperFooter() {
   const { stepper } = useMintOneContext();
