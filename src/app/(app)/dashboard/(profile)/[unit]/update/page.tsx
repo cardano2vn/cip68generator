@@ -7,7 +7,7 @@ import {
   PreviewStep,
   ResultStep,
   TransactionStep,
-} from "../../_components/_update-step";
+} from "../../_components/update-step";
 
 export default function Page() {
   const { stepper } = useUpdateContext();
