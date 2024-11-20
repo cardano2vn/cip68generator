@@ -35,7 +35,7 @@ validator mint(
     let output_utxo_exchange =
       utils.find_output(outputs, exchange_fee, exchange_address)
     when redeemer is {
-      // @action: Mint -  Conditions for minting assets
+      // @action: Mint -  Conditions for minting assets (NFT/Token)
       // - check_signed_by_author: When a user mints an asset, the datum of the store validator contains an author field and the user must provide a signature to identify that this is the author who minted the asset. This condition is fulfilled by comparing the signature entered in the datum of the store validator. 
       // - check_exchange_fee: Check in the transaction output that there exists an utxo containing the exchange's minimum fee and is sent to the exchange's address defined in params.
       // - check_format_asset: Check that the specified fields such as name, image, media_type, author exist in the store validator's datum (ask asset metadata). These fields are required.
@@ -59,6 +59,7 @@ validator mint(
                   )
                 and {
                   amount_mint_token >= 2,
+                  list.length(outputs) == 4,
                   minting.exact(mint_flatten, policy_id, reference_token, 1)?,
                   minting.exact(
                     mint_flatten,
@@ -90,6 +91,7 @@ validator mint(
             cip68.prefix_222,
             -(amount_mint_token - 1),
           )?,
+          list.length(outputs) == 2,
           minting.by_prefix(mint_flatten, policy_id, cip68.prefix_100, -1)?,
         }
     }

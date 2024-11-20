@@ -1,3 +1,4 @@
+use aiken/collection/list
 use aiken/crypto.{VerificationKeyHash}
 use cardano/address
 use cardano/assets.{without_lovelace}
@@ -33,6 +34,8 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
       input.output.value
         |> without_lovelace()
     when redeemer is {
+      // @action: Update - Condition for update assets
+      // signed_by_author: When a user updates an asset, there is an author field in the datum of the store validator. At the same time, the user must also provide a signature to update the fields in the datum to change the asset's metadata.
       Update -> {
         let validator_output =
           output_by_addr_value(outputs, script_address, reference_token)
@@ -44,10 +47,12 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
         let check_author = author_input == author_output
         and {
           utils.check_output_utxo(validator_output, extra_signatories)?,
+          list.length(outputs) == 3,
           output_utxo_exchange != None,
           check_author,
         }
       }
+      // @action: Remove - Condition for remove assets
       Remove -> {
         expect InlineDatum(datum_input) = input.output.datum
         expect metadatum_input: CIP68 = datum_input
@@ -55,6 +60,7 @@ validator store(exchange: VerificationKeyHash, exchange_fee: Int) {
         // let validating_output = output_by_value(outputs, reference_token)
         and {
           tx.verify_signature(extra_signatories, author_input),
+          list.length(outputs) == 2,
           output_utxo_exchange != None,
         }
       }
