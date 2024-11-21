@@ -7,8 +7,8 @@ import { toast } from "@/hooks/use-toast";
 import { useWalletContext } from "@/components/providers/wallet";
 import { isEmpty, isNil } from "lodash";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSpecificAsset } from "@/services/blockchain/getAssetInfo";
-import { AssetDetails } from "@/types";
+import { getAssetInfo } from "@/services/blockchain/getAssetInfo";
+import { AssetDetails, AssetDetailsWithTransactionHistory } from "@/types";
 import useUnitStore, { UnitStore } from "./store";
 import { useJsonBuilderStore } from "@/components/common/json-builder/store";
 import { redirect } from "next/navigation";
@@ -28,7 +28,7 @@ const { useStepper: useBurnStepper, steps: burnSteps } = defineStepper(
 
 type UnitContextType = UnitStore & {
   unit: string;
-  assetDetails: AssetDetails;
+  assetDetails: AssetDetailsWithTransactionHistory;
   updateStepper: ReturnType<typeof useUpdateStepper>;
   updateSteps: typeof updateSteps;
   burnStepper: ReturnType<typeof useBurnStepper>;
@@ -65,8 +65,8 @@ export default function UnitProvider({
   } = useUnitStore();
 
   const { data: assetData, isLoading } = useQuery({
-    queryKey: ["fetchSpecificAsset", unit],
-    queryFn: () => fetchSpecificAsset(unit),
+    queryKey: ["getAssetInfo", unit],
+    queryFn: () => getAssetInfo(unit),
     enabled: !isNil(unit),
   });
 
@@ -233,7 +233,7 @@ export default function UnitProvider({
     <UnitContext.Provider
       value={{
         unit,
-        assetDetails: assetData?.data || ({} as AssetDetails),
+        assetDetails: assetData?.data || null!,
         loading: loading,
         setLoading,
         metadataToUpdate,

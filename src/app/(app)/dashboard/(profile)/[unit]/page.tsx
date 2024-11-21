@@ -31,41 +31,41 @@ export default function DetailPage() {
   if (isNil(assetDetails)) return "no data";
   const { onchain_metadata: metadata, fingerprint } = assetDetails;
 
-  const transactions = [
-    {
-      txHash: "600d06204bde...af2ce50",
-      datetime: "25 Sep, 2024 10:46",
-      action: "Mint",
-      fees: "₳ 0.22",
-      owner: "600d06204bde...af2ce50",
-      status: "Complete",
-    },
-    {
-      txHash: "600d06204bde...af2ce50",
-      datetime: "25 Sep, 2024 10:46",
-      action: "Mint",
-      fees: "₳ 0.22",
-      owner: "600d06204bde...af2ce50",
-      status: "Complete",
-    },
-    {
-      txHash: "600d06204bde...af2ce50",
-      datetime: "25 Sep, 2024 10:46",
-      action: "Mint",
-      fees: "₳ 0.22",
-      owner: "600d06204bde...af2ce50",
-      status: "Complete",
-    },
-    {
-      txHash: "600d06204bde...af2ce50",
-      datetime: "25 Sep, 2024 10:46",
-      action: "Mint",
-      fees: "₳ 0.22",
-      owner: "600d06204bde...af2ce50",
-      status: "Complete",
-    },
-    // Add more transactions here if needed
-  ];
+  // const transactions = [
+  //   {
+  //     txHash: "600d06204bde...af2ce50",
+  //     datetime: "25 Sep, 2024 10:46",
+  //     action: "Mint",
+  //     fees: "₳ 0.22",
+  //     owner: "600d06204bde...af2ce50",
+  //     status: "Complete",
+  //   },
+  //   {
+  //     txHash: "600d06204bde...af2ce50",
+  //     datetime: "25 Sep, 2024 10:46",
+  //     action: "Mint",
+  //     fees: "₳ 0.22",
+  //     owner: "600d06204bde...af2ce50",
+  //     status: "Complete",
+  //   },
+  //   {
+  //     txHash: "600d06204bde...af2ce50",
+  //     datetime: "25 Sep, 2024 10:46",
+  //     action: "Mint",
+  //     fees: "₳ 0.22",
+  //     owner: "600d06204bde...af2ce50",
+  //     status: "Complete",
+  //   },
+  //   {
+  //     txHash: "600d06204bde...af2ce50",
+  //     datetime: "25 Sep, 2024 10:46",
+  //     action: "Mint",
+  //     fees: "₳ 0.22",
+  //     owner: "600d06204bde...af2ce50",
+  //     status: "Complete",
+  //   },
+  //   // Add more transactions here if needed
+  // ];
 
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto">
@@ -171,57 +171,61 @@ export default function DetailPage() {
                     <TableHeader>
                       <TableRow>
                         <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
-                          TxHash / Datetime
+                          Tx Index
                         </TableHead>
                         <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
-                          Action / Fees
+                          TX Hash
                         </TableHead>
                         <TableHead className="h-8 py-5 px-4 text-[#8e97a8] text-[10px] uppercase leading-[16px] font-medium text-center">
-                          Owner / Status
+                          Time
                         </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {transactions.map((transaction, index) => (
-                        <TableRow
-                          key={index}
-                          className={index % 2 === 0 ? "bg-[#0d0e12]" : ""}
-                        >
-                          <TableCell className="h-14 py-5 px-4 text-center">
-                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                              {transaction.txHash}
-                            </h3>
-                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                              {transaction.datetime}
-                            </p>
-                          </TableCell>
-                          <TableCell className="h-14 py-5 px-4 text-center">
-                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                              {transaction.action}
-                            </h3>
-                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                              {transaction.fees}
-                            </p>
-                          </TableCell>
-                          <TableCell className="h-14 py-5 px-4 text-center">
-                            <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
-                              {transaction.owner}
-                            </h3>
-                            <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
-                              {transaction.status}
-                            </p>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                      {assetDetails.transaction_history.map(
+                        (transaction, index) => (
+                          <TableRow
+                            key={index}
+                            className={index % 2 === 0 ? "bg-[#0d0e12]" : ""}
+                          >
+                            <TableCell className="h-14 py-5 px-4 text-center">
+                              <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                                {transaction.tx_index}
+                              </h3>
+                              {/* <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                                {transaction.block_time}
+                              </p> */}
+                            </TableCell>
+                            <TableCell className="h-14 py-5 px-4 text-center">
+                              <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                                {transaction.tx_hash}
+                              </h3>
+                              {/* <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                                {transaction.fees}
+                              </p> */}
+                            </TableCell>
+                            <TableCell className="h-14 py-5 px-4 text-center">
+                              <h3 className="max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-white text-[14px] font-medium leading-[20px]">
+                                {new Date(
+                                  transaction.block_time * 1000,
+                                ).toLocaleString()}
+                              </h3>
+                              {/* <p className="text-[#5b6372] max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-[12px] font-medium leading-4">
+                                {transaction.status}
+                              </p> */}
+                            </TableCell>
+                          </TableRow>
+                        ),
+                      )}
                     </TableBody>
                   </Table>
                   {/* pagination-begin */}
-                  <Pagination
+                  {/* <Pagination
                     page={1}
                     setPage={null!}
                     totalItems={1}
                     totalPages={3}
-                  />
+                  /> */}
                   {/* pagination-end */}
                 </div>
               </div>

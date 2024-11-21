@@ -76,6 +76,18 @@ export type AssetDetails = {
   onchain_metadata_extra: AssetMetadata;
   metadata: AssetMetadata;
 };
+
+export type TransactionHistory = {
+  tx_hash: string;
+  tx_index: number;
+  block_height: number;
+  block_time: number;
+};
+
+export type AssetDetailsWithTransactionHistory = AssetDetails & {
+  transaction_history: TransactionHistory[];
+};
+
 export type Task = {
   name: string;
   content: string;
