@@ -43,6 +43,19 @@ export class BlockfrostFetcher {
     }
   }
 
+  async fetchAssetTransactions(asset: string) {
+    try {
+      const { data, status } = await this._axiosInstance.get(
+        `/assets/${asset}/transactions`,
+      );
+
+      if (status === 200 || status == 202) return data;
+      throw parseHttpError(data);
+    } catch (error) {
+      throw parseHttpError(error);
+    }
+  }
+
   async fetchAssetsByAddress(address: string): Promise<Asset[]> {
     const rewardAddress = address.startsWith("addr")
       ? resolveRewardAddress(address)
