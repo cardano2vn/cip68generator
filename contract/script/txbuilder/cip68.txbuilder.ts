@@ -141,11 +141,9 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     assetName,
     quantity,
     txHash,
-    metadata,
   }: {
     assetName: string;
     quantity: string;
-    metadata: AssetMetadata;
     txHash: string;
   }) => {
     const { utxos, walletAddress, collateral } = await this.getWalletForTx();
@@ -165,10 +163,8 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
 
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
-      .mintingScript(this.mintScriptCbor)
       .mintRedeemerValue(mConStr1([]))
       .mintTxInReference(mintUtxoRef.input.txHash, mintUtxoRef.input.outputIndex)
-      // .mintingScript(this.mintScriptCbor)
 
       .mintPlutusScriptV3()
       .mint(quantity, this.policyId, CIP68_100(stringToHex(assetName)))
@@ -226,7 +222,6 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
       STORE_REFERENCE_SCRIPT_ADDRESS,
       STORE_REFERENCE_SCRIPT_HASH,
     );
-    console.log(this.storeAddress)
     
     const storeUtxo = await this.getUtxoForTx(this.storeAddress, txHash);
     if (!storeUtxo) throw new Error("Store UTXO not found");

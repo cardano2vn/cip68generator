@@ -62,32 +62,25 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //   });
   // });
 
-  test("Burn", async function () {
-    const cip68Contract: Cip68Contract = new Cip68Contract({
-      fetcher: blockfrostProvider,
-      wallet: wallet,
-      meshTxBuilder: meshTxBuilder,
-    });
+  // test("Burn", async function () {
+  //   const cip68Contract: Cip68Contract = new Cip68Contract({
+  //     fetcher: blockfrostProvider,
+  //     wallet: wallet,
+  //     meshTxBuilder: meshTxBuilder,
+  //   });
 
-    const unsignedTx: string = await cip68Contract.burn({
-      assetName: "CIP68 Generators.",
-      txHash:
-        "fea93eda3a8b5b9a83a76f4803b86363aabf87ac80ef4821ef968883f3a66070",
-      quantity: "-1",
-      metadata: {
-        name: "CIP68 Generators 01",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
-        mediaType: "image/jpg",
-        description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
-        author: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
-      },
-    });
-    const signedTx = await wallet.signTx(unsignedTx, true);
-    const txHash = await wallet.submitTx(signedTx);
-    console.log(txHash);
-    txHashTemp = txHash;
-    expect(txHash.length).toBe(64);
-  });
+  //   const unsignedTx: string = await cip68Contract.burn({
+  //     assetName: "CIP68 Generators.",
+  //     txHash:
+  //       "ea097c8d531d75a0f5112c29a3eef591088f7c2a6130eae98221f925faba547d",
+  //     quantity: "-1",
+  //   });
+  //   const signedTx = wallet.signTx(unsignedTx, true);
+  //   const txHash = await wallet.submitTx(signedTx);
+  //   console.log(txHash);
+  //   txHashTemp = txHash;
+  //   expect(txHash.length).toBe(64);
+  // });
 
   // test("Update", async function () {
   //   const cip68Contract: Cip68Contract = new Cip68Contract({
@@ -103,11 +96,12 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   //       image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
   //       mediaType: "image/jpg",
   //       description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+  //       website: "cardano2vn.io",
   //       owner: wallet.getChangeAddress(),
   //       author: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
   //     },
   //     txHash:
-  //       "2a894b2fbed54ebf7abd2717d2424dd36c9ab98f3511b3feab389ea467693785",
+  //       "519184f667d260d9301bfd9ca86fd4a59ede103f18f1aa94a8c785e5eff4fc36",
   //   });
   //   const signedTx = wallet.signTx(unsignedTx, true);
   //   const txHash = await wallet.submitTx(signedTx);
