@@ -1,4 +1,5 @@
-export const EXCHANGE_FEE_ADDRESS = process.env.EXCHANGE_FEE_ADDRESS || "";
+export const EXCHANGE_FEE_ADDRESS =
+  process.env.NEXT_PUBLIC_EXCHANGE_FEE_ADDRESS || "";
 export const MINT_REFERENCE_SCRIPT_ADDRESS =
   process.env.MINT_REFERENCE_SCRIPT_ADDRESS || "";
 export const STORE_REFERENCE_SCRIPT_ADDRESS =
