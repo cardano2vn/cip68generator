@@ -7,7 +7,7 @@ const IPFS_GATEWAY = new URL(
 const nextConfig = () => ({
   serverExternalPackages: [
     "@meshsdk/core",
-    "@meshsdk/core-cst",
+    // "@meshsdk/core-cst",
     "@meshsdk/react",
   ],
   experimental: {
