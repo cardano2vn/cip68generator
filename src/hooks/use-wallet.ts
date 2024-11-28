@@ -6,7 +6,7 @@ import { getNonceByAddress } from "@/services/auth/get-nonce";
 import { signIn, signOut } from "next-auth/react";
 import { appNetwork, appNetworkId } from "@/constants";
 
-export interface useWalletStore {
+export interface WalletStoreType {
   wallet: Wallet | null;
   address: string | null;
   browserWallet: BrowserWallet | null;
@@ -19,7 +19,7 @@ export interface useWalletStore {
   signIn: (session: Session | null, wallet: Wallet) => Promise<void>;
 }
 
-export const useWallet = create<useWalletStore>((set, get) => ({
+export const useWallet = create<WalletStoreType>((set, get) => ({
   wallet: null,
   browserWallet: null,
   address: null,

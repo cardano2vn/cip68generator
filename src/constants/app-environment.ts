@@ -11,8 +11,7 @@ const appNetworkId = appNetwork === "mainnet" ? 1 : 0;
 const IPFS_ENDPOINT = process.env.IPFS_ENDPOINT || "";
 const IPFS_GATEWAY = process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://ipfs.io/";
 
-const STORE_ADDRESS = process.env.NEXT_PUBLIC_SCRIPT_ADDRESS || "";
-const EXCHANGE_FEE_ADDRESS = process.env.NEXT_PUBLIC_EXCHANGE_FEE_ADDRESS || "";
+// const STORE_ADDRESS = process.env.NEXT_PUBLIC_SCRIPT_ADDRESS || "";
 
 export {
   appNetwork,
@@ -21,6 +20,6 @@ export {
   KOIOS_TOKEN,
   IPFS_ENDPOINT,
   IPFS_GATEWAY,
-  STORE_ADDRESS,
-  EXCHANGE_FEE_ADDRESS,
+  // STORE_ADDRESS,
+  // EXCHANGE_FEE_ADDRESS,
 };

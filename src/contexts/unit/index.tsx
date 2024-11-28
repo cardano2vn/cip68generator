@@ -4,7 +4,7 @@
 import { createContext, useContext, useEffect } from "react";
 import { defineStepper } from "@stepperize/react";
 import { toast } from "@/hooks/use-toast";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import { isEmpty, isNil } from "lodash";
 import { useQuery } from "@tanstack/react-query";
 import { getAssetInfo } from "@/services/blockchain/getAssetInfo";
@@ -52,7 +52,7 @@ export default function UnitProvider({
   unit: string;
   children: React.ReactNode;
 }) {
-  const { signTx, address } = useWalletContext();
+  const { signTx, address } = useBlockchainContext();
 
   const updateStepper = useUpdateStepper();
   const burnStepper = useBurnStepper();

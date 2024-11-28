@@ -10,11 +10,10 @@ import Founder from "./founder-section";
 import StatisticItem from "./statistic-item";
 import Link from "next/link";
 import router from "@/constants/routers";
-import { getAddressDetail } from "@/services/blockchain/getAddressDetail";
-import { STORE_ADDRESS } from "@/constants";
+import { getAppStatistic } from "@/services/blockchain/get-app-statistic";
 
 export default async function LandingPage() {
-  const { data: statistic } = await getAddressDetail(STORE_ADDRESS);
+  const { data: statistic } = await getAppStatistic();
   return (
     <main className="relative  px-4 overflow-x-hidden">
       <Header />

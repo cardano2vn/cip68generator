@@ -1,25 +1,19 @@
-import {
-  BrowserWallet,
-  IFetcher,
-  MeshTxBuilder,
-  MeshWallet,
-  UTxO,
-} from "@meshsdk/core";
+import { IFetcher, MeshTxBuilder, MeshWallet, UTxO } from "@meshsdk/core";
 import { Plutus } from "../types";
 
 export class MeshAdapter {
   protected meshTxBuilder: MeshTxBuilder;
-  protected wallet: BrowserWallet | MeshWallet;
+  protected wallet: MeshWallet;
   protected fetcher: IFetcher;
 
   constructor({
-    meshTxBuilder,
-    fetcher,
-    wallet,
+    meshTxBuilder = null!,
+    fetcher = null!,
+    wallet = null!,
   }: {
-    meshTxBuilder: MeshTxBuilder;
-    fetcher: IFetcher;
-    wallet: BrowserWallet | MeshWallet;
+    meshTxBuilder?: MeshTxBuilder;
+    fetcher?: IFetcher;
+    wallet?: MeshWallet;
   }) {
     this.meshTxBuilder = meshTxBuilder;
     this.wallet = wallet;

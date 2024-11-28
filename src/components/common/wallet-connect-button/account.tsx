@@ -8,14 +8,14 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdOutlineFeedback } from "react-icons/md";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { appNetwork, decialPlace } from "@/constants";
 import CoppyButton from "../coppy-button";
 import { Separator } from "@/components/ui/separator";
 export default function Account() {
-  const { wallet, address, getBalance, browserWallet } = useWalletContext();
+  const { wallet, address, getBalance, browserWallet } = useBlockchainContext();
   const [stakeAddress, setStakeAddress] = useState<string>("");
   const [balance, setBalance] = useState<number>(0);
 

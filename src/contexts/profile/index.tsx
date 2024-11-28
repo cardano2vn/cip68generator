@@ -2,7 +2,7 @@
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import { getWalletAssets } from "@/services/blockchain/getWalletAssets";
 import useProfileStore, { ProfileStore } from "./store";
 
@@ -13,7 +13,7 @@ type ProfileContextType = ProfileStore & {
 export default function ProfileProvider({ children }: PropsWithChildren) {
   useState<boolean>(false);
 
-  const { address } = useWalletContext();
+  const { address } = useBlockchainContext();
   const { filter, setFilter, currentPage, setCurrentPage } = useProfileStore();
 
   const { data, isLoading } = useQuery({

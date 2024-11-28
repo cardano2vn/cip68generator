@@ -9,7 +9,7 @@ import {
 import { useWalletList } from "@meshsdk/react";
 import WalletItem from "./wallet-item";
 import { useSession } from "next-auth/react";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import { Wallet } from "@meshsdk/core";
 import { appNetwork } from "@/constants";
 import { useEffect } from "react";
@@ -21,7 +21,7 @@ export default function WalletConnect() {
   const router = useRouter();
   const wallets = useWalletList();
   const { data: session, status } = useSession();
-  const { signIn } = useWalletContext();
+  const { signIn } = useBlockchainContext();
   const isMobile: boolean = useWindowSize();
 
   const handleConnectWallet = async function (wallet: Wallet) {

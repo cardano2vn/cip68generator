@@ -7,8 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 import Loading from "@/app/(loading)/loading";
 import dynamic from "next/dynamic";
 import { SessionProvider, SessionProviderProps } from "next-auth/react";
-const WalletProvider = dynamic(
-  async () => await import("@/components/providers/wallet"),
+const BlockchainProvider = dynamic(
+  async () => await import("@/components/providers/blockchain"),
   {
     loading() {
       return <Loading />;
@@ -30,7 +30,7 @@ export default function AppProviders({
       <ErrorClientProvider>
         <QueryClientProvider>
           <SessionProvider session={session}>
-            <WalletProvider>{children}</WalletProvider>
+            <BlockchainProvider>{children}</BlockchainProvider>
           </SessionProvider>
         </QueryClientProvider>
       </ErrorClientProvider>

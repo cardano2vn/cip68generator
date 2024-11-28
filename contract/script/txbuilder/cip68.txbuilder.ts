@@ -22,14 +22,10 @@ import {
   MINT_REFERENCE_SCRIPT_ADDRESS,
   STORE_REFERENCE_SCRIPT_ADDRESS,
   title,
+  EXCHANGE_FEE_ADDRESS,
 } from "../constants";
 import { Plutus } from "../types";
-import {
-  appNetwork,
-  appNetworkId,
-  EXCHANGE_FEE_ADDRESS,
-  STORE_ADDRESS,
-} from "@/constants";
+import { appNetwork, appNetworkId } from "@/constants";
 import { ICip68Contract } from "../interfaces/icip68.interface";
 import { isNil } from "lodash";
 
@@ -55,7 +51,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     version: "V3",
   };
 
-  protected storeAddress = serializePlutusScript(
+  public storeAddress = serializePlutusScript(
     this.storeScript,
     undefined,
     appNetworkId,
@@ -72,7 +68,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     code: this.mintScriptCbor,
     version: "V3",
   };
-  protected policyId = resolveScriptHash(this.mintScriptCbor, "V3");
+  public policyId = resolveScriptHash(this.mintScriptCbor, "V3");
 
   /**
    * @method Mint
@@ -347,23 +343,3 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
     return unsignedTx.complete();
   };
 }
-export const nftPoicyId = (() => {
-  const pubKeyExchange = deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
-  const storeScriptHash = deserializeAddress(STORE_ADDRESS).scriptHash;
-
-  const mintCompileCode = plutus.validators.find(
-    (validator) => validator.title === title.mint,
-  )?.compiledCode;
-
-  if (!mintCompileCode) {
-    throw new Error(`Validator with title '${title.mint}' not found.`);
-  }
-
-  const mintScriptCbor = applyParamsToScript(mintCompileCode, [
-    pubKeyExchange,
-    BigInt(1),
-    storeScriptHash,
-  ]);
-
-  return resolveScriptHash(mintScriptCbor, "V3");
-})();

@@ -6,7 +6,7 @@ import { IoLocation } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { appImage, walletImage } from "@/public/images";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import CountUp from "react-countup";
 import { decialPlace } from "@/constants";
 import { shortenString } from "@/utils";
@@ -15,7 +15,7 @@ import Pagination from "@/components/common/pagination";
 import ProfileFilter from "./_components/profile-filter";
 
 export default function ProfilePage() {
-  const { wallet, address, getBalance, browserWallet } = useWalletContext();
+  const { wallet, address, getBalance, browserWallet } = useBlockchainContext();
   const {
     listNft,
     filter,

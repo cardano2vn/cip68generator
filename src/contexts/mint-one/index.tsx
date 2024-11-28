@@ -5,7 +5,7 @@ import { defineStepper } from "@stepperize/react";
 import useMintOneStore, { MintOneStore } from "./store";
 import { toast } from "@/hooks/use-toast";
 import { createMintTransaction } from "@/services/contract/mint";
-import { useWalletContext } from "@/components/providers/wallet";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 import { isNil } from "lodash";
 import { submitTx } from "@/services/blockchain/submitTx";
 const { useStepper, steps } = defineStepper(
@@ -27,7 +27,7 @@ export default function MintOneProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { signTx, address } = useWalletContext();
+  const { signTx, address } = useBlockchainContext();
   const stepper = useStepper();
   const {
     metadataToMint,

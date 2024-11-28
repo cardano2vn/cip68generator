@@ -23,7 +23,7 @@ import marketplace from "./utilities/marketplace.png";
 import mintOne from "./utilities/mint-one.png";
 import mintMultiple from "./utilities/mint-multiple.png";
 import login from "./common/login.png";
-import startFromCratch from "./utilities/start-from-scratch.png"
+import startFromCratch from "./utilities/start-from-scratch.png";
 export const founderImage = {
   son: son,
   tien: tien,
@@ -43,7 +43,7 @@ export const appImage = {
   marketplace: marketplace,
   mintOne: mintOne,
   mintMultiple: mintMultiple,
-  startFromCratch: startFromCratch
+  startFromCratch: startFromCratch,
 } as const;
 
 export const walletImage = {

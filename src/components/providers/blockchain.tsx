@@ -1,23 +1,26 @@
 "use client";
 
-// import { wallets } from "@/constants";
-import { useWallet, useWalletStore } from "@/hooks/use-wallet";
 import { isEmpty, isNil } from "lodash";
 import { signOut, useSession } from "next-auth/react";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useWalletList } from "@meshsdk/react";
+import { useWallet, WalletStoreType } from "@/hooks/use-wallet";
 
-const WalletContext = createContext<useWalletStore>(null!);
+type BlockchainContextType = WalletStoreType & {};
 
-export const useWalletContext = function () {
-  const context = useContext(WalletContext);
+const BlockchainContext = createContext<BlockchainContextType>(null!);
+
+export const useBlockchainContext = function () {
+  const context = useContext(BlockchainContext);
   if (!context) {
-    throw new Error("useWalletContext must be used within a WalletProvider");
+    throw new Error(
+      "useBlockchainContext must be used within a BlockchainProvider",
+    );
   }
   return context;
 };
 
-export default function WalletProvider({ children }: PropsWithChildren) {
+export default function BlockchainProvider({ children }: PropsWithChildren) {
   const {
     signIn,
     connect,
@@ -29,7 +32,7 @@ export default function WalletProvider({ children }: PropsWithChildren) {
     getBalance,
     signTx,
     submitTx,
-  }: useWalletStore = useWallet();
+  }: WalletStoreType = useWallet();
   const { data: session, status } = useSession();
   const wallets = useWalletList();
 
@@ -62,7 +65,7 @@ export default function WalletProvider({ children }: PropsWithChildren) {
   }, [wallets]);
 
   return (
-    <WalletContext.Provider
+    <BlockchainContext.Provider
       value={{
         signIn,
         connect,
@@ -77,6 +80,6 @@ export default function WalletProvider({ children }: PropsWithChildren) {
       }}
     >
       {children}
-    </WalletContext.Provider>
+    </BlockchainContext.Provider>
   );
 }
