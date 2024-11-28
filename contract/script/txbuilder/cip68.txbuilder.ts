@@ -17,7 +17,6 @@ import {
 import { MeshAdapter } from "../adapters/mesh.adapter";
 import plutus from "../../plutus.json";
 import {
-  EXCHANGE_FEE_ADDRESS,
   MINT_REFERENCE_SCRIPT_HASH,
   STORE_REFERENCE_SCRIPT_HASH,
   MINT_REFERENCE_SCRIPT_ADDRESS,
@@ -25,7 +24,12 @@ import {
   title,
 } from "../constants";
 import { Plutus } from "../types";
-import { appNetwork, appNetworkId } from "@/constants";
+import {
+  appNetwork,
+  appNetworkId,
+  EXCHANGE_FEE_ADDRESS,
+  STORE_ADDRESS,
+} from "@/constants";
 import { ICip68Contract } from "../interfaces/icip68.interface";
 import { isNil } from "lodash";
 
@@ -345,33 +349,7 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
 }
 export const nftPoicyId = (() => {
   const pubKeyExchange = deserializeAddress(EXCHANGE_FEE_ADDRESS).pubKeyHash;
-
-  const storeCompileCode = plutus.validators.find(
-    (validator) => validator.title === title.store,
-  )?.compiledCode;
-
-  if (!storeCompileCode) {
-    throw new Error(`Validator with title '${title.store}' not found.`);
-  }
-
-  const storeScriptCbor = applyParamsToScript(storeCompileCode, [
-    pubKeyExchange,
-    BigInt(1),
-  ]);
-
-  const storeScript: PlutusScript = {
-    code: storeScriptCbor,
-    version: "V3",
-  };
-
-  const storeAddress = serializePlutusScript(
-    storeScript,
-    undefined,
-    appNetworkId,
-    false,
-  ).address;
-
-  const storeScriptHash = deserializeAddress(storeAddress).scriptHash;
+  const storeScriptHash = deserializeAddress(STORE_ADDRESS).scriptHash;
 
   const mintCompileCode = plutus.validators.find(
     (validator) => validator.title === title.mint,
