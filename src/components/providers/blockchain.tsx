@@ -2,11 +2,20 @@
 
 import { isEmpty, isNil } from "lodash";
 import { signOut, useSession } from "next-auth/react";
-import { createContext, PropsWithChildren, useContext, useEffect } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useWalletList } from "@meshsdk/react";
 import { useWallet, WalletStoreType } from "@/hooks/use-wallet";
+import { contractFetcher } from "@/lib/cardano";
 
-type BlockchainContextType = WalletStoreType & {};
+type BlockchainContextType = WalletStoreType & {
+  nftPolicyId: string;
+};
 
 const BlockchainContext = createContext<BlockchainContextType>(null!);
 
@@ -34,7 +43,12 @@ export default function BlockchainProvider({ children }: PropsWithChildren) {
     submitTx,
   }: WalletStoreType = useWallet();
   const { data: session, status } = useSession();
+  const [nftPolicyId, setNftPolicyId] = useState<string>("");
   const wallets = useWalletList();
+
+  useEffect(() => {
+    setNftPolicyId(contractFetcher.policyId || "");
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -67,6 +81,7 @@ export default function BlockchainProvider({ children }: PropsWithChildren) {
   return (
     <BlockchainContext.Provider
       value={{
+        nftPolicyId,
         signIn,
         connect,
         disconnect,

@@ -12,11 +12,12 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import FileDisplay from "@/components/common/file-display";
 import { Card, CardContent } from "@/components/ui/card";
 import { Copy } from "lucide-react";
-import { nftPoicyId } from "@/contract";
 import { shortenString } from "@/utils";
+import { useBlockchainContext } from "@/components/providers/blockchain";
 export default function PreviewStep() {
   const { stepper, metadataToMint, basicInfoToMint, startMinting } =
     useMintOneContext();
+  const { nftPolicyId } = useBlockchainContext();
   const assetNameSort = basicInfoToMint?.assetName || "No name";
   const imgSrc = metadataToMint?.image || "";
   const mediaType =
@@ -56,7 +57,7 @@ export default function PreviewStep() {
                 <div className="space-y-2 ">
                   <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
                     <span className="text-sm text-gray-400">
-                      Policy ID: {shortenString(nftPoicyId, 10)}
+                      Policy ID: {shortenString(nftPolicyId, 10)}
                     </span>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Copy className="h-4 w-4" />
