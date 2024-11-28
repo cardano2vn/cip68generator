@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import { isNil } from "lodash";
 import { getNonceByAddress } from "@/services/auth/get-nonce";
 import { signIn, signOut } from "next-auth/react";
-import { appNetworkId } from "@/constants";
+import { appNetwork, appNetworkId } from "@/constants";
 
 export interface useWalletStore {
   wallet: Wallet | null;
@@ -83,6 +83,10 @@ export const useWallet = create<useWalletStore>((set, get) => ({
     );
     if (!browserWallet) {
       throw new Error("Failed to connect wallet");
+    }
+    const network = await browserWallet.getNetworkId();
+    if (network !== appNetworkId) {
+      throw new Error(`Invalid network, please switch to ${appNetwork}`);
     }
     const address = await browserWallet.getChangeAddress();
     if (address.length === 0) {
