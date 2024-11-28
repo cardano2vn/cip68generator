@@ -86,7 +86,7 @@ export const useWallet = create<useWalletStore>((set, get) => ({
     }
     const network = await browserWallet.getNetworkId();
     if (network !== appNetworkId) {
-      throw new Error(`Invalid network,please switch to ${appNetwork}`);
+      throw new Error(`Invalid network, please switch to ${appNetwork}`);
     }
     const address = await browserWallet.getChangeAddress();
     if (address.length === 0) {
