@@ -11,8 +11,7 @@ import {
 } from "react";
 import { useWalletList } from "@meshsdk/react";
 import { useWallet, WalletStoreType } from "@/hooks/use-wallet";
-import { contractFetcher } from "@/lib/cardano";
-
+import { contractPolicyId } from "@/services/contract/get-policy-id";
 type BlockchainContextType = WalletStoreType & {
   nftPolicyId: string;
 };
@@ -47,7 +46,7 @@ export default function BlockchainProvider({ children }: PropsWithChildren) {
   const wallets = useWalletList();
 
   useEffect(() => {
-    setNftPolicyId(contractFetcher.policyId || "");
+    contractPolicyId().then((policyId) => setNftPolicyId(policyId));
   }, []);
 
   useEffect(() => {

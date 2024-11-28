@@ -14,6 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Copy } from "lucide-react";
 import { shortenString } from "@/utils";
 import { useBlockchainContext } from "@/components/providers/blockchain";
+
 export default function PreviewStep() {
   const { stepper, metadataToMint, basicInfoToMint, startMinting } =
     useMintOneContext();
