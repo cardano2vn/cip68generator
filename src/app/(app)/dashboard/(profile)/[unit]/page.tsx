@@ -97,7 +97,7 @@ export default function DetailsPage() {
           <TabsContent value="properties" className="mt-4">
             <Card className="p-5 border-none rounded-lg flex flex-col gap-8">
               <div className="flex flex-col gap-8">
-                <div className="grid grid-cols-3 gap-y-5 gap-x-2">
+                <div className="grid grid-cols-4 gap-y-5 gap-x-2">
                   {metadataToUpdate &&
                     Object.entries(metadataToUpdate).map(([name, value], index) => <Property key={index} name={name} value={value} />)}
                 </div>

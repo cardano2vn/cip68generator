@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getContractPolicyId } from "@/services/contract/get-policy-id";
 import CopyButton from "@/components/common/copy-button";
 import { SaveMetadata } from "../save-metadata";
+import { Info } from "lucide-react";
 
 export default function PreviewStep({
   stepper,
@@ -20,13 +21,14 @@ export default function PreviewStep({
 }: {
   stepper: { prev: () => void; isFirst: boolean };
   metadataToMint: Record<string, string> | null;
-  basicInfoToMint: { assetName: string };
+  basicInfoToMint: { assetName: string; quantity: string };
   startMinting: () => void;
   collectionToSave: string;
   setCollectionToSave: (value: string) => void;
 }) {
   const [nftPolicyId, setNftPolicyId] = useState<string>("");
   const assetNameSort = basicInfoToMint?.assetName || "No name";
+  const totalSupply = basicInfoToMint?.quantity || "1";
   const imgSrc = metadataToMint?.image || "";
   const mediaType = imgSrc == "" ? "text/plain" : metadataToMint?.mediaType || "image/png";
 
@@ -66,11 +68,18 @@ export default function PreviewStep({
                 {/* Policy and Asset IDs */}
                 <div className="space-y-2 ">
                   <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
-                    <span className="text-sm text-gray-400">Policy ID: {shortenString(nftPolicyId, 10)}</span>
+                    <span className="text-sm text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap">Policy ID: {nftPolicyId}</span>
                     <CopyButton content={nftPolicyId} />
                   </div>
                   <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
-                    <span className="text-sm text-gray-400">Asset ID: (will show affter mint)</span>
+                    <span className="text-sm text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap h-10 py-2">
+                      Asset ID: (will show affter mint)
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg ">
+                    <span className="text-sm text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap h-10 py-2">
+                      Total Supply: {totalSupply}
+                    </span>
                   </div>
                 </div>
                 <SaveMetadata collectioToSave={collectionToSave} setCollectionToSave={setCollectionToSave} />
@@ -82,7 +91,7 @@ export default function PreviewStep({
           <div className="w-full mt-5">
             <Card className="p-5 border-none rounded-lg flex flex-col gap-8">
               <div className="flex flex-col gap-8">
-                <div className="grid grid-cols-3 gap-y-5 gap-x-2">
+                <div className="grid grid-cols-4 gap-y-5 gap-x-2">
                   {metadataToMint && Object.entries(metadataToMint).map(([name, value], index) => <Property key={index} name={name} value={value} />)}
                 </div>
               </div>

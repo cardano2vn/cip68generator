@@ -49,53 +49,26 @@ export const useJsonBuilderStore = create<IJsonBuilderStore>((set, get) => ({
     return json;
   },
   addField: () => {
-    set((state) => ({ fields: [...state.fields, { key: "", value: "" }] }));
-  },
-  addMediaField: (file: Media) => {
     set((state) => {
-      const updatedFields = state.fields.map((field) => {
-        if (field.key === "image") {
-          return { ...field, value: file.url };
-        }
-        if (field.key === "mediaType") {
-          return { ...field, value: file.type };
-        }
-        return field;
-      });
-
-      if (!state.fields.some((field) => field.key === "image")) {
-        updatedFields.push({ key: "image", value: file.url });
-      }
-      if (!state.fields.some((field) => field.key === "mediaType")) {
-        updatedFields.push({ key: "mediaType", value: file.type });
-      }
-
-      return { fields: updatedFields };
+      const Newfields = [...state.fields, { key: "", value: "" }];
+      const error = validateField(Newfields);
+      return { fields: Newfields, error };
+    });
+  },
+  removeField: (index) => {
+    set((state) => {
+      const newFields = state.fields.filter((_, i) => i !== index);
+      const error = validateField(newFields);
+      return { fields: newFields, error };
     });
   },
   updateField: (index, field, value) => {
     set((state) => {
       const newFields = [...state.fields];
       newFields[index][field] = value;
-      if (field === "key") {
-        const isValidKey = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(value);
-        const isDuplicateKey = newFields.some((f, i) => i !== index && f.key === value);
-        if (!isValidKey) {
-          return { fields: newFields, error: "Invalid key: " + value };
-        }
-        if (isDuplicateKey) {
-          return { fields: newFields, error: "Duplicate key: " + value };
-        }
-      }
-
-      if (field === "value" && (typeof value !== "string" || value === "")) {
-        return { fields: newFields, error: "Invalid value: " + value };
-      }
-      return { fields: newFields, error: null! };
+      const error = validateField(newFields);
+      return { fields: newFields, error };
     });
-  },
-  removeField: (index) => {
-    set((state) => ({ fields: state.fields.filter((_, i) => i !== index) }));
   },
   setTemplate: (template) => {
     set(() => {
@@ -126,7 +99,57 @@ export const useJsonBuilderStore = create<IJsonBuilderStore>((set, get) => ({
       }
     });
   },
+  addMediaField: (file: Media) => {
+    set((state) => {
+      const updatedFields = state.fields.map((field) => {
+        if (field.key === "image") {
+          return { ...field, value: file.url };
+        }
+        if (field.key === "mediaType") {
+          return { ...field, value: file.type };
+        }
+        return field;
+      });
+
+      if (!state.fields.some((field) => field.key === "image")) {
+        updatedFields.push({ key: "image", value: file.url });
+      }
+      if (!state.fields.some((field) => field.key === "mediaType")) {
+        updatedFields.push({ key: "mediaType", value: file.type });
+      }
+
+      return { fields: updatedFields };
+    });
+  },
   setErrors: (error) => {
     set({ error });
   },
 }));
+
+const validateField = (
+  fields: {
+    key: string;
+    value: string;
+  }[],
+): string => {
+  for (let i = 0; i < fields.length; i++) {
+    const { key, value } = fields[i];
+
+    if (!/^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(key)) {
+      return `Invalid key format : ${key}`;
+    }
+
+    if (fields.filter((f) => f.key === key).length > 1) {
+      return `Duplicate key : ${key}`;
+    }
+
+    if (isEmpty(value)) {
+      return `Value cant be empty`;
+    }
+
+    if (typeof value !== "string") {
+      return `Value must be a string. Received: ${typeof value}`;
+    }
+  }
+  return "";
+};

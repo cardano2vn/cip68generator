@@ -9,16 +9,22 @@ import { cn } from "@/utils";
 import { FilePick } from "./file-pick";
 import { useJsonBuilderStore } from "./store";
 import { isEmpty } from "lodash";
+import { useEffect } from "react";
 
 export default function JsonBuilder({ className }: { className?: string }) {
   const { fields, addField, removeField, updateField, error, template, setTemplate, getJsonResult } = useJsonBuilderStore();
+
+  useEffect(() => {
+    setTemplate("");
+  }, [setTemplate]);
+
   return (
     <div className={cn(className, "flex h-full bg-section p-5")}>
       <div className="w-1/2 p-4 space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg p-2 mb-4">
           <h1 className="text-2xl font-semibold tracking-tight">Metadata Builder</h1>
           <Select value={template} onValueChange={setTemplate}>
-            <SelectTrigger className="w-1/3 bg-section">
+            <SelectTrigger className="w-2/5 bg-section">
               <SelectValue placeholder="Select Asset Type" />
             </SelectTrigger>
             <SelectContent>
@@ -27,7 +33,7 @@ export default function JsonBuilder({ className }: { className?: string }) {
             </SelectContent>
           </Select>
         </div>
-        {error && <p className="text-red-500">{error}</p>}
+        <div className="h-4"> {error && <p className="text-red-500">{error}</p>}</div>
         <div>
           {!isEmpty(fields) &&
             fields.map((field, index) => (

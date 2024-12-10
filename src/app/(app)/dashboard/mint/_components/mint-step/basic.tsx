@@ -22,7 +22,11 @@ const nftFormSchema = z.object({
     })
     .max(30, {
       message: "Name must not be longer than 30 characters.",
+    })
+    .regex(/^[a-zA-Z][a-zA-Z0-9_]*$/, {
+      message: "Name must start with a letter and can only contain letters, numbers, and underscores.",
     }),
+
   assetQuantity: z.string().refine(
     (val) => {
       const parsedValue = parseInt(val, 10);

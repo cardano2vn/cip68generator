@@ -12,7 +12,7 @@ import { PMetadata } from "@/types";
 import { isEmpty, isNil } from "lodash";
 import { MoreVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function MetadataAction({ metadata }: { metadata: PMetadata }) {
   const router = useRouter();
@@ -20,9 +20,10 @@ export default function MetadataAction({ metadata }: { metadata: PMetadata }) {
   const { refetch } = useMetadataContext();
   const { init, getJsonResult, setErrors, error } = useJsonBuilderStore();
 
-  useEffect(() => {
+  const handleOpen = async () => {
     init(metadata.content);
-  }, [init, metadata.content]);
+    setOpenDialog(true);
+  };
 
   const handleUpdate = async () => {
     try {
@@ -83,7 +84,7 @@ export default function MetadataAction({ metadata }: { metadata: PMetadata }) {
           <DropdownMenuItem onClick={() => router.push(dashboardRoutes.mint.children.mintOne.redirect + "?template=" + metadata.id)}>
             <span>Mint This</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpenDialog(true)}>
+          <DropdownMenuItem onClick={handleOpen}>
             <span>Edit Content</span>
           </DropdownMenuItem>
         </DropdownMenuContent>

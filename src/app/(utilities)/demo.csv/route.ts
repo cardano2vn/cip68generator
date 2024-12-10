@@ -18,7 +18,7 @@ export async function GET() {
     status: 200,
     headers: {
       "Content-Type": "text/csv",
-      "Content-Disposition": "attachment; filename=guests.csv",
+      "Content-Disposition": `attachment; filename=${prefix}.csv`,
     },
   });
 }

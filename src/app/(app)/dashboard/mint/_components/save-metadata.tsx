@@ -43,7 +43,7 @@ export function SaveMetadata({
             setSaveToDatabase(value);
           }}
         />
-        <h2 className="text-lg font-semibold">Save Metadata Template To Database</h2>
+        <h2 className="text-lg font-semibold">Save Metadata To Database</h2>
       </div>
 
       {saveToDatabase && (

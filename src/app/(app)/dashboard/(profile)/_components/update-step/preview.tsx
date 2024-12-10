@@ -5,9 +5,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import FileDisplay from "@/components/common/file-display";
 import { Card, CardContent } from "@/components/ui/card";
-import { Copy } from "lucide-react";
 import { useUnitContext } from "@/contexts/unit";
 import { hexToString } from "@meshsdk/core";
+import CopyButton from "@/components/common/copy-button";
 export default function PreviewStep() {
   const { assetDetails, updateStepper, metadataToUpdate, startUpdating } = useUnitContext();
 
@@ -15,6 +15,10 @@ export default function PreviewStep() {
   const assetNameSort = assetNameString;
   const imgSrc = metadataToUpdate?.image || "";
   const mediaType = imgSrc == "" ? "text/plain" : metadataToUpdate?.mediaType || "image/png";
+
+  const nftPolicyId = assetDetails?.policy_id;
+  const fingerprint = assetDetails?.fingerprint;
+  const totalSupply = assetDetails?.quantity || "1";
 
   return (
     <div className="h-full py-8 px-10 m-auto flex flex-col">
@@ -48,16 +52,16 @@ export default function PreviewStep() {
                 {/* Policy and Asset IDs */}
                 <div className="space-y-2 ">
                   <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
-                    <span className="text-sm text-gray-400">Policy ID: {}</span>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Copy className="h-4 w-4" />
-                    </Button>
+                    <span className="text-sm text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap">Policy ID: {nftPolicyId}</span>
+                    <CopyButton content={nftPolicyId} />
                   </div>
                   <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
-                    <span className="text-sm text-gray-400">Asset ID: {}</span>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Copy className="h-4 w-4" />
-                    </Button>
+                    <span className="text-sm text-gray-400">Asset ID: {fingerprint}</span>
+                    <CopyButton content={fingerprint} />
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-800 rounded-lg">
+                    <span className="text-sm text-gray-400 overflow-hidden whitespace-nowrap">Total Supply: {totalSupply}</span>
+                    <CopyButton content={totalSupply} />
                   </div>
                 </div>
               </CardContent>
