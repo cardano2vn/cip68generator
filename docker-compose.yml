@@ -7,6 +7,8 @@ services:
     volumes:
       - ${KUBO_STAGING}:/export
       - ${KUBO_DATA}:/data/ipfs
+    ports:
+      - "${KUBO_PORT}:5001"
     networks:
       - cip68
     restart: unless-stopped
@@ -19,7 +21,7 @@ services:
     volumes:
       - ${POSTGRES_DATA}:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "${POSTGRES_PORT}:5432"
     networks:
       - cip68
     restart: unless-stopped
@@ -30,9 +32,9 @@ services:
       - .env
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.portainer
     ports:
-      - "3785:3000"
+      - "${APP_PORT}:3000"
     depends_on:
       - postgres
     networks:

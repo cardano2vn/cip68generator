@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import useMetadataStore, { MetadataStore } from "./store";
 import { addMetadata, deleteMetadata, getMetadata } from "@/services/database/metadata";
 import { toast } from "@/hooks/use-toast";
@@ -30,6 +30,10 @@ export default function MetadataProvider({ collectionId, children }: { collectio
         range: filter.range,
       }),
   });
+
+  useEffect(() => {
+    setListSelected([]);
+  }, [data, setListSelected]);
 
   const createMetadata = async (metadataContent: Record<string, string>) => {
     const { result, message } = await addMetadata({

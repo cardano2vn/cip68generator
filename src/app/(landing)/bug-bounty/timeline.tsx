@@ -7,23 +7,23 @@ export default function Timeline() {
       position: [131.11111111111111, 100.57142857142857],
     },
     {
-      name: "Execution Phase",
-      dateRange: "15/01/2025 - 16/02/2024",
+      name: "Registration Phase",
+      dateRange: "15/01/2025 - 20/02/2024",
       position: [524.4444444444445, 100.57142857142857],
     },
     {
-      name: "Initial Review",
-      dateRange: "17/02/2025 - 18/02/2025",
+      name: "Bug Bounty Start Date",
+      dateRange: "21/01/2025",
       position: [917.7777777777778, 100.57142857142857],
     },
     {
-      name: "Final Evaluation",
-      dateRange: "18/02/2025 - 23/02/2025",
+      name: "Bug Bounty End Date",
+      dateRange: "19/02/2025",
       position: [721.1111111111111, 251.42857142857142],
     },
     {
       name: "Results Announcement",
-      dateRange: "24/02/2025 - 26/02/2025",
+      dateRange: "22/02/2025",
       position: [327.77777777777777, 251.42857142857142],
     },
   ];

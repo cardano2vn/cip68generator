@@ -75,18 +75,21 @@ const Footer = function ({ className = "" }: { className?: string }) {
                 </Link>
               </li>
               <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link
+                  className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]"
+                  target="_blank"
+                  href={"https://cardano2vn.io"}
+                >
                   Blog
                 </Link>
               </li>
               <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link
+                  className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]"
+                  href={routes.document.redirect}
+                  target="_blank"
+                >
                   User guide
-                </Link>
-              </li>
-              <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
-                  Ambassador
                 </Link>
               </li>
             </ul>
@@ -94,47 +97,40 @@ const Footer = function ({ className = "" }: { className?: string }) {
             <ul>
               <h2 className="mb-9 max-md:mb-4 text-[19px] font-bold text-whit  max-md:text-[12px]">Developers</h2>
               <li className="mt-[25px] max-md:mt-2">
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" target="_blank" href={"/bug-bounty"}>
                   Bug Bounty
                 </Link>
               </li>
               <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link
+                  className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]"
+                  target="_blank"
+                  href={"https://github.com/cardano2vn/cip68generator/discussions"}
+                >
                   User Feedback
-                </Link>
-              </li>
-              <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
-                  Term Of Service
-                </Link>
-              </li>
-              <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
-                  Privacy Policy
                 </Link>
               </li>
             </ul>
 
             <ul>
               <h2 className="mb-9 max-md:mb-4 text-[19px] font-bold text-white max-md:text-[12px]">Supports</h2>
+
               <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px] " href={"/#"}>
-                  About Us
-                </Link>
-              </li>
-              <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link
+                  className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]"
+                  target="_blank"
+                  href={appSocialMedia.telegram}
+                >
                   Contact Us
                 </Link>
               </li>
               <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
+                <Link
+                  className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]"
+                  target="_blank"
+                  href={"https://github.com/cardano2vn/cip68generator/wiki/FAQ"}
+                >
                   FAQS
-                </Link>
-              </li>
-              <li className={"mt-[25px] max-md:mt-2"}>
-                <Link className="cursor-pointer text-[15px] leading-[20px] text-gray-400 max-md:text-[12px]" href={"/#"}>
-                  CIP68 DApp
                 </Link>
               </li>
             </ul>

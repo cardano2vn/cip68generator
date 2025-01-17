@@ -42,15 +42,17 @@ type NftFormValues = z.infer<typeof nftFormSchema>;
 
 export default function BasicStep({
   stepper,
+  basicInfoToMint,
   setBasicInfoToMint,
 }: {
   stepper: any;
+  basicInfoToMint: { assetName: string; quantity: string };
   setBasicInfoToMint: (data: { assetName: string; quantity: string }) => void;
 }) {
   const { address } = useWallet();
   const defaultValues: Partial<NftFormValues> = {
-    assetQuantity: "1",
-    assetName: "",
+    assetQuantity: basicInfoToMint?.quantity || "1",
+    assetName: basicInfoToMint?.assetName,
   };
 
   const form = useForm<NftFormValues>({

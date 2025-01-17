@@ -50,8 +50,8 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   });
 
   useEffect(() => {
-    setloading(isLoading);
-  }, [isLoading]);
+    setListSelected([]);
+  }, [listMedia, setListSelected]);
 
   const uploadFiles = async () => {
     setloading(true);
@@ -95,7 +95,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   return (
     <UploadContext.Provider
       value={{
-        loading: loading,
+        loading: loading || isLoading,
         listMedia: listMedia?.data || [],
         listSelected: listSelected,
         uploadOneDialogOpen: uploadOneDialogOpen,

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { filterDefault } from "@/constants";
 import { FilterType } from "@/types";
 import { Search } from "lucide-react";
 import { useState } from "react";
@@ -12,10 +11,6 @@ export default function ProfileFilter({ filter, setFilter }: { filter: FilterTyp
     if (temp) {
       setFilter(temp);
     }
-  };
-  const resetFilter = () => {
-    setTemp(filterDefault);
-    setFilter(filterDefault);
   };
 
   return (
@@ -30,19 +25,13 @@ export default function ProfileFilter({ filter, setFilter }: { filter: FilterTyp
             onChange={(e) => setTemp({ ...temp, query: e.target.value })}
           />
         </div>
-        {JSON.stringify(filter) == JSON.stringify(filterDefault) ? (
-          <Button
-            variant="secondary"
-            onClick={handleSearch}
-            className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
-          >
-            Search
-          </Button>
-        ) : (
-          <Button onClick={resetFilter} className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out">
-            Reset
-          </Button>
-        )}
+        <Button
+          variant="secondary"
+          onClick={handleSearch}
+          className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
+        >
+          Search
+        </Button>
       </div>
     </>
   );

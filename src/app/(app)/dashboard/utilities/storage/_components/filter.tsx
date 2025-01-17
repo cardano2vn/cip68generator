@@ -7,7 +7,6 @@ import { DatePickerWithRange } from "@/components/common/date-range-picker";
 import { useUploadContext } from "@/contexts/storage";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
-import { filterDefault } from "@/constants";
 import { FilterType } from "@/types";
 
 export const Filter = () => {
@@ -19,10 +18,6 @@ export const Filter = () => {
       setCurrentPage(1);
       setFilter(temp);
     }
-  };
-  const resetFilter = () => {
-    setTemp(filterDefault);
-    setFilter(filterDefault);
   };
   return (
     <div className="flex flex-col items-center space-y-2 rounded-lg p-4 sm:flex-row sm:space-x-2 sm:space-y-0">
@@ -47,19 +42,13 @@ export const Filter = () => {
           }
         />
       </div>
-      {JSON.stringify(filter) == JSON.stringify(filterDefault) ? (
-        <Button
-          variant="secondary"
-          onClick={handleSearch}
-          className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
-        >
-          Search
-        </Button>
-      ) : (
-        <Button onClick={resetFilter} className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out">
-          Reset
-        </Button>
-      )}
+      <Button
+        variant="secondary"
+        onClick={handleSearch}
+        className="rounded-md bg-blue-500 w-20 px-4 py-2 font-semibold transition duration-300 ease-in-out"
+      >
+        Search
+      </Button>
     </div>
   );
 };

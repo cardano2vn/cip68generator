@@ -36,7 +36,7 @@ export default function Page() {
         <StepperNav stepper={mintOneStepper} steps={mintOneSteps} />
         <div className="space-y-4">
           {mintOneStepper.switch({
-            basic: () => <BasicStep stepper={mintOneStepper} setBasicInfoToMint={setBasicInfoToMint} />,
+            basic: () => <BasicStep stepper={mintOneStepper} setBasicInfoToMint={setBasicInfoToMint} basicInfoToMint={basicInfoToMint} />,
             metadata: () => <MetadataStep stepper={mintOneStepper} setMetadataToMint={setMetadataToMint} metadataToMint={metadataToMint} />,
             preview: () => (
               <PreviewStep

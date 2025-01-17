@@ -7,7 +7,7 @@ export default function Overview() {
       <div className="container px-4 md:px-6 mx-auto">
         <h2 className="text-4xl font-bold text-center mb-16 ">Overview</h2>
         <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 place-items-center">
-          <Card className="h-full">
+          <Card className="h-full w-full">
             <CardHeader>
               <Zap className="w-8 h-8 mb-2 text-primary" />
               <CardTitle>Objective</CardTitle>
@@ -18,7 +18,7 @@ export default function Overview() {
               </p>
             </CardContent>
           </Card>
-          <Card className="h-full">
+          <Card className="h-full w-full">
             <CardHeader>
               <Shield className="w-8 h-8 mb-2 text-primary" />
               <CardTitle>Scope</CardTitle>
@@ -27,7 +27,7 @@ export default function Overview() {
               <p>Smart contract code and web application functionality for CIP68 implementation.</p>
             </CardContent>
           </Card>
-          <Card className="h-full">
+          <Card className="h-full w-full">
             <CardHeader>
               <CheckCircle className="w-8 h-8 mb-2 text-primary" />
               <CardTitle>Benefits</CardTitle>

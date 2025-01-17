@@ -1,5 +1,4 @@
 import { Icons } from "@/components/common/icons";
-import { StaticImageData } from "next/image";
 import { Wallet } from "@meshsdk/core";
 
 declare module "next-auth" {
