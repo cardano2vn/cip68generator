@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/cardano2vn/cip68generator">
-    <img src="https://github.com/user-attachments/assets/08a1249c-8498-4257-8e67-c84e46ce92f3" alt="Logo" width="80" height="80">
+    <img src="https://i.imgur.com/zQFbM7v.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">CIP68 Generator</h3>
@@ -202,7 +202,7 @@ Project Link: [https://github.com/cardano2vn/cip68generator](https://github.com/
 [stars-url]: https://github.com/cardano2vn/cip68generator/stargazers
 [issues-shield]: https://img.shields.io/github/issues/cardano2vn/cip68generator.svg?style=for-the-badge
 [issues-url]: https://github.com/cardano2vn/cip68generator/issues
-[product-screenshot]: https://github.com/user-attachments/assets/67eb56a8-01cc-4c7f-a722-64fa5dde652b
+[product-screenshot]: https://i.imgur.com/2ZZ2Hui.png
 [Next-img]: https://img.shields.io/badge/NextJs-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [Mesh-img]: https://img.shields.io/badge/MeshJs-000000?style=for-the-badge&logoColor=white
