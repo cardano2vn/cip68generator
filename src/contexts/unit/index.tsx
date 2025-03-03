@@ -72,7 +72,7 @@ export default function UnitProvider({ unit, children }: { unit: string; childre
 
   const { data: assetData, isLoading: assetLoading } = useQuery({
     queryKey: ["getAssetInfo", unit],
-    queryFn: () => getAssetInfo(unit),
+    queryFn: () => getAssetInfo(unit.replace("000de140", "000643b0")),
     enabled: !isNil(unit) && !isEmpty(unit),
   });
 

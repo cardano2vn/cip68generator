@@ -42,4 +42,16 @@ export class KoiosFetcher {
       throw parseHttpError(error);
     }
   }
+  async fetchAssetsInfo(asset_list: string[][]) {
+    try {
+      const { data, status } = await this._axiosInstance.post("/asset_info", {
+        _asset_list: asset_list,
+      });
+
+      if (status === 200) return data;
+      throw parseHttpError(data);
+    } catch (error) {
+      throw parseHttpError(error);
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { AssetDetails, FilterType } from "@/types";
 import { filterDefault } from "@/constants";
 
 export type ProfileStore = {
+  totalUserAssets: number;
   listNft: AssetDetails[];
   filter: FilterType;
   totalItem: number;
@@ -13,6 +14,7 @@ export type ProfileStore = {
 };
 
 const useProfileStore = create<ProfileStore>((set) => ({
+  totalUserAssets: 0,
   listNft: [],
   filter: filterDefault,
   totalItem: 0,

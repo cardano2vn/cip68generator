@@ -40,3 +40,13 @@ export async function getPkHash(datum: string) {
   }
   return null;
 }
+
+export function convertToKeyValue(data: { k: { bytes: string }; v: { bytes: string } }[]): Record<string, string> {
+  return Object.fromEntries(
+    data.map(({ k, v }) => {
+      const key = Buffer.from(k.bytes, "hex").toString("utf-8");
+      const value = key === "_pk" ? v.bytes : Buffer.from(v.bytes, "hex").toString("utf-8");
+      return [key, value];
+    }),
+  );
+}

@@ -1,8 +1,5 @@
-import AppProviders from "@/components/providers";
-import { auth } from "@/lib/auth";
 import { PropsWithChildren } from "react";
 export default async function AppLayout({ children }: PropsWithChildren) {
-  const session = await auth();
   return (
     <>
       <div className="lg:hidden h-screen flex items-center justify-center">
@@ -11,9 +8,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           <p className="text-lg">The application is not optimized for mobile devices yet. Please use a desktop for the best experience.</p>
         </div>
       </div>
-      <div className="hidden lg:block">
-        <AppProviders session={session}>{children}</AppProviders>
-      </div>
+      <div className="hidden lg:block">{children}</div>
     </>
   );
 }

@@ -20,8 +20,8 @@ export default async function CollectionPage() {
           {!isEmpty(listCollection) ? (
             <div className="overflow-x-auto">
               <div className="md:grid-col-2 grid grid-cols-1 gap-4 lg:grid-cols-3 xl:grid-cols-4">
-                {listCollection.map((collection, index) => (
-                  <FolderCard collection={collection} key={index} />
+                {listCollection.map((collection) => (
+                  <FolderCard collection={collection} key={collection.id} />
                 ))}
               </div>
             </div>

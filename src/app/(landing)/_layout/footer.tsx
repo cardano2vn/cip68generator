@@ -154,7 +154,7 @@ const Footer = function ({ className = "" }: { className?: string }) {
               <Link
                 className="flex items-center justify-center rounded-full border-[1px] border-solid border-slate-500 p-[8px] max-md:p-2 max-md:border-none"
                 target="_blank"
-                href={appSocialMedia.email}
+                href={`mailto:${appSocialMedia.email}`}
               >
                 <FaMailBulk className="text-[19px] max-md:text-[16px]" />
               </Link>

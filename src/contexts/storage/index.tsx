@@ -37,12 +37,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
     refetch,
   } = useQuery({
     queryKey: ["getMedia", currentPage, filter],
-    queryFn: () =>
-      getMedia({
-        page: currentPage,
-        query: filter.query,
-        range: filter.range,
-      }),
+    queryFn: () => getMedia({ page: currentPage, query: filter.query, range: filter.range }),
   });
 
   useEffect(() => {
@@ -58,18 +53,10 @@ export default function UploadProvider({ children }: PropsWithChildren) {
       });
       const { result, message } = await uploadIPFS(formData);
       if (result) {
-        toast({
-          title: "success",
-          variant: "default",
-          description: "Upload media success",
-        });
+        toast({ title: "success", variant: "default", description: " Your media file has been uploaded successfully" });
         setListFileToUpload([]);
       } else {
-        toast({
-          title: "Error",
-          description: message,
-          variant: "destructive",
-        });
+        toast({ title: "Error", description: message, variant: "destructive" });
       }
     }
     setloading(false);
@@ -78,11 +65,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   const deleteMediaSelected = async () => {
     const result = await deleteMedia(listSelected);
     if (result.result) {
-      toast({
-        title: "success",
-        description: "Delete media success",
-        variant: "default",
-      });
+      toast({ title: "success", description: "Your file has been deleted successfully!", variant: "default" });
       setListSelected([]);
     }
     refetch();

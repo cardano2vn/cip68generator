@@ -15,7 +15,7 @@ export default function DetailsPage() {
 
   const { asset_name, policy_id, metadata, fingerprint, quantity } = assetDetails;
 
-  const assetNameString = hexToString(asset_name.replace(/^000de140/, ""));
+  const assetNameString = hexToString(asset_name.replace(/^000de140/, "").replace(/^000643b0/, ""));
 
   const imgSrc = metadata?.image || "";
 

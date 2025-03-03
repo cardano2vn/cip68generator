@@ -14,23 +14,11 @@ export async function createCollection({ name, description }: { name: string; de
       throw new UnauthorizedException();
     }
 
-    await prisma.collection.create({
-      data: {
-        name,
-        description,
-        userId,
-      },
-    });
+    await prisma.collection.create({ data: { name, description, userId } });
 
-    return {
-      result: true,
-      message: "create collection successfull",
-    };
+    return { result: true, message: "Your collection folder has been created successfully!" };
   } catch (e) {
-    return {
-      result: false,
-      message: parseError(e),
-    };
+    return { result: false, message: parseError(e) };
   }
 }
 
@@ -43,26 +31,11 @@ export async function getAllCollection() {
       throw new UnauthorizedException();
     }
 
-    const collections = await prisma.collection.findMany({
-      where: {
-        userId: userId,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const collections = await prisma.collection.findMany({ where: { userId: userId }, orderBy: { createdAt: "desc" } });
 
-    return {
-      result: true,
-      message: "get all collection successfull",
-      data: collections,
-    };
+    return { result: true, message: "Get all collection successfull", data: collections };
   } catch (e) {
-    return {
-      result: false,
-      data: [],
-      message: parseError(e),
-    };
+    return { result: false, data: [], message: parseError(e) };
   }
 }
 
@@ -75,21 +48,11 @@ export async function deleteCollection(collectionId: string) {
       throw new UnauthorizedException();
     }
 
-    await prisma.collection.delete({
-      where: {
-        id: collectionId,
-      },
-    });
+    await prisma.collection.delete({ where: { id: collectionId } });
 
-    return {
-      result: true,
-      message: "delete collection successfull",
-    };
+    return { result: true, message: "Your collection folder has been created successfully!" };
   } catch (e) {
-    return {
-      result: false,
-      message: parseError(e),
-    };
+    return { result: false, message: parseError(e) };
   }
 }
 
@@ -102,25 +65,11 @@ export async function updateCollection({ collectionId, name, description }: { co
       throw new UnauthorizedException();
     }
 
-    await prisma.collection.update({
-      where: {
-        id: collectionId,
-      },
-      data: {
-        name,
-        description,
-      },
-    });
+    await prisma.collection.update({ where: { id: collectionId }, data: { name, description } });
 
-    return {
-      result: true,
-      message: "update collection successfull",
-    };
+    return { result: true, message: "Your collection folder has been created successfully!" };
   } catch (e) {
-    return {
-      result: false,
-      message: parseError(e),
-    };
+    return { result: false, message: parseError(e) };
   }
 }
 
@@ -138,28 +87,14 @@ export async function createCollectionWithData({ collectionName, listAssetInput 
         name: collectionName,
         userId: userId,
         Metadata: {
-          create: listAssetInput.map((asset) => ({
-            assetName: asset.assetName,
-            content: JSON.stringify(asset.metadata),
-            nftReference: [],
-          })),
+          create: listAssetInput.map((asset) => ({ assetName: asset.assetName, content: JSON.stringify(asset.metadata), nftReference: [] })),
         },
       },
-      include: {
-        Metadata: true,
-      },
+      include: { Metadata: true },
     });
 
-    return {
-      result: true,
-      message: "success",
-      data: result,
-    };
+    return { result: true, message: "success", data: result };
   } catch (e) {
-    return {
-      data: null,
-      result: false,
-      message: parseError(e),
-    };
+    return { data: null, result: false, message: parseError(e) };
   }
 }

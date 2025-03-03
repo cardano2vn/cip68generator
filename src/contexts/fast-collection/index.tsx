@@ -34,7 +34,7 @@ export default function UploadCSVProvider({ children }: PropsWithChildren) {
         throw new Error(message);
       }
       toast({
-        title: "Create Collection Success",
+        title: "Your asset collection has been created successfully",
         description: <Button onClick={() => router.push(routes.utilities.children.collection.redirect + `/${data.id}`)}>Go to Collection</Button>,
       });
     } catch (e) {

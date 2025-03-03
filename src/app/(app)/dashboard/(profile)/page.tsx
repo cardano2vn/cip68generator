@@ -22,12 +22,9 @@ import { useWallet } from "@/hooks/use-wallet";
 
 export default function ProfilePage() {
   const { address, stakeAddress } = useWallet();
-  const { listNft, filter, setFilter, loading, totalPages, currentPage, totalItem, setCurrentPage } = useProfileContext();
+  const { listNft, filter, setFilter, loading, totalPages, currentPage, setCurrentPage, totalUserAssets } = useProfileContext();
 
-  const { data: userStatistics, isLoading: statisticLoading } = useQuery({
-    queryKey: ["getUserStatistics"],
-    queryFn: () => getUserStatistics(),
-  });
+  const { data: userStatistics, isLoading: statisticLoading } = useQuery({ queryKey: ["getUserStatistics"], queryFn: () => getUserStatistics() });
   const isLoading = loading || statisticLoading;
   const { collection, media, metadata } = userStatistics?.data || {};
 
@@ -74,7 +71,7 @@ export default function ProfilePage() {
                   <CardTitle className="text-sm font-medium text-muted-foreground">TOTAL ASSETS</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{totalItem}</div>
+                  <div className="text-2xl font-bold">{totalUserAssets}</div>
                 </CardContent>
               </Card>
               <Card>
@@ -112,38 +109,46 @@ export default function ProfilePage() {
               ))}
             </div>
           )}
-          {!isLoading && !isEmpty(listNft) ? (
+          {!isLoading && totalUserAssets > 0 ? (
             <>
               <ProfileFilter filter={filter} setFilter={setFilter} />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {listNft.map((data, index) => (
-                  <AssetCard data={data} key={index} />
-                ))}
+                {isEmpty(listNft) ? (
+                  <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
+                    <Card className="w-full rounded-lg border ">
+                      <CardHeader className="pt-8">
+                        <CardTitle className="text-2xl font-medium text-white text-center">No NFTs found</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex flex-col items-center gap-6 pb-8">
+                        <p className="text-gray-400 text-center">We couldn't find any NFTs that match your search criteria.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+                  listNft.map((data, index) => <AssetCard data={data} key={index} />)
+                )}
               </div>
               <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
             </>
-          ) : (
-            !loading &&
-            isEmpty(listNft) && (
-              <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
-                <Card className="w-full rounded-lg border ">
-                  <CardHeader className="pt-8">
-                    <CardTitle className="text-2xl font-medium text-white text-center">You don't have any cip68 NFTs</CardTitle>
-                  </CardHeader>
+          ) : !isLoading && totalUserAssets < 1 ? (
+            <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
+              <Card className="w-full rounded-lg border ">
+                <CardHeader className="pt-8">
+                  <CardTitle className="text-2xl font-medium text-white text-center">You don't have any cip68 NFTs</CardTitle>
+                </CardHeader>
 
-                  <CardContent className="flex flex-col items-center gap-6 pb-8">
-                    <p className="text-gray-400 text-center">To get started you'll need your prepared assets, we'll help guide you along your way.</p>
-                    <Link href={routes.mint.redirect}>
-                      <Button variant="secondary" className="bg-white hover:bg-white/90 text-black">
-                        <Plus className="mr-2 h-4 w-4" />
-                        Mint Now
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </div>
-            )
-          )}
+                <CardContent className="flex flex-col items-center gap-6 pb-8">
+                  <p className="text-gray-400 text-center">To get started you'll need your prepared assets, we'll help guide you along your way.</p>
+                  <Link href={routes.mint.redirect}>
+                    <Button variant="secondary" className="bg-white hover:bg-white/90 text-black">
+                      <Plus className="mr-2 h-4 w-4" />
+                      Mint Now
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+          ) : null}
         </section>
       </div>
     </div>

@@ -22,13 +22,7 @@ export default function MetadataProvider({ collectionId, children }: { collectio
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["getMetadata", currentPage, filter],
-    queryFn: () =>
-      getMetadata({
-        collectionId,
-        page: currentPage,
-        query: filter.query,
-        range: filter.range,
-      }),
+    queryFn: () => getMetadata({ collectionId, page: currentPage, query: filter.query, range: filter.range }),
   });
 
   useEffect(() => {
@@ -36,45 +30,23 @@ export default function MetadataProvider({ collectionId, children }: { collectio
   }, [data, setListSelected]);
 
   const createMetadata = async (metadataContent: Record<string, string>) => {
-    const { result, message } = await addMetadata({
-      collectionId,
-      listMetadata: [metadataContent],
-    });
+    const { result, message } = await addMetadata({ collectionId, listMetadata: [metadataContent] });
     if (result) {
-      toast({
-        title: "success",
-        variant: "default",
-        description: "Metadata created",
-      });
+      toast({ title: "success", variant: "default", description: "Your metadata has been created successfully!" });
       router.push(routes.utilities.children.collection.redirect + "/" + collectionId);
     } else {
-      toast({
-        title: "Error",
-        variant: "destructive",
-        description: message,
-      });
+      toast({ title: "Error", variant: "destructive", description: message });
     }
     refetch();
   };
 
   const deleteMetadataSelected = async () => {
-    const { result, message } = await deleteMetadata({
-      collectionId,
-      listMetadata: listSelected,
-    });
+    const { result, message } = await deleteMetadata({ collectionId, listMetadata: listSelected });
     if (result) {
-      toast({
-        title: "success",
-        variant: "default",
-        description: "Metadata deleted",
-      });
+      toast({ title: "success", variant: "default", description: "Your metadata has been deleted successfully" });
       setListSelected([]);
     } else {
-      toast({
-        title: "Error",
-        variant: "destructive",
-        description: message,
-      });
+      toast({ title: "Error", variant: "destructive", description: message });
     }
     refetch();
   };
