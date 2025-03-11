@@ -8,6 +8,7 @@ pub type MintRedeemer {
 pub type StoreRedeemer {
   Update
   Remove
+  Minting
 }
 
 pub const author_key: ByteArray = "_pk"

@@ -17,6 +17,9 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
         words: process.env.APP_MNEMONIC?.split(" ") || [],
       },
     });
+
+
+    // console.log(await wallet.getChangeAddress());
   });
   jest.setTimeout(60000);
 
@@ -27,7 +30,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     });
     const unsignedTx: string = await cip68Contract.mint([
       {
-        assetName: "CIP68 Generators 111111",
+        assetName: "CIP6801",
         metadata: {
           name: "CIP68 Generators",
           _pk: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
@@ -37,7 +40,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
       },
 
       {
-        assetName: "CIP68" ,
+        assetName: "CIP6806" ,
         metadata: {
           name: "CIP68 Generators",
           _pk: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
@@ -61,8 +64,8 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     });
     const unsignedTx: string = await cip68Contract.burn([
       {
-        assetName: "CIP68 Generators",
-        quantity: "-1",
+        assetName: "CIP68 cc",
+        quantity: "-3",
       },
     ]);
     const signedTx = wallet.signTx(unsignedTx, true);
@@ -79,7 +82,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     });
     const unsignedTx: string = await cip68Contract.update([
       {
-        assetName: "CIP68 Generators",
+        assetName: "CIP68 b",
         metadata: {
           name: "2",
           image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
@@ -90,18 +93,18 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
           _pk: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
         },
       },
-      {
-        assetName: "CIP68 Generators 1",
-        metadata: {
-          name: "2",
-          image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
-          mediaType: "image/jpg",
-          description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
-          owner: wallet.getChangeAddress(),
-          website: "https://cip68.cardano2vn.io",
-          _pk: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
-        },
-      },
+      // {
+      //   assetName: "CIP68 Generators 1",
+      //   metadata: {
+      //     name: "2",
+      //     image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+      //     mediaType: "image/jpg",
+      //     description: "Open source dynamic assets (Token/NFT) generator (CIP68)",
+      //     owner: wallet.getChangeAddress(),
+      //     website: "https://cip68.cardano2vn.io",
+      //     _pk: deserializeAddress(wallet.getChangeAddress()).pubKeyHash,
+      //   },
+      // },
     ]);
     const signedTx = wallet.signTx(unsignedTx, true);
     const txHash = await wallet.submitTx(signedTx);
