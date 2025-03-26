@@ -1,7 +1,30 @@
-import { BlockfrostProvider, UTxO } from "@meshsdk/core";
+import { BlockfrostProvider, MeshWallet, UTxO } from "@meshsdk/core";
 import crypto from "crypto";
+import * as fs from "fs";
 import plutus from "../../plutus.json";
+import { readFile } from "fs/promises";
+import * as path from "path";
+import Papa from "papaparse";
+import { convertObject } from "@/utils";
+import { AssetInput } from "@/types";
 
+export async function readCSV(fileName: string, wallet: MeshWallet): Promise<AssetInput[]> {
+  try {
+    const filePath = path.join(__dirname, "..", "..", "..", "public", "csv", fileName);
+    console.log("Đường dẫn file:", filePath); // Debug đường dẫn
+
+    const fileContent = await readFile(filePath, "utf8");
+
+    const csvData = Papa.parse<string[]>(fileContent, {
+      skipEmptyLines: true,
+    }).data;
+
+    const result = convertObject(csvData, wallet);
+    return result;
+  } catch (error) {
+    throw new Error(`Lỗi khi đọc hoặc xử lý file CSV: ${(error as Error).message}`);
+  }
+}
 /**
  * @description Read validator compilecode from plutus
  *
