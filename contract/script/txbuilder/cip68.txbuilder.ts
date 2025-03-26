@@ -226,9 +226,12 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
    * @param txHash - string
    * @returns
    */
-  update = async (params: { assetName: string; metadata: Record<string, string>; txHash?: string }[]) => {
+  update = async (params: { assetName: string; metadata: Record<string, string>; txHash?: string }[], utxo?: UTxO) => {
     const { utxos, walletAddress, collateral } = await this.getWalletForTx();
     const unsignedTx = this.meshTxBuilder;
+    if (!isNil(utxo) || isNull(utxo)) {
+      unsignedTx.txIn(utxo.input.txHash, utxo.input.outputIndex);
+    }
     await Promise.all(
       params.map(async ({ assetName, metadata, txHash }) => {
         const storeUtxo = !isNil(txHash)

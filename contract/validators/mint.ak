@@ -43,21 +43,43 @@ validator mint(
       // - amount_tx_output: number of utxo output = 4 where 1 utxo for platform_fee address, 1 utxo for store validator address and 2 utxo recipient address where 1 utxo contains CIP222 Token.
       // - check_store_address: Check that the asset (CIP100) sent to an address must be the store validator's address
       Mint -> {
-        let check_asset_mint =
-          utils.check_asset_mint(
-            mint_flatten,
-            policy_id,
-            cip68.prefix_100,
-            cip68.prefix_222,
-            outputs,
-            store_address,
-            issuer,
-            extra_signatories,
-            False,
-          )
-        and {
-          check_asset_mint?,
-          check_output_platform?,
+        let reference_asset =
+          utils.find_input_reference_asset(inputs, extra_signatories)
+        if list.length(reference_asset) > 0 {
+          let mint_concat = list.concat(reference_asset, mint_flatten)
+          let check_asset_mint =
+            utils.check_asset_mint(
+              mint_concat,
+              policy_id,
+              cip68.prefix_100,
+              cip68.prefix_222,
+              outputs,
+              store_address,
+              issuer,
+              extra_signatories,
+              True,
+            )
+          and {
+            check_asset_mint?,
+            check_output_platform?,
+          }
+        } else {
+          let check_asset_mint =
+            utils.check_asset_mint(
+              mint_flatten,
+              policy_id,
+              cip68.prefix_100,
+              cip68.prefix_222,
+              outputs,
+              store_address,
+              issuer,
+              extra_signatories,
+              False,
+            )
+          and {
+            check_asset_mint?,
+            check_output_platform?,
+          }
         }
       }
       // @action: Burn - Conditions for burning assets (NFT/Token)
