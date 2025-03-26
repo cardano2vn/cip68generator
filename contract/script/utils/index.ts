@@ -18,6 +18,7 @@ export async function readCSV(fileName: string, wallet: MeshWallet): Promise<Ass
     const csvData = Papa.parse<string[]>(fileContent, {
       skipEmptyLines: true,
     }).data;
+    // console.log("Dữ liệu CSV:", csvData); // Debug dữ liệu CSV
 
     const result = convertObject(csvData, wallet);
     return result;

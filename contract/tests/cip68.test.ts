@@ -24,13 +24,13 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
 
   test("csv", async function () {
     const data = await readCSV("./index.csv", wallet);
-    console.log("Dữ liệu CSV:", data);
+    // console.log("Dữ liệu CSV:", data);
   });
 
   test("Mint", async function () {
     return;
     const assets = await readCSV("./index.csv", wallet);
-    const chunkSize = 5; // chọn ra bao nhiều nft trong giao dịch
+    const chunkSize = 12; // chọn ra bao nhiều nft trong giao dịch
     let utxoIndex = 0;
 
     const utxos = await wallet.getUtxos();
@@ -59,15 +59,15 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   });
 
   test("Burn", async function () {
-    return;
+    // return;
     const assets = await readCSV("./index.csv", wallet);
     let utxoIndex = 0;
-    const chunkSize = 10;
+    const chunkSize = 1;
     const utxos = await wallet.getUtxos();
     const utxoOnlyLovelace = await Promise.all(
       utxos.filter((utxo) => {
         const hasOnlyLovelace = utxo.output.amount.every((amount) => amount.unit === "lovelace");
-        const hasEnoughLovelace = utxo.output.amount.some((amount) => amount.unit === "lovelace" && Number(amount.quantity) > 500000000);
+        const hasEnoughLovelace = utxo.output.amount.some((amount) => amount.unit === "lovelace" && Number(amount.quantity) > 5000000*chunkSize);
         return hasOnlyLovelace && hasEnoughLovelace;
       }),
     );
@@ -91,7 +91,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   });
 
   test("Update", async function () {
-    // return;
+    return;
     const assets = await readCSV("./index.csv", wallet);
     let utxoIndex = 0;
     const chunkSize = 10;
@@ -99,7 +99,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
     const utxoOnlyLovelace = await Promise.all(
       utxos.filter((utxo) => {
         const hasOnlyLovelace = utxo.output.amount.every((amount) => amount.unit === "lovelace");
-        const hasEnoughLovelace = utxo.output.amount.some((amount) => amount.unit === "lovelace" && Number(amount.quantity) > 500000000);
+        const hasEnoughLovelace = utxo.output.amount.some((amount) => amount.unit === "lovelace" && Number(amount.quantity) > 5000000*chunkSize);
         return hasOnlyLovelace && hasEnoughLovelace;
       }),
     );
@@ -115,6 +115,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
       });
       const unsignedTx: string = await cip68Contract.update(chunk, utxoOnlyLovelace[utxoIndex]);
       const signedTx = await wallet.signTx(unsignedTx, true);
+      console.log(signedTx);
       const txHash = await wallet.submitTx(signedTx);
       console.log("https://preview.cexplorer.io/tx/" + txHash);
       expect(txHash.length).toBe(64);

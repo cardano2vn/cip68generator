@@ -168,15 +168,18 @@ export class Cip68Contract extends MeshAdapter implements ICip68Contract {
         const storeUtxo = !isNil(txHash)
           ? await this.getUtxoForTx(this.storeAddress, txHash)
           : await this.getAddressUTXOAsset(this.storeAddress, this.policyId + CIP68_100(stringToHex(assetName)));
-        if (!storeUtxo) throw new Error("Store UTXO not found");
+        if (!storeUtxo) throw new Error("Store UTXO not found with token "+ assetName);
 
-        if (-Number(quantity) === amount) {
+        if (-Number(quantity) === amount || amount === 0) {
+          if (userUtxos.length !== 0) {
+            unsignedTx
+                .mintPlutusScriptV3()
+                .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
+                .mintRedeemerValue(mConStr1([]))
+                .mintingScript(this.mintScriptCbor)
+            }
+
           unsignedTx
-            .mintPlutusScriptV3()
-            .mint(quantity, this.policyId, CIP68_222(stringToHex(assetName)))
-            .mintRedeemerValue(mConStr1([]))
-            .mintingScript(this.mintScriptCbor)
-
             .mintPlutusScriptV3()
             .mint("-1", this.policyId, CIP68_100(stringToHex(assetName)))
             .mintRedeemerValue(mConStr1([]))
