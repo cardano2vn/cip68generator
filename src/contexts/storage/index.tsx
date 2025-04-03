@@ -53,7 +53,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
       });
       const { result, message } = await uploadIPFS(formData);
       if (result) {
-        toast({ title: "success", variant: "default", description: " Your media file has been uploaded successfully" });
+        toast({ title: "Success", variant: "default", description: " Your media file has been uploaded successfully" });
         setListFileToUpload([]);
       } else {
         toast({ title: "Error", description: message, variant: "destructive" });
@@ -65,7 +65,7 @@ export default function UploadProvider({ children }: PropsWithChildren) {
   const deleteMediaSelected = async () => {
     const result = await deleteMedia(listSelected);
     if (result.result) {
-      toast({ title: "success", description: "Your file has been deleted successfully!", variant: "default" });
+      toast({ title: "Success", description: "Your file has been deleted successfully!", variant: "default" });
       setListSelected([]);
     }
     refetch();

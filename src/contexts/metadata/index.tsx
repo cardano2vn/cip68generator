@@ -32,7 +32,7 @@ export default function MetadataProvider({ collectionId, children }: { collectio
   const createMetadata = async (metadataContent: Record<string, string>) => {
     const { result, message } = await addMetadata({ collectionId, listMetadata: [metadataContent] });
     if (result) {
-      toast({ title: "success", variant: "default", description: "Your metadata has been created successfully!" });
+      toast({ title: "Success", variant: "default", description: "Your metadata has been created successfully!" });
       router.push(routes.utilities.children.collection.redirect + "/" + collectionId);
     } else {
       toast({ title: "Error", variant: "destructive", description: message });
@@ -43,7 +43,7 @@ export default function MetadataProvider({ collectionId, children }: { collectio
   const deleteMetadataSelected = async () => {
     const { result, message } = await deleteMetadata({ collectionId, listMetadata: listSelected });
     if (result) {
-      toast({ title: "success", variant: "default", description: "Your metadata has been deleted successfully" });
+      toast({ title: "Success", variant: "default", description: "Your metadata has been deleted successfully" });
       setListSelected([]);
     } else {
       toast({ title: "Error", variant: "destructive", description: message });

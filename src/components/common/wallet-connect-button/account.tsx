@@ -11,7 +11,7 @@ import { signOut } from "next-auth/react";
 import { useWallet } from "@/hooks/use-wallet";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { appNetwork, decialPlace } from "@/constants";
+import { appNetwork, appSocialMedia, decialPlace } from "@/constants";
 import CopyButton from "../copy-button";
 import { Separator } from "@/components/ui/separator";
 export default function Account() {
@@ -81,13 +81,13 @@ export default function Account() {
         </div>
         <div className={cn("leading-0 h-[1px] overflow-hidden bg-slate-500")} />
         <div className={cn("relative flex items-center")}>
-          <Link className="flex cursor-pointer items-center gap-1 text-gray-300" href={"/"}>
+          <Link className="flex cursor-pointer items-center gap-1 text-gray-300" href={appSocialMedia.feedback}>
             <MdOutlineFeedback />
             <span className="text-[14px]">Feedback</span>
           </Link>
         </div>
         <div className={cn("relative flex items-center")}>
-          <Link className="flex cursor-pointer items-center gap-1 text-gray-300" href={"/"}>
+          <Link className="flex cursor-pointer items-center gap-1 text-gray-300" href={appSocialMedia.help}>
             <IoIosHelpCircleOutline />
             <span className="text-[14px]">Help</span>
           </Link>

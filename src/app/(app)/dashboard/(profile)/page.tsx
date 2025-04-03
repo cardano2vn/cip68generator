@@ -112,22 +112,24 @@ export default function ProfilePage() {
           {!isLoading && totalUserAssets > 0 ? (
             <>
               <ProfileFilter filter={filter} setFilter={setFilter} />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {isEmpty(listNft) ? (
-                  <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
-                    <Card className="w-full rounded-lg border ">
-                      <CardHeader className="pt-8">
-                        <CardTitle className="text-2xl font-medium text-white text-center">No NFTs found</CardTitle>
-                      </CardHeader>
-                      <CardContent className="flex flex-col items-center gap-6 pb-8">
-                        <p className="text-gray-400 text-center">We couldn't find any NFTs that match your search criteria.</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ) : (
-                  listNft.map((data, index) => <AssetCard data={data} key={index} />)
-                )}
-              </div>
+              {isEmpty(listNft) ? (
+                <div className="h-[60vh] w-full space-y-4 rounded-lg p-4">
+                  <Card className="w-full rounded-lg border ">
+                    <CardHeader className="pt-8">
+                      <CardTitle className="text-2xl font-medium text-white text-center">No NFTs found</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col items-center gap-6 pb-8">
+                      <p className="text-gray-400 text-center">We couldn't find any NFTs that match your search criteria.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {listNft.map((data, index) => (
+                    <AssetCard data={data} key={index} />
+                  ))}
+                </div>
+              )}
               <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
             </>
           ) : !isLoading && totalUserAssets < 1 ? (

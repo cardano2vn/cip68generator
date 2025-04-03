@@ -2,11 +2,8 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { isEmpty, isNil } from "lodash";
 import { createCollectionWithData } from "@/services/database/collection";
-import { useRouter } from "next/navigation";
 import { convertObject } from "@/utils";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/constants/routes";
 import { parseError } from "@/utils/error/parse-error";
 
 type UploadCsvContextType = {
@@ -16,7 +13,6 @@ type UploadCsvContextType = {
 
 export default function UploadCSVProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const uploadCsv = async ({ csvContent, csvName }: { csvContent: string[][]; csvName: string }) => {
     setLoading(true);
 
@@ -34,8 +30,8 @@ export default function UploadCSVProvider({ children }: PropsWithChildren) {
         throw new Error(message);
       }
       toast({
-        title: "Your asset collection has been created successfully",
-        description: <Button onClick={() => router.push(routes.utilities.children.collection.redirect + `/${data.id}`)}>Go to Collection</Button>,
+        title: "Success",
+        description: "Your asset collection has been created successfully",
       });
     } catch (e) {
       toast({

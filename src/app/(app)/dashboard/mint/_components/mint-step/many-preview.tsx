@@ -94,7 +94,9 @@ export default function ManyPreview({
             <Button variant="secondary" onClick={stepper.prev} disabled={stepper.isFirst}>
               Back
             </Button>
-            <Button onClick={startMinting}>Next</Button>
+            <Button disabled={isEmpty(assetInputToMint)} onClick={startMinting}>
+              Next
+            </Button>
           </div>
         </div>
       </div>
