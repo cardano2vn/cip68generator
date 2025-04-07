@@ -13,7 +13,6 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
       networkId: 0,
       fetcher: blockfrostProvider,
       submitter: blockfrostProvider,
-
       key: {
         type: "mnemonic",
         words: process.env.APP_MNEMONIC?.split(" ") || [],
@@ -22,8 +21,19 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   });
   jest.setTimeout(6000000);
 
+  test("address", async function () {
+    const cip68Contract: Cip68Contract = new Cip68Contract({
+      wallet: wallet,
+    });
+
+    const address = cip68Contract.storeAddress;
+    console.log(address);
+    const policyId = cip68Contract.policyId;
+    console.log(policyId);
+  });
+
   test("Mint", async function () {
-    // return;
+    return;
     const assets = [
       {
         assetName: "hcd009",
@@ -68,7 +78,7 @@ describe("Mint, Burn, Update, Remove Assets (NFT/TOKEN) CIP68", function () {
   });
 
   test("Mint - Timeout", async function () {
-    // return;
+    return;
     const assets = [
       {
         assetName: "hcd010",
