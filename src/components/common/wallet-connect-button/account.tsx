@@ -15,17 +15,17 @@ import { appNetwork, appSocialMedia, decialPlace } from "@/constants";
 import CopyButton from "../copy-button";
 import { Separator } from "@/components/ui/separator";
 export default function Account() {
-  const { wallet, address, getBalance, browserWallet, stakeAddress } = useWallet();
+  const { wallet, address, browserWallet, stakeAddress } = useWallet();
   const [balance, setBalance] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
-      if (wallet && browserWallet) {
-        const balance = await getBalance();
-        setBalance(balance);
+      if (browserWallet) {
+        const balance = await browserWallet.getLovelace();
+        setBalance(Number(balance));
       }
     })();
-  }, [wallet, getBalance, browserWallet]);
+  }, [browserWallet]);
 
   return (
     <Popover>

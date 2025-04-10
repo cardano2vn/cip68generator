@@ -13,7 +13,7 @@ export const decialPlace = 1_000_000;
 export const filterDefault: FilterType = {
   range: {
     from: new Date(2025, 0, 1),
-    to: new Date(),
+    to: new Date(new Date().setHours(23, 59, 59, 999)),
   },
   query: "",
 };
