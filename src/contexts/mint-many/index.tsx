@@ -10,6 +10,7 @@ import { useWallet } from "@/hooks/use-wallet";
 import { convertObject } from "@/utils";
 import { createMintTransaction } from "@/services/contract/mint";
 import { parseError } from "@/utils/error/parse-error";
+import { decialPlace } from "@/constants";
 
 const { useStepper: useMintManyStepper, steps: mintManySteps } = defineStepper(
   { id: "upload", title: "Upload" },
@@ -72,26 +73,28 @@ export default function MintManyProvider({ children }: { collectionId: string | 
       }
 
       await new Promise((resolve) => setTimeout(resolve, 500));
-
+      const lovelaceRequire = 100;
       updateTaskState("inprogress", "create_transaction", "Creating Transaction");
       const utxos = await getUtxos();
       const utxoOnlyLovelace = await Promise.all(
         utxos.filter((utxo) => {
           const hasOnlyLovelace = utxo.output.amount.every((amount) => amount.unit === "lovelace");
-          const hasEnoughLovelace = utxo.output.amount.some((amount) => amount.unit === "lovelace" && Number(amount.quantity) > 500000000);
+          const hasEnoughLovelace = utxo.output.amount.some(
+            (amount) => amount.unit === "lovelace" && Number(amount.quantity) >= lovelaceRequire * decialPlace,
+          );
           return hasOnlyLovelace && hasEnoughLovelace;
         }),
       );
       let utxoIndex = 0;
       const chunkSize = 10;
       if (utxoOnlyLovelace.length < assetInputToMint.length / chunkSize) {
-        throw new Error("You have not UTxO only lavelace.");
+        throw new Error("You have not UTxO only lavelace and Each UTxO must have 100 ada");
       }
 
       if (chunkSize < assetInputToMint.length) {
         toast({
           title: "Transactions",
-          description: `Your transaction needs to be split into ${assetInputToMint.length / chunkSize} transactions due to data security reasons.`,
+          description: `Your transaction needs to be split into ${Math.ceil(assetInputToMint.length / chunkSize)} transactions due to data security reasons.`,
           variant: "destructive",
         });
       }
